@@ -23,6 +23,8 @@
                 <h2 class="heading-title">Who We Are?</h2>
                 <p class="heading-description"><b>Sneakers Web</b> là thương hiệu dành cho những ai yêu thích sự kết hợp giữa thời trang và sự tiện dụng. Với đội ngũ đam mê và chuyên nghiệp, 
                     chúng tôi cam kết mang đến cho bạn những sản phẩm chất lượng nhất, phù hợp với mọi lứa tuổi và xu hướng.</p>
+                <p class="heading-description">Chúng tôi cũng hướng tới việc xây dựng một cộng đồng nơi những người yêu thích giày thể thao có thể chia sẻ phong cách,
+                         tìm kiếm cảm hứng mới và luôn cập nhật những xu hướng thời trang mới nhất.</p>
             </div>
             <div class="image">
                 <img src="../assets/img/who_we_are.jpg" alt="" class="img-who-we-are">
