@@ -1,24 +1,34 @@
 <?php
-// Kết nối đến database bằng file connect.php
 include '../database/connect.php';
 
-// Truy vấn lấy danh sách sản phẩm trong giỏ hàng
-$sql = "SELECT p.id, p.name, p.price, p.image_url, c.quantity 
-        FROM cart c 
-        INNER JOIN products p ON c.product_id = p.id";
+// Giả định user_id là 1 (thay bằng logic đăng nhập của bạn)
+$user_id = 1;
+
+$sql = "SELECT 
+            sc.id AS cart_id,
+            p.id AS product_id,
+            p.name AS product_name,
+            p.price,
+            sc.quantity,
+            (p.price * sc.quantity) AS total_price
+        FROM shopping_cart sc
+        JOIN products p ON sc.product_id = p.id
+        WHERE sc.user_id = $user_id";
+
 $result = $conn->query($sql);
 
-// Kiểm tra kết quả
+$cart_items = [];
+
 if ($result->num_rows > 0) {
-    $products = [];
     while ($row = $result->fetch_assoc()) {
-        $products[] = $row;
+        $cart_items[] = $row;
     }
-    echo json_encode($products); // Trả về dữ liệu sản phẩm dạng JSON
-} else {
-    echo json_encode([]); // Nếu không có sản phẩm, trả về mảng rỗng
 }
 
-// Đóng kết nối
+// Trả về dữ liệu JSON
+header('Content-Type: application/json');
+echo json_encode($cart_items);
+
 $conn->close();
 ?>
+

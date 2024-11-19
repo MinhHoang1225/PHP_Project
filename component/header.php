@@ -11,7 +11,7 @@
     <style>
       /* Reset mặc định */
 :root {
-    --maincolor: #009985;
+    --maincolor: #000;
     --secondary-color: #009985;
     --text-color: #333;
     --bg-color: #f9f9f9;
@@ -40,7 +40,7 @@ a {
 
 /* Header */
 header {
-    background-color: #B6C99B;
+    background-color: var(--bg-color);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -76,8 +76,8 @@ header img {
 }
 
 .menu-pc .lv1:hover {
-    color: var(--maincolor);
-    background-color: var(--hover-bg-color);
+    color: var(--bg-color);
+    background-color: var(--maincolor);
     border-radius: 5px;
 }
 
@@ -163,7 +163,7 @@ header img {
 
 /* Hiệu ứng hover icon */
 .col-md-1 .p-3 i:hover {
-    color: var(--secondary-color);
+    color: gray;
 }
 
 /* Responsive */
@@ -245,7 +245,7 @@ header img {
 
 .box-notifi {
   width: 300px;
-  background-color: var(--secondary-color);
+  background-color: var(--bg-color);
   color: white;
   padding: 10px;
   border-radius: 5px;
@@ -254,7 +254,7 @@ header img {
   top: 50px; /* Xuất hiện dưới #cart-icon */
   right: 0;
   z-index: 10;
-
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   /* Ẩn ban đầu */
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease; /* Thời gian hiệu ứng */
@@ -275,6 +275,9 @@ header img {
 .hover-area:hover .box-notifi {
   opacity: 1; /* Hiện ra */
   transform: translateY(0); /* Trả về vị trí ban đầu */
+}
+.box-notifi h2{
+  color: var(--maincolor)
 }
 
     </style>
@@ -352,17 +355,23 @@ header img {
               </div>
             </div>
           </div>
-          <div class="col-md-1 position-relative">
-            <div class="p-3 d-flex justify-content-center gap-3">
-              <i class="fa-solid fa-circle-user fs-2 pt-3"></i>
-              <div class="h-50"></div>
-              <!-- Gói cart-icon và box-notifi trong container -->
-              <div class="hover-area position-relative">
-                <i class="fa-solid fa-cart-shopping fs-2 pt-3" id="cart-icon"></i>
-                <div class="box-notifi">Thong bao</div>
-              </div>
-            </div>  
-          </div>
+            <div class="col-md-1 position-relative">
+              <div class="p-3 d-flex justify-content-center gap-3">
+                <i class="fa-solid fa-circle-user fs-2 pt-3"></i>
+                <div class="h-50"></div>
+                <!-- Gói cart-icon và box-notifi trong container -->
+                <div class="hover-area position-relative">
+                  <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon"></i>
+                  <div class="box-notifi">
+                    <h2 class="d-flex justify-content-center">Giỏ hàng</h2>
+                    <div id="cart-content">
+                    <!-- Nội dung giỏ hàng sẽ được chèn vào đây thông qua JavaScript -->
+                    <!-- <p class="text-center text-muted">Đang tải dữ liệu...</p> -->
+                </div>
+                  </div>
+                </div>
+              </div>  
+            </div>
       </div>
     </div>
 
