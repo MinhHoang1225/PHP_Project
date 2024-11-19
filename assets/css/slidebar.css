@@ -1,0 +1,157 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.left-page {
+    background-color: pink;
+    max-width: 270px;
+    padding: 20px;
+}
+
+/* Danh mục */
+.text-uppercase {
+    opacity: 0.4;
+}
+
+.fw-bold {
+    font-weight: 200;
+}
+
+/* Accordion */
+.accordion {
+    margin-top: 20px;
+}
+
+/* Thay đổi nút cộng và trừ */
+.accordion-button::after {
+    display: none; /* Ẩn biểu tượng mặc định của Bootstrap */
+}
+
+.accordion-button .fa-plus, .accordion-button .fa-minus {
+    margin-left: auto;
+}
+
+.accordion-button:not(.collapsed) .fa-plus {
+    display: none;
+}
+
+.accordion-button.collapsed .fa-minus {
+    display: none;
+}
+
+/* Thay đổi màu */
+.accordion-button:not(.collapsed) {
+    color: inherit !important; /* Bỏ màu mặc định */
+    background-color: transparent !important; /* Bỏ nền mặc định */
+    box-shadow: none !important; /* Bỏ viền mặc định */
+    padding: 10px !important; /* Loại bỏ padding mặc định */
+}
+
+.list-item .accordion-button:not(.collapsed) {
+    padding: 0 !important; /* Loại bỏ padding mặc định */
+}
+
+/* Chỉnh sửa lại css */
+.accordion-button.collapsed {
+    padding: 10px;
+}
+
+.accordion-header .accordion-button {
+    font-weight: bold;
+    /* padding: 10px; */
+}
+
+.accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.accordion-body {
+    padding: 0px 20px 0px 20px !important;
+}
+
+.mt-2 {
+    padding: 0px 5px 0px 5px !important;
+}
+
+/* Items */
+.list-unstyled .list-item {
+    border-bottom: 1px solid #eae6e6;
+    padding: 5px;
+}
+.list-unstyled .none {
+    border-bottom: none !important;
+}
+
+
+/* Lọc */
+.d-flex {
+    margin-bottom: 7px;
+}
+.price-slider input {
+    -webkit-appearance: none;
+    height: 2rem;
+    outline: none;
+    border: none;
+    width: 100%;
+}
+
+.price-slider #minPrice, 
+.price-slider #maxPrice {
+    opacity: 0.5;
+}
+
+.slider-process {
+    height: 10px;
+    position: relative;
+    border: 1px solid rgb(162, 157, 157);
+
+}
+
+
+.slider-process .process {
+    height: 10px;
+    left: 5%;
+    right: 5%;
+    position: absolute;
+    background-color: #333; 
+}
+
+
+.range-input {
+    position: relative;
+}
+
+.range-input input {
+    position: absolute;
+    top: -7px;
+    height: 5px;
+    width: 100%;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+
+}
+
+.range-input input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 0.5rem solid #333;
+    height: 17px;
+    width: 17px;
+    pointer-events: auto;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid rgb(240, 239, 239);
+    background-color: black;
+}
+
+.range-input input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 17px;
+    width: 17px;
+    pointer-events: auto;
+    -moz-appearance: none;
+    border-radius: 5px;
+    background:  #a39696;    
+}
