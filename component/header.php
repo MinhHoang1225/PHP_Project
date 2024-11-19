@@ -40,7 +40,7 @@ a {
 
 /* Header */
 header {
-    background-color: var(--hover-bg-color);
+    background-color: #B6C99B;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
