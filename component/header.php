@@ -40,7 +40,7 @@ a {
 
 /* Header */
 header {
-    background-color: var(--bg-color);
+    background-color: #D7F9FA;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 

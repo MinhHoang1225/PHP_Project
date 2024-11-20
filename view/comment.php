@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        /* #show-modal-btn {
+        #show-modal-btn {
             padding: 10px 20px;
             background-color: #000;
             color: #fff;
@@ -13,7 +13,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 14px;
-        } */
+        }
         .modal {
             display: none;
             position: fixed;
@@ -85,7 +85,7 @@
     </style>
 </head>
 <body>
-    <!-- <button id="show-modal-btn">Gọi lại cho tôi</button> -->
+    <button id="show-modal-btn">Gọi lại cho tôi</button>
     <div id="contact-modal" class="modal">
         <div class="modal-content">
             <button class="close-btn">×</button>

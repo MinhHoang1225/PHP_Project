@@ -10,11 +10,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <title>Sản phẩm</title>
 </head>
-<body>
+<body">
+</div>
+    <div class="container_big "style="background-color: #FFF9EC">
     <!-- Content -->
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12 ">
                 <div class="product-main">
 
                     <!-- NEW ARRIVALS -->
@@ -419,5 +421,6 @@
 
         </div><!-- /row -->
     </div><!-- /container -->
+    </div>
 </body>
 </html>
