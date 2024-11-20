@@ -15,7 +15,7 @@
         <div class="left-page__content">
             <!-- Top -->
             <div class="mb-4 filter_product_category">
-                <h4 class="fw-bold text-uppercase beforPre1">DANH MỤC</h4>
+                <h4 class="fw-bold text-uppercase">DANH MỤC</h4>
                 <div class="accordion accordion-flush" id="categoryAccordion">
                     <!-- Accessories -->
                     <div class="accordion-item">
@@ -110,7 +110,7 @@
                 
         <!-- Kích thước -->
             <div class="mb-4">
-                <h4 class="fw-bold text-uppercase beforPre2">KÍCH THƯỚC</h4>
+                <h4 class="fw-bold text-uppercase">KÍCH THƯỚC</h4>
                 <div class="form-checkbox">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="size44">
@@ -137,23 +137,19 @@
             </div>
             <!-- Lọc -->
             <div class="mb-4">
-            <h4 class="fw-bold text-uppercase beforPre3">LỌC</h4>
+            <h4 class="fw-bold text-uppercase">LỌC</h4>
             <div class="price-slider">
                     <!-- Giá trị min/max -->
                 <div class="d-flex justify-content-between">
                     <span id="minPrice">Từ: 0đ</span>
                     <span id="maxPrice">đến: 10,000,000đ</span>
                 </div>
-                <div class="slider-process">
-                    <div class="process"></div>
-                </div>
                 <!-- Thanh kéo -->
                     <div class="range-input">
-                    <input type="range" class="range-min" min="0" max="10000000" step="100000" id="priceRange" value="25000">
-                    <input type="range" class="range-max" min="0" max="10000000" step="100000" id="priceRange" value="70000">
-
+                    <!-- <input type="range" class="range-min" min="0" max="10000000"  id="priceRange" value="25000"> -->
+                     <input type="range" class="range-min" min="0" max="10000000"  id="priceRange">
                     </div>
-                
+                <!-- step="100000" -->
             </div>
             </div>
             </div>  

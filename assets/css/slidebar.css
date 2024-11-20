@@ -13,29 +13,9 @@ body {
 /* Danh mục */
 .text-uppercase {
     opacity: 0.4;
-}
-
-.fw-bold {
     font-weight: 200;
 }
 
-/* Line */
-.beforPre1::before, .beforPre2::before, .beforPre3::before {
-    position: absolute;
-    content: '';
-    width: 40px;
-    background-color: rgba(0, 0, 0, .1);
-    height: 3px;
-}
-.beforPre1::before {
-    bottom: 25.5em;
-}
-.beforPre2::before {
-    bottom: 15.4em;
-}
-.beforPre3::before {
-    bottom: 6.6em;
-}
 
 /* Accordion, Kích thước */
 .accordion, .form-checkbox, .price-slider {
@@ -107,46 +87,18 @@ body {
 .d-flex {
     margin-bottom: 7px;
 }
-.price-slider input {
-    -webkit-appearance: none;
-    height: 2rem;
-    outline: none;
-    border: none;
-    width: 100%;
-}
 
 .price-slider #minPrice, 
 .price-slider #maxPrice {
     opacity: 0.5;
 }
 
-.slider-process {
-    height: 10px;
-    position: relative;
-    border: 1px solid rgb(162, 157, 157);
-
-}
-
-
-.slider-process .process {
-    height: 10px;
-    left: 5%;
-    right: 5%;
+/* .range-input input {
     position: absolute;
-    background-color: #333; 
-}
-
-
-.range-input {
-    position: relative;
-}
-
-.range-input input {
-    position: absolute;
-    top: -7px;
-    height: 5px;
+    top: 5px;
+    height: 10px;
     width: 100%;
-    background: none;
+    background-color: #eae6e6;
     pointer-events: none;
     -webkit-appearance: none;
 
@@ -172,4 +124,4 @@ body {
     -moz-appearance: none;
     border-radius: 5px;
     background:  #a39696;    
-}
+} */
