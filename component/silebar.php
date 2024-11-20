@@ -15,7 +15,7 @@
         <div class="left-page__content">
             <!-- Top -->
             <div class="mb-4 filter_product_category">
-                <h4 class="fw-bold text-uppercase">DANH MỤC</h4>
+                <h4 class="fw-bold text-uppercase beforPre1">DANH MỤC</h4>
                 <div class="accordion accordion-flush" id="categoryAccordion">
                     <!-- Accessories -->
                     <div class="accordion-item">
@@ -26,13 +26,13 @@
                         </h2>
                         <div id="collapseAccessories" class="accordion-collapse collapse" aria-labelledby="headingAccessories" data-bs-parent="#categoryAccordion">
                             <div class="accordion-body">
-                                <ul class="list-unstyled ms-3">
+                                <ul class="list-unstyled">
                                     <li class="list-item">
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubAccessories1" aria-expanded="false" aria-controls="collapseSubAccessories1">
                                             Phụ Kiện <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i>
                                         </button>
                                         <div id="collapseSubAccessories1" class="collapse">
-                                            <ul class="list-unstyled ms-3 mt-2">
+                                            <ul class="list-unstyled mt-2">
                                                 <li class="list-item"><a href="#" class="text-decoration-none">Mũ</a></li>
                                                 <li class="list-item"><a href="#" class="text-decoration-none">Dép</a></li>
                                                 <li class="list-item"><a href="#" class="text-decoration-none">Tất</a></li>
@@ -40,12 +40,12 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="mt-2">
+                                    <li class="list-item none">
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubAccessories2" aria-expanded="false" aria-controls="collapseSubAccessories2">
                                             Balo <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i>
                                         </button>
                                         <div id="collapseSubAccessories2" class="collapse">
-                                            <ul class="list-unstyled ms-3 mt-2">
+                                            <ul class="list-unstyled mt-2">
                                                 <li class="list-item none"><a href="#" class="text-decoration-none">Herschel</a></li>
                                             </ul>
                                         </div>
@@ -63,24 +63,24 @@
                         </h2>
                         <div id="collapseShoes" class="accordion-collapse collapse" aria-labelledby="headingShoes" data-bs-parent="#categoryAccordion">
                             <div class="accordion-body">
-                                <ul class="list-unstyled ms-3">
+                                <ul class="list-unstyled">
                                     <li  class="list-item">
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes1" aria-expanded="false" aria-controls="collapseSubShoes1">
                                             Giày Puma <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i>
                                         </button>
                                         <div id="collapseSubShoes1" class="collapse">
-                                            <ul class="list-unstyled ms-3 mt-2">
+                                            <ul class="list-unstyled mt-2">
                                                 <li class="list-item"><a href="#" class="text-decoration-none">Puma Mule</a></li>
                                                 <li class="list-item none"><a href="#" class="text-decoration-none">Puma RS</a></li>
                                             </ul>
                                         </div>
                                     </li>
-                                    <li class="mt-2">
+                                    <li class="list-item none">
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes2" aria-expanded="false" aria-controls="collapseSubShoes2">
                                             Giày Nike <i class="fa-solid fa-plus"></i><i class="fa-solid fa-minus"></i>
                                         </button>
                                         <div id="collapseSubShoes2" class="collapse">
-                                            <ul class="list-unstyled ms-3 mt-2">
+                                            <ul class="list-unstyled mt-2">
                                                 <li class="list-item"><a href="#" class="text-decoration-none">Air Max</a></li>
                                                 <li class="list-item none"><a href="#" class="text-decoration-none">Air Zoom</a></li>
                                             </ul>
@@ -110,31 +110,34 @@
                 
         <!-- Kích thước -->
             <div class="mb-4">
-                <h4 class="fw-bold text-uppercase beforPre">KÍCH THƯỚC</h4>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="size44">
-                    <label class="form-check-label" for="size44">44</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="size43">
-                    <label class="form-check-label" for="size43">43</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="size42">
-                    <label class="form-check-label" for="size42">42</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="size41">
-                    <label class="form-check-label" for="size41">41</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="size40">
-                    <label class="form-check-label" for="size40">40</label>
+                <h4 class="fw-bold text-uppercase beforPre2">KÍCH THƯỚC</h4>
+                <div class="form-checkbox">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="size44">
+                        <label class="form-check-label" for="size44">44</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="size43">
+                        <label class="form-check-label" for="size43">43</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="size42">
+                        <label class="form-check-label" for="size42">42</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="size41">
+                        <label class="form-check-label" for="size41">41</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="size40">
+                        <label class="form-check-label" for="size40">40</label>
+                    </div>
+
                 </div>
             </div>
             <!-- Lọc -->
             <div class="mb-4">
-            <h4 class="fw-bold text-uppercase beforPre">LỌC</h4>
+            <h4 class="fw-bold text-uppercase beforPre3">LỌC</h4>
             <div class="price-slider">
                     <!-- Giá trị min/max -->
                 <div class="d-flex justify-content-between">

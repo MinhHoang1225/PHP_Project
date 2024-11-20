@@ -19,10 +19,29 @@ body {
     font-weight: 200;
 }
 
-/* Accordion */
-.accordion {
-    margin-top: 20px;
+/* Line */
+.beforPre1::before, .beforPre2::before, .beforPre3::before {
+    position: absolute;
+    content: '';
+    width: 40px;
+    background-color: rgba(0, 0, 0, .1);
+    height: 3px;
 }
+.beforPre1::before {
+    bottom: 25.5em;
+}
+.beforPre2::before {
+    bottom: 15.4em;
+}
+.beforPre3::before {
+    bottom: 6.6em;
+}
+
+/* Accordion, Kích thước */
+.accordion, .form-checkbox, .price-slider {
+    margin-top: 30px;
+}
+
 
 /* Thay đổi nút cộng và trừ */
 .accordion-button::after {
@@ -43,43 +62,42 @@ body {
 
 /* Thay đổi màu */
 .accordion-button:not(.collapsed) {
-    color: inherit !important; /* Bỏ màu mặc định */
-    background-color: transparent !important; /* Bỏ nền mặc định */
-    box-shadow: none !important; /* Bỏ viền mặc định */
-    padding: 10px !important; /* Loại bỏ padding mặc định */
+    padding: 10px; /* Duy nhất */
+    color: inherit !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
 }
 
-.list-item .accordion-button:not(.collapsed) {
-    padding: 0 !important; /* Loại bỏ padding mặc định */
+.accordion-body {
+    padding:0px 25px 0px 20px !important;
 }
 
 /* Chỉnh sửa lại css */
+
 .accordion-button.collapsed {
     padding: 10px;
 }
 
 .accordion-header .accordion-button {
     font-weight: bold;
-    /* padding: 10px; */
 }
 
 .accordion-button:focus {
     box-shadow: none !important;
 }
 
-.accordion-body {
-    padding: 0px 20px 0px 20px !important;
+
+/* list-unstyled */
+.accordion-item .list-unstyled {
+    margin-bottom: auto !important;
+    padding-left: 7px ;
 }
 
-.mt-2 {
-    padding: 0px 5px 0px 5px !important;
-}
-
-/* Items */
 .list-unstyled .list-item {
     border-bottom: 1px solid #eae6e6;
     padding: 5px;
 }
+
 .list-unstyled .none {
     border-bottom: none !important;
 }
