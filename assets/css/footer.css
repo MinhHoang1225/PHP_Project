@@ -7,13 +7,11 @@ body {
     background: #fdd4ee;
 }
 
-
 .footer_top {
     padding: 50px 0px 325px;
     position: relative;
     overflow-x: hidden;
 }
-
 
 .footer_top .shop_widget .f_subscribe_two .btn_get {
     border-width: 1px;
@@ -34,7 +32,6 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     text-decoration: none;
     outline: none;
 }
-
 
 
 .footer_top .f_widget.shop-widget .f_list li a:hover {
@@ -90,7 +87,6 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     margin-top: 10px;
     line-height: 1.5;
 }
-
 
 .f_social_icon a {
     width: 40px;
@@ -157,7 +153,6 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
-
 .footer_top .footer_bg {
     position: absolute;
     bottom: 0;
@@ -166,7 +161,6 @@ h1, h2, h3, h4, h5, h6 {
     height: 320px;
     
 }
-
 
 .footer_top .footer_bg .footer_bg_two {
     background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
@@ -179,7 +173,6 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-animation: myfirst 30s linear infinite;
     animation: myfirst 30s linear infinite;
 }
-
 
 @-moz-keyframes myfirst {
   0% {
