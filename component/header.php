@@ -9,7 +9,6 @@
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/font-aware.js"></script>
     <style>
-      /* Reset mặc định */
 :root {
     --maincolor: #000;
     --secondary-color: #009985;
@@ -22,48 +21,37 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 html, body {
     line-height: 1.6;
     background-color: var(--bg-color);
     color: var(--text-color);
 }
-
 ul, ol {
     list-style: none;
 }
-
 a {
     text-decoration: none;
     color: inherit;
 }
-
 /* Header */
 header {
     background-color: #D7F9FA;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 header{
     padding: 15px 0;
 }
-
 /* Logo */
 header img {
     max-width: 100%;
     height: auto;
     transition: transform 0.3s ease-in-out;
 }
-
-
-
-/* Menu chính */
 .menu-pc {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
-
 .menu-pc .lv1 {
     position: relative;
     padding: 10px 15px;
@@ -74,13 +62,11 @@ header img {
     color: var(--text-color);
     transition: color 0.3s ease, background-color 0.3s ease;
 }
-
 .menu-pc .lv1:hover {
     color: var(--bg-color);
     background-color: var(--maincolor);
     border-radius: 5px;
 }
-
 /* Submenu */
 .wrap,
 .sub-menu-2,
