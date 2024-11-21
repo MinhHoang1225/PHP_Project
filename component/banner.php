@@ -19,16 +19,16 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="https://pos.nvncdn.com/eb9ddb-116318/bn/20220324_DNFD3A0iWqNMEVjg7A1ZSQA7.png" class="d-block w-100" alt="...">
+            <img src="../assets/img/banner/banner1.png" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="https://thietkehaithanh.com/wp-content/uploads/2021/12/Shoes-Web-Ads-Banne1r-thietkehaithanh.jpg" class="d-block w-100" alt="...">
+            <img src="../assets/img/banner/banner4.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="https://bizweb.dktcdn.net/100/413/756/collections/jordan-2.jpg?v=1617462460240" class="d-block w-100" alt="...">
+            <img src="../assets/img/banner/banner3.webp" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-            <img src="https://img.pikbest.com/origin/10/00/55/34mpIkbEsTI9M.jpg!w700wp" class="d-block w-100" alt="...">
+            <img src="../assets/img/banner/banner2.jpg" class="d-block w-100" alt="...">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
