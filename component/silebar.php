@@ -90,14 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Other Categories -->
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button">
-                                Ký gửi
-                            </button>
-                        </h2>
-                    </div>
+                    <!-- Clothes -->
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                             <button class="accordion-button collapsed" type="button">
@@ -147,7 +140,7 @@
                 <!-- Thanh kéo -->
                     <div class="range-input">
                     <!-- <input type="range" class="range-min" min="0" max="10000000"  id="priceRange" value="25000"> -->
-                     <input type="range" class="range-min" min="0" max="10000000"  id="priceRange">
+                     <input type="range" class="form-range" min="0" max="10000000"  id="priceRange">
                     </div>
                 <!-- step="100000" -->
             </div>
