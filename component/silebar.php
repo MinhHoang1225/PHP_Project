@@ -128,26 +128,24 @@
 
                 </div>
             </div>
-            <!-- Lọc -->
+            <!-- Lọc giá-->
             <div class="mb-4">
-            <h4 class="fw-bold text-uppercase">LỌC</h4>
-            <div class="price-slider">
+                <h4 class="fw-bold text-uppercase">LỌC</h4>
+                <div class="price-slider">
                     <!-- Giá trị min/max -->
-                <div class="d-flex justify-content-between">
-                    <span id="minPrice">Từ: 0đ</span>
-                    <span id="maxPrice">đến: 10,000,000đ</span>
-                </div>
+                    <div class="d-flex justify-content-between">
+                        <span id="minPrice">Từ: 50,000đ</span>
+                        <span id="maxPrice">đến: 10,000,000đ</span>
+                    </div>
                 <!-- Thanh kéo -->
                     <div class="range-input">
-                    <!-- <input type="range" class="range-min" min="0" max="10000000"  id="priceRange" value="25000"> -->
-                     <input type="range" class="form-range" min="0" max="10000000"  id="priceRange">
+                      <input type="range" min="100000" max="10000000" class="form-range-price" id="priceRange" value="100000">
                     </div>
-                <!-- step="100000" -->
+                </div>
             </div>
-            </div>
-            </div>  
     
      <!-- Bootstrap JS -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <script src="../assets/js/slidebar.js"></script>
 </body>
 </html>
