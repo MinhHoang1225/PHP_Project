@@ -124,6 +124,7 @@ $cart_result = $cart_stmt->get_result();
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Hình ảnh</th>
                         <th>Tên Giày</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
@@ -133,12 +134,24 @@ $cart_result = $cart_stmt->get_result();
                     <?php while ($product = $product_result->fetch_assoc()) : ?>
                         <tr>
                             <td><?= $product['product_id'] ?></td>
+                            
+                            <!-- Hiển thị hình ảnh -->
+                            <td>
+                                <?php if (!empty($product['img'])): ?>
+                                    <img src="\PHP_Project\assets\img\img_phukien\<?= $product['img'] ?>" alt="" width="100px">
+                                <?php else: ?>
+                                    <p>No image</p>
+                                <?php endif; ?>
+                            </td>
+
+                            
                             <td><?= $product['name'] ?></td>
                             <td><?= number_format($product['price'], 0, ',', '.') ?> VND</td>
                             <td><?= $product['stock_quantity'] ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
+
             </table>
         </section>
 
@@ -177,7 +190,7 @@ $cart_result = $cart_stmt->get_result();
 
         <!-- Footer -->
         <footer class="footer">
-            <p>ShoeStore Admin © 2024</p>
+            <p>Sneaker Home Admin © 2024</p>
         </footer>
     </main>
 </body>
