@@ -19,10 +19,9 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
                             <div class="logo-container">
-                                <h1 class="logo-text">SNEAKER</h1>
-                                <h2 class="logo-subtext">HOME</h2>
+                                <img src="https://pos.nvncdn.com/eb9ddb-116318/store/20220301_M6gPcIeoQ8cwvJrojaQ7a688.png" alt="" class="logo">
                             </div>
-                            <p class="logo-description">SNEAKER HOME là một cửa hàng chuyên cung cấp các mẫu giày sneaker hiện đại, đa dạng về mẫu mã và thương hiệu nổi tiếng, phù hợp với nhiều phong cách và độ tuổi.</p>
+                            <p class="logo-description"><b>SNEAKER HOME </b> là một cửa hàng chuyên cung cấp các mẫu giày sneaker hiện đại, đa dạng về mẫu mã và thương hiệu nổi tiếng, phù hợp với nhiều phong cách và độ tuổi.</p>
                             <div class="f_social_icon">
                                 <a href="#" class="social-icon facebook"><i class="fab fa-facebook"></i></a>
                                 <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
@@ -72,9 +71,9 @@
                     </div>
                 </div>
             </div>
-            <div class="footer_bg">
+        </div>
+        <div class="footer_bg">
                 <div class="footer_bg_two"></div>
-            </div>
         </div>
     </footer>
 </body>
