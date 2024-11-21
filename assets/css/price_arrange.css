@@ -1,0 +1,50 @@
+.muc_gia{
+    display: flex;
+    margin: 0px 160px;
+    justify-content: space-between;
+    font-size: 18px;
+    padding: 20px 15px 0px;
+}
+.muc1{
+    display: flex;
+       
+}
+:root {
+    --maincolor:  #666666B3;
+    --secondary-color: #009985;
+    --text-color: #333;
+    --bg-color: #f9f9f9;
+    --hover-bg-color: #eef7f6;
+}
+.gia{
+    display: flex;
+}
+.kq{
+    margin-right: 20px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--maincolor);
+}
+.gia select{
+    font-size: 18px;
+    border: 1px solid #c2bfbf;
+    padding: 8px;
+    
+}
+.home{
+    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.acc{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home a{
+    text-decoration: none;
+    color: var(--maincolor)
+}
