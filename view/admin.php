@@ -138,7 +138,7 @@ $cart_result = $cart_stmt->get_result();
                             <!-- Hiển thị hình ảnh -->
                             <td>
                                 <?php if (!empty($product['img'])): ?>
-                                    <img src="\PHP_Project\assets\img\img_phukien\<?= $product['img'] ?>" alt="" width="100pxx.">
+                                    <img src="\PHP_Project\assets\img\<?= $product['img'] ?>" alt="" width="100pxx.">
                                 <?php else: ?>
                                     <p>No image</p>
                                 <?php endif; ?>
@@ -147,7 +147,7 @@ $cart_result = $cart_stmt->get_result();
                             
                             <td><?= $product['name'] ?></td>
                             <td><?= number_format($product['price'], 0, ',', '.') ?> VND</td>
-                            <td><?= $product['stock_quantity'] ?></td>
+                            <td><?= $product['stock'] ?></td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
