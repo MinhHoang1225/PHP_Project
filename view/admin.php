@@ -138,7 +138,7 @@ $cart_result = $cart_stmt->get_result();
                             <!-- Hiển thị hình ảnh -->
                             <td>
                                 <?php if (!empty($product['img'])): ?>
-                                    <img src="\PHP_Project\assets\img\img_phukien\<?= $product['img'] ?>" alt="" width="100px">
+                                    <img src="\PHP_Project\assets\img\img_phukien\<?= $product['img'] ?>" alt="" width="100pxx.">
                                 <?php else: ?>
                                     <p>No image</p>
                                 <?php endif; ?>
