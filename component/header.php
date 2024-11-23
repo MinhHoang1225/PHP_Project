@@ -181,6 +181,7 @@ header img {
 .f {
     max-width: 330px; /* Chiều rộng tối đa */
     display: flex;
+    justify-content: flex-end;
     gap: 10px; /* Khoảng cách giữa input và button */
 }
 
@@ -200,7 +201,7 @@ header img {
 .container form input:hover, 
 .container form input:focus {
     box-shadow: 0 0 5px var(--bg-hover-btn);
-    background-color: var(--bg-hover-btn);
+    /* background-color: var(--bg-hover-btn); */
 
 }
 
