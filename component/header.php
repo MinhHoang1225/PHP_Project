@@ -1,13 +1,13 @@
-<?php require_once('../database/connect.php') ?>
+<?php require_once('database/connect.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/font-aware.js"></script>
+    <link rel="" type="" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/font-aware.js"></script>
     <style>
 :root {
     --maincolor: #000;
@@ -274,7 +274,7 @@ header img {
       <div class="row">
           <div class="col-md-2">
             <div class="pt-2">
-              <a href="header.php"><img src="../assets/img/header_img/logo.png" class="img-fluid w-80" alt="Logo cửa hàng"></a>
+              <a href=""><img src="assets/img/header_img/logo.png" class="img-fluid w-80" alt="Logo cửa hàng"></a>
               
             </div>
           </div>
@@ -371,5 +371,6 @@ header img {
       </form>
     </div>
   </header>
+  
 </body>
 </html>
