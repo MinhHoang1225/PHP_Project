@@ -14,7 +14,7 @@
 <body>
     <footer class="footer_area bg_color">
         <div class="footer_top">
-            <div class="container">
+            <div class="container"> 
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
