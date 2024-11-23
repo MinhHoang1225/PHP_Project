@@ -1,110 +1,23 @@
-<<<<<<< HEAD
-
+/* Footer Area Styling */
 .footer_area {
-    background: #e5e5e5;
-    /* background: #BDD1C5; */
+    background: #e5e5e5; /* Có thể thay đổi theo yêu cầu */
 }
 
+/* Footer Top Styling */
 .footer_top {
-    padding: 50px 0px 15px;
+    padding: 50px 0 15px;
     overflow-x: hidden;
 }
 
-.logo-container .logo {
-    width: 60%;
-    margin: 0 33px;
-}
-
-.logo-description, .footer_top .shop_widget p{
-    color: #6a7695;
-    font-size: 16px;
-    margin-top: 10px;
-    line-height: 1.5;
-}
-
-=======
-body {
-    background: #9797e1;
-}
-
-.footer_area {
-    background: #fbfbfd;
-    background: #fdd4ee;
-}
-
-.footer_top {
-    padding: 50px 0px 325px;
-    position: relative;
-    overflow-x: hidden;
-}
-
->>>>>>> Chang/view/about
-.footer_top .shop_widget .f_subscribe_two .btn_get {
-    border-width: 1px;
-    margin-top: 20px;
-}
-<<<<<<< HEAD
-
-
-=======
-.btn_get_two:hover {
-    background: transparent;
-    color: #5e2ced;
-}
-.btn_get:hover {
-    color: #fff;
-    background: #6754e2;
-    border-color: #6754e2;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
->>>>>>> Chang/view/about
-a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
-    text-decoration: none;
-    outline: none;
-}
-
-<<<<<<< HEAD
-.footer_top .f_widget.shop-widget .f_list li a:hover {
-    color: #0C6478;
-}
-
-=======
-
-.footer_top .f_widget.shop-widget .f_list li a:hover {
-    color: #5e2ced;
-}
->>>>>>> Chang/view/about
-.footer_top .f_widget.shop-widget .f_list li {
-    margin-bottom: 11px;
-}
-.f_widget.shop-widget .f_list li:last-child {
-    margin-bottom: 0px;
-}
-.f_widget.shop-widget .f_list li {
-    margin-bottom: 15px;
-}
-.f_widget.shop-widget .f_list {
-    margin-bottom: 0px;
-}
-<<<<<<< HEAD
-
-=======
->>>>>>> Chang/view/about
-.footer_top .f_social_icon a {
-    width: 44px;
-    height: 44px;
-    line-height: 43px;
-    background: transparent;
-    border: 1px solid #e2e2eb;
-    font-size: 24px;
-}
-
-<<<<<<< HEAD
-=======
+/* Logo Container */
 .logo-container {
     text-align: center;
     margin-bottom: 5px;
+}
+
+.logo {
+    width: 60%;
+    margin: 0 auto;
 }
 
 .logo-text {
@@ -125,15 +38,17 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     padding: 5px 20px;
 }
 
-.logo-description, .footer_top .shop_widget p{
+/* Description Styling */
+.logo-description,
+.footer_top .shop_widget p {
     color: #6a7695;
     font-size: 16px;
     margin-top: 10px;
     line-height: 1.5;
 }
 
->>>>>>> Chang/view/about
-.f_social_icon a {
+/* Social Icon Styling */
+.footer_top .f_social_icon a {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -143,141 +58,85 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     display: inline-block;
     background: #ebeef5;
     text-align: center;
-    -webkit-transition: all 0.2s linear;
-    -o-transition: all 0.2s linear;
     transition: all 0.2s linear;
-}
-
-.f_widget .f_subscribe_two .btn_get_two {
-    -webkit-box-shadow: none;
-    box-shadow: none;
-<<<<<<< HEAD
-    /* background: #073A4B;
-    background: #213A58; */
-    background: #0C6478;
-=======
-    background: #9370f2;
-    border-color: #5e2ced;
->>>>>>> Chang/view/about
-    color: #fff;
-    margin-top: 15px;
-}
-
-<<<<<<< HEAD
-.f_widget .f_subscribe_two .btn_get_two:hover {
-    background: transparent;
-    background-color: #159198;
-    color: #fff;
-}
-
-.footer_top .f_social_icon a:hover {
-    background: #0C6478;
-    border-color: #213A58; 
-=======
-.btn_get_two:hover {
-    background: transparent;
-    color: #5e2ced;
 }
 
 .footer_top .f_social_icon a:hover {
     background: #5e2ced;
     border-color: #5e2ced;
->>>>>>> Chang/view/about
-    color:white;
+    color: white;
 }
+
 .footer_top .f_social_icon a + a {
     margin-left: 4px;
 }
-.footer_top .f-title {
-    margin-bottom: 30px;
-    color: #263b5e;
-}
-.f_600 {
-    font-weight: 600;
-}
-.f_size_18 {
-    font-size: 18px;
-}
-h1, h2, h3, h4, h5, h6 {
-    color: #4b505e;
-}
 
-.footer_top .f_widget.shop-widget .f_list {
+/* Shop Widget */
+.footer_top .shop_widget .f_list {
     list-style: none;
-}
-.footer_top .f_widget.shop-widget .f_list li,
-.footer_top .f_widget.shop-widget .f_list li i
-  {
-    color:  #6a7695;
+    margin-bottom: 0;
 }
 
-.footer_top .f_widget.shop-widget .f_list li a {
+.footer_top .shop_widget .f_list li {
+    margin-bottom: 15px;
+}
+
+.footer_top .shop_widget .f_list li:last-child {
+    margin-bottom: 0;
+}
+
+.footer_top .shop_widget .f_list li a {
     color: #6a7695;
     text-decoration: none;
 }
 
-<<<<<<< HEAD
+.footer_top .shop_widget .f_list li a:hover {
+    color: #5e2ced;
+}
+
+/* Buttons */
+.footer_top .f_subscribe_two .btn_get,
+.f_widget .f_subscribe_two .btn_get_two {
+    box-shadow: none;
+    background: #9370f2;
+    border-color: #5e2ced;
+    color: #fff;
+    margin-top: 15px;
+}
+
+.footer_top .f_subscribe_two .btn_get:hover,
+.f_widget .f_subscribe_two .btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+}
+
+/* Footer Background */
 .footer_bg {
     position: relative;
-=======
-.footer_top .footer_bg {
-    position: absolute;
->>>>>>> Chang/view/about
-    bottom: 0;
-    background: url("https://p-vn.ipricegroup.com/trends-article/top-3-mau-giay-converse-duoc-cac-ngoi-sao-quoc-te-ua-chuong-medium.jpg") no-repeat scroll center 0;
+    background: url("https://p-vn.ipricegroup.com/trends-article/top-3-mau-giay-converse-duoc-cac-ngoi-sao-quoc-te-ua-chuong-medium.jpg") no-repeat center 0;
     width: 100%;
     height: 320px;
-<<<<<<< HEAD
-    background-size: cover; 
+    background-size: cover;
 }
 
- .footer_bg .footer_bg_two {
-=======
-    
-}
-
-.footer_top .footer_bg .footer_bg_two {
->>>>>>> Chang/view/about
+/* Footer Animation */
+.footer_bg .footer_bg_two {
     background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
     width: 88px;
     height: 100px;
-    background-size:100%;
+    background-size: 100%;
+    position: absolute;
     bottom: 0;
     left: 38%;
-    position: absolute;
-    -webkit-animation: myfirst 30s linear infinite;
     animation: myfirst 30s linear infinite;
 }
 
-@-moz-keyframes myfirst {
-  0% {
-    left: -25%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
-@-webkit-keyframes myfirst {
-  0% {
-    left: -25%;
-  }
-  100% {
-    left: 100%;
-  }
-}
-
+/* Keyframes for Animation */
 @keyframes myfirst {
-  0% {
-    left: -25%;
-  }
-  100% {
-    left: 100%;
-  }
+    0% {
+        left: -25%;
+    }
+    100% {
+        left: 100%;
+    }
 }
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> Chang/view/about
