@@ -12,7 +12,7 @@
 <div class="about">
         <div class="about-us">
             <h2 class="heading-title">About Us</h2>
-            <p class="heading-description">Chào mừng bạn đến với <b>Sneakers Web</b>, nơi mang đến những đôi giày thể thao và phụ kiện thời trang đỉnh cao dành cho mọi phong cách. 
+            <p class="heading-description">Chào mừng bạn đến với <b>Sneakers Home</b>, nơi mang đến những đôi giày thể thao và phụ kiện thời trang đỉnh cao dành cho mọi phong cách. 
                 Chúng tôi không chỉ là một cửa hàng trực tuyến, mà còn là nơi kết nối đam mê thời trang và phong cách sống hiện đại.</p>
         </div>
         <div class="who-we-are">
@@ -21,11 +21,11 @@
             </div>
             <div class="heading-who-we-are">
                 <h2 class="heading-title">Who We Are?</h2>
-                <p class="heading-description"><b>Sneakers Web</b> là thương hiệu dành cho những ai yêu thích sự kết hợp giữa thời trang và sự tiện dụng. Với đội ngũ đam mê và chuyên nghiệp, 
+                <p class="heading-description"><b>Sneakers Home</b> là thương hiệu dành cho những ai yêu thích sự kết hợp giữa thời trang và sự tiện dụng. Với đội ngũ đam mê và chuyên nghiệp, 
                     chúng tôi cam kết mang đến cho bạn những sản phẩm chất lượng nhất, phù hợp với mọi lứa tuổi và xu hướng.</p>
                 <p class="heading-description">Chúng tôi cũng hướng tới việc xây dựng một cộng đồng nơi những người yêu thích giày thể thao có thể chia sẻ phong cách,
                          tìm kiếm cảm hứng mới và luôn cập nhật những xu hướng thời trang mới nhất.</p>
-                <p class="heading-description">Bên cạnh đó, <b>Sneakers Web</b> luôn chú trọng đến trải nghiệm của khách hàng, không chỉ thông qua sản phẩm mà còn qua dịch vụ chăm sóc tận tình. 
+                <p class="heading-description">Bên cạnh đó, <b>Sneakers Home</b> luôn chú trọng đến trải nghiệm của khách hàng, không chỉ thông qua sản phẩm mà còn qua dịch vụ chăm sóc tận tình. 
                         Chúng tôi mong muốn trở thành người bạn đồng hành đáng tin cậy, giúp bạn thể hiện cá tính và phong cách riêng qua từng bước chân.</p>
     
             </div>
