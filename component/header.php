@@ -5,16 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
-    <link rel="" type="" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="" href="root/root.css">
+    <link rel="stylesheet" type="" href="assets/css/bootstrap.min.css">
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/font-aware.js"></script>
     <style>
-:root {
-    --maincolor: #000;
-    --secondary-color: #009985;
-    --text-color: #333;
-    --bg-color: #f9f9f9;
-    --hover-bg-color: #eef7f6;
+:root{
+    --bg-header: #e5e5e5;
+--bg-btn: #0c6478;
+--bg-hover-btn: #159198;
+--main-font: sans-serif;
+--main-color: black;
+--second-color: #666666B3;
+--title-text-size: 32px;
+--main-text-size:16px;
+
 }
 * {
     margin: 0;
@@ -23,8 +28,8 @@
 }
 html, body {
     line-height: 1.6;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    background-color: var(--bg-header);
+    color: var(--main-color);
 }
 ul, ol {
     list-style: none;
@@ -35,7 +40,7 @@ a {
 }
 /* Header */
 header {
-    background-color: #D7F9FA;
+    background-color: var(--bg-header);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 header{
@@ -59,12 +64,12 @@ header img {
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
-    color: var(--text-color);
+    color: var(--main-color);
     transition: color 0.3s ease, background-color 0.3s ease;
 }
 .menu-pc .lv1:hover {
-    color: var(--bg-color);
-    background-color: var(--maincolor);
+    color: var(--bg-header);
+    background-color: var(--bg-hover-btn);
     border-radius: 5px;
 }
 /* Submenu */
@@ -83,6 +88,8 @@ header img {
 .lv2:hover > .sub-menu-2,
 .lv3:hover > .sub-menu-3 {
     display: block;
+    background-color: var(--bg-hover-btn);
+    color: var(--bg-header);
 }
 
 .wrap, .sub-menu-2, .sub-menu-3 {
@@ -108,15 +115,15 @@ header img {
 .sub-menu-3 li {
     padding: 5px 10px;
     font-size: 14px;
-    color: var(--text-color);
+    color: var(--main-color);
     transition: background-color 0.3s, color 0.3s;
 }
 
 .wrap li:hover,
 .sub-menu-2 li:hover,
 .sub-menu-3 li:hover {
-    background-color: var(--maincolor);
-    color: #fff;
+    background-color: var(--main-color);
+    color: var(--bg-header);
     border-radius: 3px;
 }
 
@@ -125,23 +132,27 @@ header img {
 .fas.fa-caret-right {
     margin-left: 5px;
     font-size: 12px;
-    color: #777;
     transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .cate_hover:hover .fas.fa-caret-down, 
 .lv2:hover .fas.fa-caret-right, 
 .lv3:hover .fas.fa-caret-right {
-    color: var(--maincolor);
+  color: var(--bg-header);
     transform: scale(1.2);
 }
 
+.cate_hover:hover,
+.lv2:hover,
+
+.lv3:hover{
+  background-color: var(--bg-hover-btn);
+}
 /* Icon và thanh ngăn cách */
 
 
 .col-md-1 .p-3 i {
     
-    color: var(--text-color);
     transition: color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
@@ -149,7 +160,9 @@ header img {
 
 /* Hiệu ứng hover icon */
 .col-md-1 .p-3 i:hover {
-    color: gray;
+    color: var(--bg-hover-btn);
+
+
 }
 
 /* Responsive */
@@ -186,14 +199,14 @@ header img {
 /* Hiệu ứng hover và focus cho input */
 .container form input:hover, 
 .container form input:focus {
-    box-shadow: 0 0 5px var(--maincolor);
-
+    box-shadow: 0 0 5px var(--bg-hover-btn);
+    background-color: var(--bg-hover-btn);
 
 }
 
 /* Nút tìm kiếm */
 .container form button {
-    background: var(--text-color); /* Màu chính */
+    background: var(--main-color); /* Màu chính */
     color: white; /* Màu chữ */
     border: none;
     border-radius: 50%; /* Nút hình tròn */
@@ -208,7 +221,8 @@ header img {
 
 /* Hiệu ứng hover cho nút */
 .container form button:hover {
-    background-color: var(--maincolor); /* Màu xanh sáng hơn khi hover */
+  background-color: var(--bg-hover-btn);
+  color: var(--bg-header);
 }
 
 /* Icon tìm kiếm */
@@ -231,7 +245,6 @@ header img {
 
 .box-notifi {
   width: 300px;
-  background-color: var(--bg-color);
   color: white;
   padding: 10px;
   border-radius: 5px;
@@ -254,19 +267,21 @@ header img {
   right: 6px; /* Căn chỉnh vị trí theo chiều ngang */
   border-width: 10px; /* Kích thước mũi tên */
   border-style: solid;
-  border-color: transparent transparent var(--maincolor) transparent; /* Mũi tên chỉ xuống */
+  border-color: transparent transparent var(--bg-hover-btn) transparent; /* Mũi tên chỉ xuống */
 }
 
 /* Hiệu ứng khi hover */
 .hover-area:hover .box-notifi {
   opacity: 1; /* Hiện ra */
   transform: translateY(0); /* Trả về vị trí ban đầu */
+  background-color: var(--bg-hover-btn);
+  color: var(--main-color);
 }
 .box-notifi h2{
-  color: var(--maincolor)
+  color: var(--bg-header);
 }
 
-    </style>
+</style>
 </head>
 <body>
   <header>
