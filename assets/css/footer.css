@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .footer_area {
     background: #e5e5e5;
@@ -21,21 +22,59 @@
     line-height: 1.5;
 }
 
+=======
+body {
+    background: #9797e1;
+}
+
+.footer_area {
+    background: #fbfbfd;
+    background: #fdd4ee;
+}
+
+.footer_top {
+    padding: 50px 0px 325px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+>>>>>>> Chang/view/about
 .footer_top .shop_widget .f_subscribe_two .btn_get {
     border-width: 1px;
     margin-top: 20px;
 }
+<<<<<<< HEAD
 
 
+=======
+.btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+}
+.btn_get:hover {
+    color: #fff;
+    background: #6754e2;
+    border-color: #6754e2;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+>>>>>>> Chang/view/about
 a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     text-decoration: none;
     outline: none;
 }
 
+<<<<<<< HEAD
 .footer_top .f_widget.shop-widget .f_list li a:hover {
     color: #0C6478;
 }
 
+=======
+
+.footer_top .f_widget.shop-widget .f_list li a:hover {
+    color: #5e2ced;
+}
+>>>>>>> Chang/view/about
 .footer_top .f_widget.shop-widget .f_list li {
     margin-bottom: 11px;
 }
@@ -48,7 +87,10 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 .f_widget.shop-widget .f_list {
     margin-bottom: 0px;
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> Chang/view/about
 .footer_top .f_social_icon a {
     width: 44px;
     height: 44px;
@@ -58,6 +100,39 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
     font-size: 24px;
 }
 
+<<<<<<< HEAD
+=======
+.logo-container {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.logo-text {
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #000;
+}
+
+.logo-subtext {
+    font-size: 18px;
+    font-weight: normal;
+    letter-spacing: 3px;
+    color: #000;
+    margin-top: -10px;
+    border-bottom: 2px solid #000;
+    display: inline-block;
+    padding: 5px 20px;
+}
+
+.logo-description, .footer_top .shop_widget p{
+    color: #6a7695;
+    font-size: 16px;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+>>>>>>> Chang/view/about
 .f_social_icon a {
     width: 40px;
     height: 40px;
@@ -76,13 +151,19 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 .f_widget .f_subscribe_two .btn_get_two {
     -webkit-box-shadow: none;
     box-shadow: none;
+<<<<<<< HEAD
     /* background: #073A4B;
     background: #213A58; */
     background: #0C6478;
+=======
+    background: #9370f2;
+    border-color: #5e2ced;
+>>>>>>> Chang/view/about
     color: #fff;
     margin-top: 15px;
 }
 
+<<<<<<< HEAD
 .f_widget .f_subscribe_two .btn_get_two:hover {
     background: transparent;
     background-color: #159198;
@@ -92,6 +173,16 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
 .footer_top .f_social_icon a:hover {
     background: #0C6478;
     border-color: #213A58; 
+=======
+.btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+}
+
+.footer_top .f_social_icon a:hover {
+    background: #5e2ced;
+    border-color: #5e2ced;
+>>>>>>> Chang/view/about
     color:white;
 }
 .footer_top .f_social_icon a + a {
@@ -125,16 +216,28 @@ h1, h2, h3, h4, h5, h6 {
     text-decoration: none;
 }
 
+<<<<<<< HEAD
 .footer_bg {
     position: relative;
+=======
+.footer_top .footer_bg {
+    position: absolute;
+>>>>>>> Chang/view/about
     bottom: 0;
     background: url("https://p-vn.ipricegroup.com/trends-article/top-3-mau-giay-converse-duoc-cac-ngoi-sao-quoc-te-ua-chuong-medium.jpg") no-repeat scroll center 0;
     width: 100%;
     height: 320px;
+<<<<<<< HEAD
     background-size: cover; 
 }
 
  .footer_bg .footer_bg_two {
+=======
+    
+}
+
+.footer_top .footer_bg .footer_bg_two {
+>>>>>>> Chang/view/about
     background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
     width: 88px;
     height: 100px;
@@ -172,3 +275,9 @@ h1, h2, h3, h4, h5, h6 {
     left: 100%;
   }
 }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> Chang/view/about

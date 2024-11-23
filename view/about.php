@@ -25,6 +25,9 @@
                     chúng tôi cam kết mang đến cho bạn những sản phẩm chất lượng nhất, phù hợp với mọi lứa tuổi và xu hướng.</p>
                 <p class="heading-description">Chúng tôi cũng hướng tới việc xây dựng một cộng đồng nơi những người yêu thích giày thể thao có thể chia sẻ phong cách,
                          tìm kiếm cảm hứng mới và luôn cập nhật những xu hướng thời trang mới nhất.</p>
+                <p class="heading-description">Bên cạnh đó, <b>Sneakers Web</b> luôn chú trọng đến trải nghiệm của khách hàng, không chỉ thông qua sản phẩm mà còn qua dịch vụ chăm sóc tận tình. 
+                        Chúng tôi mong muốn trở thành người bạn đồng hành đáng tin cậy, giúp bạn thể hiện cá tính và phong cách riêng qua từng bước chân.</p>
+    
             </div>
             <div class="image">
                 <img src="../assets/img/who_we_are.jpg" alt="" class="img-who-we-are">
