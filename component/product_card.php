@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/product_cart.css">
-    <!-- Thêm CSS Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Thêm Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/product_card.css">
+    <link rel="stylesheet" href="assets\css\bootstrap.min.css">
+    <script src="assets\js\bootstrap.bundle.min.js"></script>
+    <script src="assets\js\font-aware.js"></script>
     <title>Sản phẩm</title>
 </head>
 <body">

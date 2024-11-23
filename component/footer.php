@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/footer.css">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets\css\footer.css">
+    <link rel="stylesheet" href="assets\css\bootstrap.min.css">
+    <script src="assets\js\bootstrap.bundle.min.js"></script>
+    <script src="assets\js\font-aware.js"></script>
 
     <title>Footer</title>
 </head>
@@ -19,7 +18,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
                             <div class="logo-container">
-                                <img src="https://pos.nvncdn.com/eb9ddb-116318/store/20220301_M6gPcIeoQ8cwvJrojaQ7a688.png" alt="" class="logo">
+                                <img src="assets\img\header_img\logo.png" alt="" class="logo">
                             </div>
                             <p class="logo-description"><b>SNEAKER HOME </b> là một cửa hàng chuyên cung cấp các mẫu giày sneaker hiện đại, đa dạng về mẫu mã và thương hiệu nổi tiếng, phù hợp với nhiều phong cách và độ tuổi.</p>
                             <div class="f_social_icon">
