@@ -5,14 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>registerAndLogin</title>
-    <!-- <link rel="stylesheet" href="registerAndLogin.css" /> -->
      <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+        /* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"); */
 
         * {
           box-sizing: border-box;
         }
-
+        :root{
+          --bg-header: #e5e5e5;
+          --bg-btn: #0c6478;
+          --bg-hover-btn: #159198;
+          --main-font: sans-serif;
+          /* second-font:; */
+          --main-color: black;
+          --second-color: #666666B3;
+          --title-text-size: 32px;
+          --main-text-size:16px;
+          }
         body {
           background-color: #686c78;
           display: flex;
@@ -61,7 +70,7 @@
         }
 
         a:hover {
-          color: #4bb6b7;
+          color: var(--bg-hover-btn);
         }
 
         .content {
@@ -436,6 +445,39 @@
           cursor: pointer;
           font-size: 12px;
         }
+        .close-button-login {
+          position: absolute;
+          /* top: 10px;  */
+          margin-top: 10px;
+          margin-left: 20px;
+          /* left: 10px;  */
+          background: transparent;
+          border: none;
+          font-size: 24px; 
+          color: #333; 
+          cursor: pointer;
+          padding: 0;
+        }
+        .close-button-register {
+          position: absolute;
+          /* top: 10px;  */
+          margin-top: 10px;
+          margin-left: 350px;
+          /* left: 10px;  */
+          background: transparent;
+          border: none;
+          font-size: 24px; 
+          color: #333; 
+          cursor: pointer;
+          padding: 0;
+        }
+
+        .close-button-login:hover {
+          color: #ff0000; 
+        }
+        .close-button-register:hover {
+          color: #ff0000; 
+        }
 
      </style>
     <link
@@ -449,6 +491,7 @@
   <body>
     <div class="container" id="container">
       <div class="form-container register-container">
+      <button class="close-button-register">&times;</button>
         <form>
           <h1>Đăng ký tại đây</h1>
           <div class="form-control">
@@ -478,6 +521,7 @@
       </div>
 
       <div class="form-container login-container">
+        <button class="close-button-login">&times;</button>
         <form class="form-lg">
           <h1>Đăng nhập tại đây</h1>
           <div class="form-control2">
