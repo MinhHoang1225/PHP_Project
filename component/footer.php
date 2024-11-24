@@ -10,24 +10,34 @@
 
     <title>Footer</title>
 </head>
+<style>
+   .col-lg-3 {
+        flex: 0 0 auto;
+        width: 30%;
+    }
+
+    .f_widget_1, .f_widget_3 {
+        width:19% !important; 
+    }
+</style>
 <body>
     <footer class="footer_area bg_color">
         <div class="footer_top">
             <div class="container"> 
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6 f_widget_1">
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
                             <div class="logo-container">
                                 <img src="assets\img\header_img\logo.png" alt="" class="logo">
                             </div>
-                            <p class="logo-description"><b>SNEAKER HOME </b> là một cửa hàng chuyên cung cấp các mẫu giày sneaker hiện đại, đa dạng về mẫu mã và thương hiệu nổi tiếng, phù hợp với nhiều phong cách và độ tuổi.</p>
-                            <div class="f_social_icon">
+                            <!-- <p class="logo-description"><b>SNEAKER HOME </b> là cửa hàng chuyên cung cấp các mẫu giày sneaker hiện đại, phù hợp với nhiều phong cách và độ tuổi.</p> -->
+                            <!-- <div class="f_social_icon">
                                 <a href="#" class="social-icon facebook"><i class="fab fa-facebook"></i></a>
                                 <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
                                 <a href="#" class="social-icon github"><i class="fab fa-github"></i></a>
                                 <a href="#" class="social-icon github"><i class="fab fa-youtube"></i></a>
                                 <a href="#" class="social-icon github"><i class="fab fa-google"></i></a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -38,20 +48,20 @@
                                 <li ><i class='fas fa-map-marker-alt'></i> 80B Lê Duẩn, Thanh Khê, Đà Nẵng</li>
                                 <li ><i class='fas fa-map-marker-alt'></i> 236 Lê Duẩn, Thanh Khê, Đà Nẵng</li>
                                 <li ><i class='fas fa-map-marker-alt'></i> 172 Lê Duẩn, Hải Châu, Đà Nẵng</li>
-                                <li ><i class='fas fa-map-marker-alt'></i> 83 Phan Đăng Lưu, Cẩm Lệ, Đà Nẵng</li>
+                                <!-- <li ><i class='fas fa-map-marker-alt'></i> 83 Phan Đăng Lưu, Cẩm Lệ, Đà Nẵng</li> -->
                             </ul>
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-lg-3 col-md-6 f_widget_3 ">
                         <div class="f_widget shop-widget pl_70 wow fadeInLeft" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInLeft;">
                             <h3 class="f-title f_600 t_color f_size_18">Hỗ trợ khách hàng</h3>
                             <ul class="list-unstyled f_list">
                                 <li><a href="#">Chính sách bảo hành</a></li>
                                 <li><a href="#">Điều khoản dịch vụ</a></li>
                                 <li><a href="#">Chính sách bảo mật</a></li>
-                                <li><a href="#">Kiểm tra tình trạng đơn hàng</a></li>
-                                <li><a href="#">Chính sách thanh toán</a></li>
+                                <!-- <li><a href="#">Kiểm tra tình trạng đơn hàng</a></li>
+                                <li><a href="#">Chính sách thanh toán</a></li> -->
                             </ul>
                         </div>
                     </div>
