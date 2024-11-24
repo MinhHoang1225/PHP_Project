@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "Amie@301202";
+$password = "";
 $dbname = "php_project";
 
 // Tạo kết nối
