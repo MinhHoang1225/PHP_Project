@@ -1,7 +1,21 @@
+:root{
+    --bg-header: #e5e5e5;
+--bg-btn: #0c6478;
+--bg-hover-btn: #159198;
+--main-font: sans-serif;
+/* second-font:; */
+--main-color: black;
+--second-color: #666666B3;
+--title-text-size: 32px;
+--main-text-size:16px;
+}
+
+
 body {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
+    font-family: var(--main-font);
 }
 
 .left-page {
@@ -12,6 +26,7 @@ body {
 
 /* Danh mục */
 .text-uppercase {
+    font-size: 18px;
     opacity: 0.4;
     font-weight: 200;
 }
