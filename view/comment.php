@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+          :root{
+          --bg-header: #e5e5e5;
+          --bg-btn: #0c6478;
+          --bg-hover-btn: #159198;
+          --main-font: sans-serif;
+          /* second-font:; */
+          --main-color: black;
+          --second-color: #666666B3;
+          --title-text-size: 32px;
+          --main-text-size:16px;
+          }
         #show-modal-btn {
             padding: 10px 20px;
             background-color: #000;
@@ -12,7 +23,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: var(--main-text-size);
         }
         .modal {
             display: none;
@@ -30,6 +41,7 @@
             width: 400px;
             padding: 20px;
             background-color: #f8f8f8;
+            font-family: var(--main-font);
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
@@ -71,15 +83,15 @@
             margin-top: 10px;
             width: 30%;
             padding: 12px;
-            background-color: #000;
+            background-color: var(--bg-btn);
             color: #fff;
             border: none;
             border-radius: 4px;
-            font-size: 14px;
+            font-size: var(--main-text-size);
             cursor: pointer;
         }
         .submit-btn:hover {
-            background-color: #444;
+            background-color: var(--bg-hover-btn);
         }
 
     </style>
