@@ -25,7 +25,7 @@
                     <div class="title-product-main"> 
                         <h2 class="section-title">
                             <span class="text-uppercase fw-bold">
-                                NEW ARRIVALS
+                                HÀNG MỚI VỀ
                             </span>
                         </h2>
                         
@@ -223,7 +223,7 @@
                     <div class="title-product-main">
                         <h2 class="section-title">
                             <span class="d-inline-block text-uppercase font-weight-bold position-relative">
-                                BEST SELLER
+                                Bán chạy nhất
                             </span>
                         </h2>
                     </div>

@@ -16,20 +16,21 @@
     }
     
     .footer_top {
-        padding: 50px 0px 15px;
+        padding: 35px 0px 30px;
         overflow-x: hidden;
     }
     
+
     .logo-container .logo {
-        width: 60%;
-        margin: 0 33px;
+        width: 80%;
+        margin: 40px 0 0 0px;
         height: auto;
     }
     
     .logo-description, .footer_top .shop_widget p{
         color: var(--second-color);
         font-size: 16px;
-        margin-top: 10px;
+        margin-top: 5px;
         line-height: 1.5;
     }
     
@@ -55,7 +56,7 @@
         margin-bottom: 0px;
     }
     
-    .footer_top .f_social_icon a {
+    /* .footer_top .f_social_icon a {
         width: 44px;
         height: 44px;
         line-height: 43px;
@@ -66,9 +67,9 @@
     
     .footer_top .f_social_icon {
         margin-left: -0.5rem;
-    }
+    } */
     
-    .f_social_icon a {
+    /* .f_social_icon a {
         width: 40px;
         height: 40px;
         border-radius: 50%;
@@ -81,23 +82,37 @@
         -webkit-transition: all 0.2s linear;
         -o-transition: all 0.2s linear;
         transition: all 0.2s linear;
-    }
+    } */
     
+    .f_subscribe_two {
+        display: flex; 
+        align-items: center; 
+        gap: 10px; 
+    } 
+
     .f_widget .f_subscribe_two .btn_get_two {
         -webkit-box-shadow: none;
         box-shadow: none;
         background: var(--bg-btn);
         color: #fff;
-        margin-top: 15px;
+        margin-top: 1px;
     }
     
-    .f_subscribe_two .btn_get_two {
-        width: 38%; 
-        padding: 10px 20px; 
-        font-size: 16px; 
+    .f_subscribe_two .form-control.memail {
+        flex: 1; 
+        margin: 0;
         border-radius: 5px;
     }
     
+    .f_subscribe_two .btn_get_two {
+        width:25%;
+        flex-shrink: 0;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        white-space: nowrap; 
+    }
+
     .f_widget .f_subscribe_two .btn_get_two:hover {
         background: transparent;
         background-color: var(--bg-hover-btn);
@@ -135,17 +150,18 @@
       {
         color:  var(--second-color);
     }
-    
+
     .footer_top .f_widget.shop-widget .f_list li a {
         color:  var(--second-color);
         text-decoration: none;
+        
     }
     
-    .f_subscribe_two .form-control.memail {
+    /* .f_subscribe_two .form-control.memail {
         width: 100%; 
-        margin-right: 10px; 
+        margin-right: 15px; 
         border-radius: 5px;
-    }
+    } */
     
     .footer_bg {
         position: relative;
