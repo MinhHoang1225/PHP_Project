@@ -1,16 +1,19 @@
 <?php
  require_once('database/connect.php');
-    function fetchProducts() {
-    global $conn;
-    $sql = "SELECT * FROM products" ;
-    $result = mysqli_query($conn, $sql);
-    
-    if (mysqli_num_rows($result) > 0) {
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    } else {
-        return [];
-    }
-}
+  $cart_sql = "SELECT 
+  shopping_cart.cart_id AS cart_id,
+  products.product_id AS product_id,
+  products.name AS product_name,
+  products.price AS product_price,
+  cart_items.quantity AS cart_quantity,
+  (products.price * cart_items.quantity) AS total_price
+  FROM shopping_cart
+  INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+  INNER JOIN products ON cart_items.product_id = products.product_id";
+  $cart_stmt = $conn->prepare($cart_sql);
+  $cart_stmt->execute();
+  $cart_result = $cart_stmt->get_result();
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -380,9 +383,23 @@ header img {
                   <div class="box-notifi">
                     <h2 class="d-flex justify-content-center">Giỏ hàng</h2>
                     <div id="cart-content">
-                        <?php 
-                          
-                        ?>
+                    <?php while ($product = $cart_result->fetch_assoc()) : ?>
+
+<?= $product['product_id'] ?>
+                            
+                                <?php if (!empty($product['img'])): ?>
+                                    <img src="\PHP_Project\assets\img\<?= $product['img'] ?>" alt="" width="100pxx.">
+                                <?php else: ?>
+                                    <p>No image</p>
+                                <?php endif; ?>
+
+
+                            
+                            <?= $product['name'] ?>
+                            <?= number_format($product['price'], 0, ',', '.') ?> VND
+                            <?= $product['stock'] ?>
+
+                    <?php endwhile; ?>
                 </div>
                   </div>
                 </div>
