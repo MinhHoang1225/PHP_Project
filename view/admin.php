@@ -317,8 +317,6 @@ body {
                     <?php while ($product = $product_result->fetch_assoc()) : ?>
                         <tr>
                             <td><?= $product['product_id'] ?></td>
-                            
-                            <!-- Hiển thị hình ảnh -->
                             <td>
                                 <?php if (!empty($product['img'])): ?>
                                     <img src="\PHP_Project\assets\img\<?= $product['img'] ?>" alt="" width="100pxx.">
