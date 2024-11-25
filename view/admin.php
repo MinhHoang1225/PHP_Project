@@ -36,10 +36,193 @@ $cart_result = $cart_stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
-    <link rel="" type="" href="../assets/css/admin.css">
+    <link rel="" type="" href="assets/css/admin.css">
     <script src="../assets/js/admin.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root {
+  --bg-header: #e5e5e5;
+  --bg-btn: #0c6478;
+  --bg-hover-btn: #159198;
+  --main-font: sans-serif;
+  --main-color: black;
+  --second-color: #666666B3;
+  --title-text-size: 32px;
+  --main-text-size: 16px;
+}
 
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  background-color: var(--bg-header);
+}
+
+.menu a.active {
+  background-color: var(--bg-hover-btn) ;
+  color: var(--main-color);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: linear-gradient(135deg, var(--bg-header), #555);
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--bg-hover-btn);
+}
+
+.sidebar .menu a {
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar .menu a:hover {
+  background-color: var(--second-color);
+  color: var(--main-color);
+}
+
+.sidebar .menu a.logout {
+  margin-top: auto;
+  background-color: var(--bg-btn);
+}
+
+.sidebar .menu a.logout:hover {
+  background-color: var(--bg-hover-btn);
+}
+
+/* Main Content */
+.main {
+  margin-left: 270px;
+  padding: 20px;
+  width: calc(100% - 270px);
+}
+
+.header {
+  background-color: var(--bg-header);
+  color: var(--main-color);
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+  margin-top: 20px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.stat {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+}
+
+.stat i {
+  font-size: 2rem;
+  color: var(--bg-hover-btn);
+  margin-bottom: 10px;
+}
+
+.stat h3 {
+  font-size: 1.2rem;
+  color: var(--main-color);
+}
+
+.stat p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--second-color);
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #333;
+  color: #fff;
+}
+
+.table td {
+  background-color: #fff;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn.edit {
+  background-color: var(--bg-hover-btn);
+  color: white;
+}
+
+.btn.delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 10px;
+  background-color: var(--bg-header);
+  color: var(--main-color);
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+</style>
 </head>
 <body>
     <!-- Sidebar -->
