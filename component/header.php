@@ -1,16 +1,24 @@
 <?php
- require_once('database/connect.php');
-    function fetchProducts() {
-    global $conn;
-    $sql = "SELECT * FROM products" ;
-    $result = mysqli_query($conn, $sql);
-    
-    if (mysqli_num_rows($result) > 0) {
-        return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    } else {
-        return [];
-    }
-}
+  include('database/connect.php');
+  $cart_id = 1; 
+  $cart_sql = "SELECT 
+    shopping_cart.cart_id AS cart_id,
+    products.product_id AS product_id,
+    products.name AS product_name,
+    products.price AS product_price,
+    products.img AS product_img,
+    cart_items.quantity AS cart_quantity,
+    (products.price * cart_items.quantity) AS total_price
+  FROM shopping_cart
+  INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+  INNER JOIN products ON cart_items.product_id = products.product_id";
+  $stmt = $conn->prepare($cart_sql);
+  if ($stmt === false) {
+    die("Error preparing statement: " . $conn->error);
+  }
+  $stmt->execute();
+  $result = $stmt->get_result();
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,53 +31,56 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/font-aware.js"></script>
     <style>
-:root{
+    :root {
     --bg-header: #e5e5e5;
---bg-btn: #0c6478;
---bg-hover-btn: #159198;
---main-font: sans-serif;
---main-color: black;
---second-color: #666666B3;
---title-text-size: 32px;
---main-text-size:16px;
-
+    --bg-btn: #0c6478;
+    --bg-hover-btn: #159198;
+    --main-font: sans-serif;
+    --main-color: black;
+    --second-color: #666666B3;
+    --title-text-size: 32px;
+    --main-text-size: 16px;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 html, body {
     line-height: 1.6;
     background-color: var(--bg-header);
     color: var(--main-color);
 }
+
 ul, ol {
     list-style: none;
 }
+
 a {
     text-decoration: none;
     color: inherit;
 }
-/* Header */
+
 header {
     background-color: var(--bg-header);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-header{
     padding: 15px 0;
 }
-/* Logo */
+
 header img {
     max-width: 100%;
     height: auto;
     transition: transform 0.3s ease-in-out;
 }
+
 .menu-pc {
     display: flex;
     justify-content: center;
     gap: 20px;
 }
+
 .menu-pc .lv1 {
     position: relative;
     padding: 10px 15px;
@@ -80,12 +91,13 @@ header img {
     color: var(--main-color);
     transition: color 0.3s ease, background-color 0.3s ease;
 }
+
 .menu-pc .lv1:hover {
     color: var(--bg-header);
     background-color: var(--bg-hover-btn);
     border-radius: 5px;
 }
-/* Submenu */
+
 .wrap,
 .sub-menu-2,
 .sub-menu-3 {
@@ -140,7 +152,6 @@ header img {
     border-radius: 3px;
 }
 
-/* Icon caret */
 .fas.fa-caret-down, 
 .fas.fa-caret-right {
     margin-left: 5px;
@@ -151,151 +162,198 @@ header img {
 .cate_hover:hover .fas.fa-caret-down, 
 .lv2:hover .fas.fa-caret-right, 
 .lv3:hover .fas.fa-caret-right {
-  color: var(--bg-header);
+    color: var(--bg-header);
     transform: scale(1.2);
 }
 
 .cate_hover:hover,
 .lv2:hover,
-
-.lv3:hover{
-  background-color: var(--bg-hover-btn);
+.lv3:hover {
+    background-color: var(--bg-hover-btn);
 }
-/* Icon và thanh ngăn cách */
-
 
 .col-md-1 .p-3 i {
-    
     transition: color 0.3s ease, transform 0.3s ease;
     cursor: pointer;
 }
 
-
-/* Hiệu ứng hover icon */
 .col-md-1 .p-3 i:hover {
     color: var(--bg-hover-btn);
-
-
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .menu-pc {
         flex-direction: column;
         align-items: center;
         gap: 10px;
     }
+
     .col-md-1 .p-3 i {
         font-size: 20px;
     }
 }
- 
 
 .f {
-    max-width: 330px; /* Chiều rộng tối đa */
+    max-width: 330px;
     display: flex;
     justify-content: flex-end;
-    gap: 10px; /* Khoảng cách giữa input và button */
+    gap: 10px;
 }
 
-
-
-/* Input tìm kiếm */
 .container form input {
     border: none;
-      border-radius: 25px;
-      font-size: 14px;
-      outline: none;
-      border: none;
-      width: 330px;
-  }
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+    width: 330px;
+}
 
-  /* Hiệu ứng hover và focus cho input */
-  .container form input:hover, 
-  .container form input:focus {
-      box-shadow: 0 0 5px var(--bg-hover-btn);
-      /* background-color: var(--bg-hover-btn); */
+.container form input:hover, 
+.container form input:focus {
+    box-shadow: 0 0 5px var(--bg-hover-btn);
+}
 
-  }
+.container form button {
+    background: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-  /* Nút tìm kiếm */
-  .container form button {
-      background: var(--main-color); /* Màu chính */
-      color: white; /* Màu chữ */
-      border: none;
-      border-radius: 50%; /* Nút hình tròn */
-      width: 35px; /* Kích thước nút */
-      height: 35px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-  }
-
-  /* Hiệu ứng hover cho nút */
-  .container form button:hover {
+.container form button:hover {
     background-color: var(--bg-hover-btn);
     color: var(--bg-header);
-  }
+}
 
-  /* Icon tìm kiếm */
-  .container form button span {
-      font-size: 16px; /* Kích thước icon */
-  }
+.container form button span {
+    font-size: 16px;
+}
 
-  /* Responsive chỉnh sửa */
-  @media (max-width: 768px) {
-      .container form {
-          max-width: 100%; /* Để form co giãn trên màn hình nhỏ */
-          margin-right: auto; /* Căn giữa */
-      }
-  }
+@media (max-width: 768px) {
+    .container form {
+        max-width: 100%;
+        margin-right: auto;
+    }
+}
 
-  .hover-area {
+.hover-area {
     position: relative;
     display: inline-block;
-  }
+}
 
-  .box-notifi {
-    width: 300px;
+.box-notifi {
+    width: 500px;
     color: white;
     padding: 10px;
     border-radius: 5px;
     display: block;
     position: absolute;
-    top: 50px; /* Xuất hiện dưới #cart-icon */
+    top: 50px;
     right: 0;
     z-index: 10;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Ẩn ban đầu */
     opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Thời gian hiệu ứng */
-  }
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    max-height: 400px;
+    overflow-y: auto;
+}
 
-  /* Tạo mũi tên tam giác */
-  .box-notifi::before {
+.box-notifi::before {
     content: "";
     position: absolute;
-    top: -19px; /* Đặt mũi tên ngay trên hộp thông báo */
-    right: 6px; /* Căn chỉnh vị trí theo chiều ngang */
-    border-width: 10px; /* Kích thước mũi tên */
+    top: -19px;
+    right: 6px;
+    border-width: 10px;
     border-style: solid;
-    border-color: transparent transparent var(--bg-hover-btn) transparent; /* Mũi tên chỉ xuống */
-  }
+    border-color: transparent transparent var(--bg-hover-btn) transparent;
+}
 
-  /* Hiệu ứng khi hover */
-  .hover-area:hover .box-notifi {
-    opacity: 1; /* Hiện ra */
-    transform: translateY(0); /* Trả về vị trí ban đầu */
-    background-color: var(--bg-hover-btn);
+.hover-area:hover .box-notifi {
+    opacity: 1;
+    transform: translateY(0);
+    background-color:var(--bg-header);
     color: var(--main-color);
-  }
-  .box-notifi h2{
-    color: var(--bg-header);
-  }
+}
 
-  </style>
+.box-notifi h2 {
+    color: var(--bg-header);
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+}
+
+.product-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-info {
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.product-price {
+    font-size: 16px;
+    color: #f56c42;
+    margin-bottom: 8px;
+}
+
+.product-quantity {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
+.cart_btn {
+    background-color: var(--bg-btn); 
+    color: var(--bg-header); 
+    border: none; 
+    border-radius: 50px; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    font-weight: bold;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.cart_btn:hover {
+    background-color: var(--bg-hover-btn); 
+    color: var(--bg-header); 
+    transform: scale(1.05); 
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+</style>
 </head>
 <body>
   <header>
@@ -378,12 +436,36 @@ header img {
                 <div class="hover-area position-relative">
                   <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon"></i>
                   <div class="box-notifi">
-                    <h2 class="d-flex justify-content-center">Giỏ hàng</h2>
                     <div id="cart-content">
+                      <h2 style="text-align: center;padding:15px;color: var(--main-color)">Giỏ hàng</h2>
                         <?php 
-                          
+                          if ($result->num_rows > 0) {
+                              while ($row = $result->fetch_assoc()) {
+                                  // Hiển thị thông tin sản phẩm trong một div
+                                  echo '<div class="product">';
+                                  
+                                  // Hiển thị hình ảnh nếu có
+                                  if (!empty($row['product_img'])) {
+                                      echo '<img src="/PHP_Project/assets/img/' . $row['product_img'] . '" alt="Product Image" class="product-img">';
+                                  } else {
+                                      echo '<p>No image</p>';
+                                  }
+
+                                  // Hiển thị thông tin sản phẩm
+                                  echo '<div class="product-info">';
+                                  echo '<h3 class="product-name">' . $row['product_name'] . '</h3>';
+                                  echo '<p class="product-price">' . number_format($row['product_price'], 0, ',', '.') . ' VND</p>';
+                                  echo '<p class="product-quantity">Quantity: ' . $row['cart_quantity'] . '</p>';
+                                  echo '</div>';
+                                  
+                                  echo '</div><br>';
+                              }
+                          } else {
+                              echo "No data found!";
+                          }
                         ?>
-                </div>
+                        <button class="cart_btn">Giỏ hàng</button>
+                    </div>
                   </div>
                 </div>
               </div>  
