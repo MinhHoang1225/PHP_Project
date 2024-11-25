@@ -1,4 +1,17 @@
-<?php require_once('database/connect.php') ?>
+<?php
+ require_once('database/connect.php');
+    function fetchProducts() {
+    global $conn;
+    $sql = "SELECT * FROM products" ;
+    $result = mysqli_query($conn, $sql);
+    
+    if (mysqli_num_rows($result) > 0) {
+        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    } else {
+        return [];
+    }
+}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -190,99 +203,99 @@ header img {
 /* Input tìm kiếm */
 .container form input {
     border: none;
-    border-radius: 25px;
-    font-size: 14px;
-    outline: none;
-    border: none;
-    width: 330px;
-}
+      border-radius: 25px;
+      font-size: 14px;
+      outline: none;
+      border: none;
+      width: 330px;
+  }
 
-/* Hiệu ứng hover và focus cho input */
-.container form input:hover, 
-.container form input:focus {
-    box-shadow: 0 0 5px var(--bg-hover-btn);
-    /* background-color: var(--bg-hover-btn); */
+  /* Hiệu ứng hover và focus cho input */
+  .container form input:hover, 
+  .container form input:focus {
+      box-shadow: 0 0 5px var(--bg-hover-btn);
+      /* background-color: var(--bg-hover-btn); */
 
-}
+  }
 
-/* Nút tìm kiếm */
-.container form button {
-    background: var(--main-color); /* Màu chính */
-    color: white; /* Màu chữ */
-    border: none;
-    border-radius: 50%; /* Nút hình tròn */
-    width: 35px; /* Kích thước nút */
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+  /* Nút tìm kiếm */
+  .container form button {
+      background: var(--main-color); /* Màu chính */
+      color: white; /* Màu chữ */
+      border: none;
+      border-radius: 50%; /* Nút hình tròn */
+      width: 35px; /* Kích thước nút */
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  }
 
-/* Hiệu ứng hover cho nút */
-.container form button:hover {
-  background-color: var(--bg-hover-btn);
-  color: var(--bg-header);
-}
+  /* Hiệu ứng hover cho nút */
+  .container form button:hover {
+    background-color: var(--bg-hover-btn);
+    color: var(--bg-header);
+  }
 
-/* Icon tìm kiếm */
-.container form button span {
-    font-size: 16px; /* Kích thước icon */
-}
+  /* Icon tìm kiếm */
+  .container form button span {
+      font-size: 16px; /* Kích thước icon */
+  }
 
-/* Responsive chỉnh sửa */
-@media (max-width: 768px) {
-    .container form {
-        max-width: 100%; /* Để form co giãn trên màn hình nhỏ */
-        margin-right: auto; /* Căn giữa */
-    }
-}
+  /* Responsive chỉnh sửa */
+  @media (max-width: 768px) {
+      .container form {
+          max-width: 100%; /* Để form co giãn trên màn hình nhỏ */
+          margin-right: auto; /* Căn giữa */
+      }
+  }
 
-.hover-area {
-  position: relative;
-  display: inline-block;
-}
+  .hover-area {
+    position: relative;
+    display: inline-block;
+  }
 
-.box-notifi {
-  width: 300px;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  display: block;
-  position: absolute;
-  top: 50px; /* Xuất hiện dưới #cart-icon */
-  right: 0;
-  z-index: 10;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Ẩn ban đầu */
-  opacity: 0;
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Thời gian hiệu ứng */
-}
+  .box-notifi {
+    width: 300px;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+    position: absolute;
+    top: 50px; /* Xuất hiện dưới #cart-icon */
+    right: 0;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Ẩn ban đầu */
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Thời gian hiệu ứng */
+  }
 
-/* Tạo mũi tên tam giác */
-.box-notifi::before {
-  content: "";
-  position: absolute;
-  top: -19px; /* Đặt mũi tên ngay trên hộp thông báo */
-  right: 6px; /* Căn chỉnh vị trí theo chiều ngang */
-  border-width: 10px; /* Kích thước mũi tên */
-  border-style: solid;
-  border-color: transparent transparent var(--bg-hover-btn) transparent; /* Mũi tên chỉ xuống */
-}
+  /* Tạo mũi tên tam giác */
+  .box-notifi::before {
+    content: "";
+    position: absolute;
+    top: -19px; /* Đặt mũi tên ngay trên hộp thông báo */
+    right: 6px; /* Căn chỉnh vị trí theo chiều ngang */
+    border-width: 10px; /* Kích thước mũi tên */
+    border-style: solid;
+    border-color: transparent transparent var(--bg-hover-btn) transparent; /* Mũi tên chỉ xuống */
+  }
 
-/* Hiệu ứng khi hover */
-.hover-area:hover .box-notifi {
-  opacity: 1; /* Hiện ra */
-  transform: translateY(0); /* Trả về vị trí ban đầu */
-  background-color: var(--bg-hover-btn);
-  color: var(--main-color);
-}
-.box-notifi h2{
-  color: var(--bg-header);
-}
+  /* Hiệu ứng khi hover */
+  .hover-area:hover .box-notifi {
+    opacity: 1; /* Hiện ra */
+    transform: translateY(0); /* Trả về vị trí ban đầu */
+    background-color: var(--bg-hover-btn);
+    color: var(--main-color);
+  }
+  .box-notifi h2{
+    color: var(--bg-header);
+  }
 
-</style>
+  </style>
 </head>
 <body>
   <header>
@@ -367,8 +380,9 @@ header img {
                   <div class="box-notifi">
                     <h2 class="d-flex justify-content-center">Giỏ hàng</h2>
                     <div id="cart-content">
-                    <!-- Nội dung giỏ hàng sẽ được chèn vào đây thông qua JavaScript -->
-                    <!-- <p class="text-center text-muted">Đang tải dữ liệu...</p> -->
+                        <?php 
+                          
+                        ?>
                 </div>
                   </div>
                 </div>
