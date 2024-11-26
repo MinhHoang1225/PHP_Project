@@ -15,23 +15,9 @@
             height: 100vh; /* Chiều cao toàn màn hình */
         }
 
-        /* Slidebar */
-        .slidebar {
-            flex: 1; /* Chiếm 1 phần trong tổng layout */
-            max-width: 30%; /* Giới hạn chiều rộng tối đa */
-            background-color: #f4f4f4; /* Màu nền cho dễ kiểm tra */
-            padding: 10px;
-            box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng kích thước */
-        }
 
-        /* Product Card */
-        .product-card {
-            flex: 3; /* Chiếm 3 phần trong tổng layout */
-            max-width: 70%; /* Giới hạn chiều rộng tối đa */
-            background-color: #fff; /* Màu nền */
-            padding: 10px;
-            box-sizing: border-box;
-        }
+
+
     </style>
 </head>
 <body>
