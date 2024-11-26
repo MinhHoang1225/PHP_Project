@@ -274,7 +274,18 @@ body {
   border-radius: 5px;
   margin-top: 20px;
 }
-
+.add_product{
+  padding: 10px;
+  color: var(--main-color);
+  background-color: #159198;
+  font-size: 16px;
+  font-weight: bold;
+}
+.add_product:hover{
+  color: var(--bg-header);
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
     </style>
 </head>
 <body>
@@ -356,7 +367,7 @@ body {
         <!-- Section: Sản phẩm -->
         <section id="products" class="section">
             <h2>Sản phẩm</h2>
-            <button class="btn" onclick="document.getElementById('addProductModal').style.display='block'">Thêm Sản Phẩm</button>
+            <button class="btn add_product" onclick="document.getElementById('addProductModal').style.display='block'">Thêm Sản Phẩm</button>
             <table class="table">
                 <thead>
                     <tr>
@@ -423,9 +434,9 @@ body {
     <!-- Modal: Thêm Sản Phẩm -->
     <div id="addProductModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="document.getElementById('addProductModal').style.display='none'">&times;</span>
+            <span class="close " onclick="document.getElementById('addProductModal').style.display='none'">&times;</span>
             <form action="admin.php" method="POST" enctype="multipart/form-data">
-                <h3>Thêm Sản Phẩm</h3>
+                <h3 class="">Thêm Sản Phẩm</h3>
                 <label for="name">Tên sản phẩm:</label>
                 <input type="text" id="name" name="name" required>
                 <label for="price">Giá:</label>
@@ -434,7 +445,7 @@ body {
                 <input type="number" id="stock" name="stock" required>
                 <label for="image">Hình ảnh:</label>
                 <input type="file" id="image" name="image" required>
-                <button type="submit" name="add_product">Thêm</button>
+                <button class="" type="submit" name="add_product">Thêm</button>
             </form>
         </div>
     </div>
