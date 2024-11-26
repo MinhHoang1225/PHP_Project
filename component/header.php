@@ -253,16 +253,19 @@ header img {
     color: white;
     padding: 10px;
     border-radius: 5px;
-    display: block;
     position: absolute;
     top: 50px;
     right: 0;
-    z-index: 10;
+    z-index: 1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
     max-height: 400px;
     overflow-y: auto;
+    display: block; 
+    opacity: 0;
+    visibility: hidden; 
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background-color: var(--bg-header);
+    color: var(--main-color);
 }
 
 .box-notifi::before {
@@ -276,15 +279,14 @@ header img {
 }
 
 .hover-area:hover .box-notifi {
-    opacity: 1;
-    transform: translateY(0);
-    background-color:var(--bg-header);
-    color: var(--main-color);
+    opacity: 1; /* Hiển thị với hiệu ứng mờ dần */
+    visibility: visible; /* Cho phép hiển thị */
 }
 
 .box-notifi h2 {
     color: var(--bg-header);
 }
+
 
 .product {
     display: flex;
