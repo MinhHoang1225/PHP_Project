@@ -92,7 +92,7 @@ $cart_result = $cart_stmt->get_result();
     <script src="../assets/js/admin.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
- :root {
+  :root {
   --bg-header: #e5e5e5;
   --bg-btn: #0c6478;
   --bg-hover-btn: #159198;
