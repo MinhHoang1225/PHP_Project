@@ -37,14 +37,11 @@
     </style>
 </head>
 <body>
-    <div style="height: 2000px; padding: 20px;">
-        <h1>Scroll Down to See the Button</h1>
-        <p>Content goes here...</p>
-    </div>
+
 
     <!-- Nút Scroll to Top -->
     <button id="scrollToTopBtn">
-        <i class="fa-solid fa-circle-up"></i>
+        <i class="fa-solid fa-arrow-up"></i>
     </button>
 
     <script>

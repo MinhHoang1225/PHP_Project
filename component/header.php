@@ -1,5 +1,5 @@
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Project/database/connect.php"); ?>
 <?php
-  include('database/connect.php');
   $cart_id = 1; 
   $cart_sql = "SELECT 
     shopping_cart.cart_id AS cart_id,
@@ -355,6 +355,7 @@ header img {
     transform: scale(1.05); 
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
+
 </style>
 </head>
 <body>
@@ -363,7 +364,7 @@ header img {
       <div class="row">
           <div class="col-md-2">
             <div class="pt-2">
-              <a href=""><img src="assets/img/header_img/logo.png" class="img-fluid w-80" alt="Logo cửa hàng"></a>
+              <a href=""><img src="/PHP_Project/assets/img/header_img/logo.png" class="img-fluid w-80" alt="Logo cửa hàng"></a>
               
             </div>
           </div>
@@ -432,7 +433,7 @@ header img {
           </div>
             <div class="col-md-1 position-relative">
               <div class="p-3 d-flex justify-content-center gap-3">
-                <i class="fa-solid fa-circle-user fs-2 pt-3"></i>
+                <i class="fa-solid fa-circle-user fs-2 pt-3 " id='navigate_login'></i>
                 <div class="h-50"></div>
                 <!-- Gói cart-icon và box-notifi trong container -->
                 <div class="hover-area position-relative">
@@ -485,6 +486,8 @@ header img {
       </form>
     </div>
   </header>
-  
+  <script src="assets\js\main.js">
+</script>
+
 </body>
 </html>

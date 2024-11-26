@@ -1,14 +1,18 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
-    <link rel="stylesheet" href="../assets/css/about.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+   <script src="../assets/js/font-aware.js"></script>
 </head>
+
 <body>
-    <!--------------------------------- About---------------------------------------------------- -->
+<?php include("../component/header.php"); ?>
+
 <div class="about">
         <div class="about-us">
             <h2 class="heading-title">About Us</h2>
@@ -130,4 +134,6 @@
     </div>
     <!-- ===================================================================== -->
 </body>
+<?php include("../component/footer.php") ?>
+<?php include("../component/btn_up.php") ?>
 </html>
