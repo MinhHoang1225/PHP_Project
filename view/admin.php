@@ -305,7 +305,7 @@ body {
             <h2>Sản phẩm</h2>
             <table class="table">
                 <thead>
-                    <tr>
+                    <tr>;
                         <th>ID</th>
                         <th>Hình ảnh</th>
                         <th>Tên Giày</th>
