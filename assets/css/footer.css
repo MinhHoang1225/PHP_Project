@@ -29,7 +29,7 @@
     
     .logo-description, .footer_top .shop_widget p{
         color: var(--second-color);
-        font-size: 16px;
+        font-size: 18px;
         margin-top: 5px;
         line-height: 1.5;
     }
@@ -56,34 +56,6 @@
         margin-bottom: 0px;
     }
     
-    /* .footer_top .f_social_icon a {
-        width: 44px;
-        height: 44px;
-        line-height: 43px;
-        background: transparent;
-        border: 1px solid #e2e2eb;
-        font-size: 24px;
-    }
-    
-    .footer_top .f_social_icon {
-        margin-left: -0.5rem;
-    } */
-    
-    /* .f_social_icon a {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        font-size: 14px;
-        line-height: 40px;
-        color: var(--second-color);
-        display: inline-block;
-        background: #ebeef5;
-        text-align: center;
-        -webkit-transition: all 0.2s linear;
-        -o-transition: all 0.2s linear;
-        transition: all 0.2s linear;
-    } */
-    
     .f_subscribe_two {
         display: flex; 
         align-items: center; 
@@ -102,13 +74,14 @@
         flex: 1; 
         margin: 0;
         border-radius: 5px;
+        font-size: 16px;
     }
     
     .f_subscribe_two .btn_get_two {
         width:25%;
         flex-shrink: 0;
         padding: 10px 20px;
-        font-size: 16px;
+        font-size: 18px;
         border-radius: 5px;
         white-space: nowrap; 
     }
@@ -130,6 +103,7 @@
     .footer_top .f-title {
         margin-bottom: 30px;
         color: var(--main-color);
+        font-size: 20px;
     }
     .f_600 {
         font-weight: 600;
@@ -142,6 +116,7 @@
     }
     
     .footer_top .f_widget.shop-widget .f_list {
+        font-size: 18px;
         list-style: none;
     }
     
@@ -154,14 +129,7 @@
     .footer_top .f_widget.shop-widget .f_list li a {
         color:  var(--second-color);
         text-decoration: none;
-        
     }
-    
-    /* .f_subscribe_two .form-control.memail {
-        width: 100%; 
-        margin-right: 15px; 
-        border-radius: 5px;
-    } */
     
     .footer_bg {
         position: relative;
