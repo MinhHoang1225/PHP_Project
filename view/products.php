@@ -26,7 +26,7 @@
             <?php include("../component/slidebar.php"); ?>
         </div>
         <div class="product-card">
-            <?php include("../component/product_card.php"); ?>
+            <?php include("../component/product_card.php"); ?>      
         </div>
     </div>
 </body>

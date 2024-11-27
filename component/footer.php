@@ -1,13 +1,13 @@
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Project/database/connect.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets\css\footer.css">
-    <link rel="stylesheet" href="assets\css\bootstrap.min.css">
-    <script src="assets\js\bootstrap.bundle.min.js"></script>
-    <script src="assets\js\font-aware.js"></script>
-
+    <link rel="stylesheet" href="../assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/font-aware.js"></script>
     <title>Footer</title>
 </head>
 <style>
@@ -19,6 +19,167 @@
     .f_widget_1, .f_widget_3 {
         width:19% !important; 
     }
+    :root{
+    --bg-header: #e5e5e5;
+    --bg-btn: #0c6478;
+    --bg-hover-btn: #159198;
+    --main-font: sans-serif;
+    /* second-font:; */
+    --main-color: black;
+    --second-color: #666666B3;
+    --title-text-size: 32px;
+    --main-text-size:16px;
+    
+    }
+    
+    .footer_area {
+        background: #e5e5e5;
+    }
+    
+    .footer_top {
+        padding: 35px 0px 30px;
+        overflow-x: hidden;
+    }
+    
+
+    .logo-container .logo {
+        width: 80%;
+        margin: 40px 0 0 0px;
+        height: auto;
+    }
+    
+    .logo-description, .footer_top .shop_widget p{
+        color: var(--second-color);
+        font-size: 18px;
+        margin-top: 5px;
+        line-height: 1.5;
+    }
+    
+    a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
+        text-decoration: none;
+        outline: none;
+    }
+    
+    .footer_top .f_widget.shop-widget .f_list li a:hover {
+        color: var(--bg-btn);
+    }
+    
+    .footer_top .f_widget.shop-widget .f_list li {
+        margin-bottom: 11px;
+    }
+    .f_widget.shop-widget .f_list li:last-child {
+        margin-bottom: 0px;
+    }
+    .f_widget.shop-widget .f_list li {
+        margin-bottom: 15px;
+    }
+    .f_widget.shop-widget .f_list {
+        margin-bottom: 0px;
+    }
+    
+    .f_subscribe_two {
+        display: flex; 
+        align-items: center; 
+        gap: 10px; 
+    } 
+
+    .f_widget .f_subscribe_two .btn_get_two {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        background: var(--bg-btn);
+        color: #fff;
+        margin-top: 1px;
+    }
+    
+    .f_subscribe_two .form-control.memail {
+        flex: 1; 
+        margin: 0;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    
+    .f_subscribe_two .btn_get_two {
+        width:25%;
+        flex-shrink: 0;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 5px;
+        white-space: nowrap; 
+    }
+
+    .f_widget .f_subscribe_two .btn_get_two:hover {
+        background: transparent;
+        background-color: var(--bg-hover-btn);
+        color: #fff;
+    }
+    
+    .footer_top .f_social_icon a:hover {
+        background: var(--bg-hover-btn);
+        border-color: var(--bg-btn); 
+        color:white;
+    }
+    .footer_top .f_social_icon a + a {
+        margin-left: 4px;
+    }
+    .footer_top .f-title {
+        margin-bottom: 30px;
+        color: var(--main-color);
+        font-size: 20px;
+    }
+    .f_600 {
+        font-weight: 600;
+    }
+    .f_size_18 {
+        font-size: 18px;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        color: #4b505e;
+    }
+    
+    .footer_top .f_widget.shop-widget .f_list {
+        font-size: 18px;
+        list-style: none;
+    }
+    
+    .footer_top .f_widget.shop-widget .f_list li,
+    .footer_top .f_widget.shop-widget .f_list li i
+      {
+        color:  var(--second-color);
+    }
+
+    .footer_top .f_widget.shop-widget .f_list li a {
+        color:  var(--second-color);
+        text-decoration: none;
+    }
+    
+    .footer_bg {
+        position: relative;
+        bottom: 0;
+        background: url("https://p-vn.ipricegroup.com/trends-article/top-3-mau-giay-converse-duoc-cac-ngoi-sao-quoc-te-ua-chuong-medium.jpg") no-repeat scroll center 0;
+        width: 100%;
+        height: 320px;
+        background-size: cover; 
+    }
+    
+    .footer_bg .footer_bg_two {
+        background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
+        width: 88px;
+        height: 100px;
+        background-size:100%;
+        bottom: 0;
+        left: 38%;
+        position: absolute;
+        animation: slide 30s linear infinite;
+    }
+    
+    @keyframes slide {
+      0% {
+        left: -25%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
 </style>
 <body>
     <footer class="footer_area bg_color">
@@ -28,7 +189,8 @@
                     <div class="col-lg-3 col-md-6 f_widget_1">
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
                             <div class="logo-container">
-                                <img src="assets\img\header_img\logo.png" alt="" class="logo">
+                            <img src="/PHP_Project/assets/img/header_img/logo.png" alt="Logo" class="logo">
+
                             </div>
                             <!-- <p class="logo-description"><b>SNEAKER HOME </b> là cửa hàng chuyên cung cấp các mẫu giày sneaker hiện đại, phù hợp với nhiều phong cách và độ tuổi.</p> -->
                             <!-- <div class="f_social_icon">
