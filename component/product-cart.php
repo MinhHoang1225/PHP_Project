@@ -1,3 +1,34 @@
+<?php
+    session_start();
+    error_reporting(E_ALL ^ E_DEPRECATED);
+
+    include '../database/connect.php';
+    /**
+     * 1. Lấy dữ liệu từ sản Phẩm sau đó so sảnh với id order -> lưu shopping cart
+     * 2. Lấy dữ liệu từ shopping cart -> render ra trang giỏ hàng
+     * 
+     */
+    
+         // Lấy dữ liệu giỏ hàng
+    $cart_sql = "SELECT 
+            shopping_cart.cart_id AS cart_id,
+            products.product_id AS product_id,
+            products.name AS product_name,
+            products.price AS product_price,
+            products.img AS product_image,
+            cart_items.quantity AS cart_quantity,
+            (products.price * cart_items.quantity) AS total_price
+        FROM shopping_cart
+        INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+        INNER JOIN products ON cart_items.product_id = products.product_id";
+    $cart_stmt = $conn->prepare($cart_sql);
+    $cart_stmt->execute();
+    $cart_result = $cart_stmt->get_result();
+    // Total cart
+    $total = 0;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,36 +59,51 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- RENDER DATABASE -->
+                                <?php
+                                   
+                                   if ($cart_result->num_rows > 0) {
+                                    while ($row = $cart_result->fetch_assoc()) {
+                                        $total += $row['total_price'];
+                                        
+                                ?>
                                 <tr class="item">
                                     <td class="image">
                                         <div class="product-image">
-                                            <a href="http://t0239.store.nhanh.vn/cart">
-                                                <img src="../assets/img/tải xuống.jpg" alt="áo" data-sizes="auto" sizes="102px">
+                                            <a href="http://t0239.store.nhanh.vn/cart"> 
+                                                <img src="../assets./img/<?php echo $row['product_image']?>" alt="<?php echo $row['product_name'] ?>" data-sizes="auto" style="font-size: 16px">
                                             </a>
                                         </div>
                                     </td>
                                     <td class="product-Name">
                                         <a href="http://t0239.store.nhanh.vn/cart">
-                                           <span class="text-hover">Áo Polo Fear Of God Essentials SS Polo String - S</span>
+                                           <span class="text-hover"><?php echo $row['product_name'] ?></span>
                                         </a>
                                     </td>
                                     <td class="qty">
-                                        <input type="number" min="1" max="5000" value="1" class="item-quantity" data-id="37960161">
+                                        <input type="number" min="1" max="5000" value="<?php echo $row['cart_quantity'] ?>" class="item-quantity" data-id="37960161">
                                     </td>
-                                    <td class="price">1.350.000 đ</td>
+                                    <td class="price"><?php echo number_format($row['product_price'], 0, ',', '.'); ?> đ</td>
                                     <td class="remove">
                                         <a href="http://t0239.store.nhanh.vn/cart">
                                             <i class="fa-regular fa-circle-xmark"></i>
                                         </a>
                                     </td>
                                 </tr>
+                                <?php
+                                        }
+                                    }else {
+                                        echo "<tr><td colspan='5' class='text-center'>Giỏ hàng của bạn đang trống. <a href='/shop'><i class='fa fa-reply' aria-hidden='true'></i>Mua sắm ngay</a></td></tr>";
+                                    }
+                                ?>
                             </tbody>
                         </table>
                     </div>
+                    <!-- TOTAL -->
                     <div class="total-checkout">
                         <div class="box-totalMoney">
                             <span>Tổng tiền : </span>
-                            <span class="text-bold">1.350.000đ</span>
+                            <span class="text-bold"><?php echo number_format($total, 0, ',', '.'); ?> đ</span>
                         </div>
                         <div class="cart-buttons buttons">
                             <button type="button" id="update-cart" class="button-default">
