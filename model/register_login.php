@@ -491,7 +491,7 @@
   <body>
     <div class="container" id="container">
       <div class="form-container register-container">
-      <button class="close-button-register">&times;</button>
+      <button class="close-button-register" id="navigate_index">&times;</button>
         <form>
           <h1>Đăng ký tại đây</h1>
           <div class="form-control">
@@ -521,7 +521,7 @@
       </div>
 
       <div class="form-container login-container">
-        <button class="close-button-login">&times;</button>
+        <button class="close-button-login " id="navigate_index">&times;</button>
         <form class="form-lg">
           <h1>Đăng nhập tại đây</h1>
           <div class="form-control2">
@@ -587,6 +587,15 @@
       </div>
     </div>
   </body>
+  <script>
+    document.getElementById("navigate_index").onclick = function() {
+      setTimeout(function() {
+          window.location.href = "../index.php";  
+      }, 600); 
+      };
+
+  </script>
+
   <script >
     const registerButton = document.getElementById("register");
     const loginButton = document.getElementById("login");
