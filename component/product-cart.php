@@ -29,7 +29,6 @@
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,13 +59,13 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- RENDER DATABASE -->
                                 <?php
                                    
                                    if ($cart_result->num_rows > 0) {
                                     while ($row = $cart_result->fetch_assoc()) {
                                         $total += $row['total_price'];
                                         
-                                    
                                 ?>
                                 <tr class="item">
                                     <td class="image">
@@ -100,6 +99,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <!-- TOTAL -->
                     <div class="total-checkout">
                         <div class="box-totalMoney">
                             <span>Tổng tiền : </span>
