@@ -69,6 +69,7 @@
     position: relative;
 }
 
+
 .bannerNews-home-name {
     display: block;
     position: absolute;
@@ -113,6 +114,8 @@ img {
     transition: filter .6s, opacity .6s, transform .6s, box-shadow .3s;
 } 
 
-
+a{
+    text-decoration: none;
+}
 
 

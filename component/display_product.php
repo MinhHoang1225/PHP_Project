@@ -1,5 +1,3 @@
-
-
 <?php
     include('../database/connect.php');
     
@@ -36,122 +34,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>favourite</title>
-    <!-- <link rel="stylesheet" href="../assets\css\bootstrap.min.css"> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/font-aware.js"></script>
 
-    <!-- <script src="../assets\js\bootstrap.bundle.min.js"></script>
-    <script src="../assets\js\font-aware.js"></script> -->
     <style>
     
-    .container {
-        display: flex;          
-        flex-wrap: wrap;        
-        justify-content: start; 
-        gap: 15px;              
-        margin-left: 50px;
-    }
+    .container1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
 
-    .product-card {
-        width: 260px;           
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        overflow: hidden;
-        text-align: center;
-        margin: 15px;
-        
-    }
+.product-card {
+    width: 260px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    margin: 30px;
+}
 
-    
-    .product-card img {
-        width: 100%;
-        height: 200px;
-        
-    }
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;  /* Đảm bảo ảnh không bị biến dạng */
+}
 
-    .product-info {
-        padding: 0px 15px;
-    }
+.product-info {
+    padding: 0px 15px;
+}
 
-    .product-name {
-        font-size: 16px;
-        font-weight: bold;
-        height:50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 10px 0;
-        font-family: "Work Sans", sans-serif;
+.product-name {
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    font-family: "Work Sans", sans-serif;
+}
 
-    }
+.product-price {
+    color: #ff0000;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: "Work Sans", sans-serif;
+}
 
-    .product-price {
-        color: #ff0000;
-        font-size: 18px;
-        font-weight: bold;
-        font-family: "Work Sans", sans-serif;
-    }
+.product-original-price {
+    text-decoration: line-through;
+    color: #a0a0a0;
+    font-size: 14px;
+}
 
-    .product-original-price {
-        text-decoration: line-through;
-        color: #a0a0a0;
-        font-size: 14px;
-    }
+.price-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
-    .price-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        
-    }
-    .heart-icon{
-        margin: 10px;
-        display:flex;
-        justify-content: flex-end;
-        font-size: 20px;
-        color: red;
-    }
-    .cart-icon{
-        margin: 5px 10px;
-        display:flex;
-        justify-content: flex- stat;
-        font-size: 30px;
-        color: red;
-    }
-    .title-favourite-product{
-        display: flex;
-        justify-content: center;
-        font-family: "Work Sans", sans-serif;
-        
-    }
-    .title-favourite-product {
+.heart-icon {
+    margin: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 20px;
+    color: red;
+}
+
+.cart-icon {
+    margin: 5px 10px;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 30px;
+    color: red;
+}
+
+.title-favourite-product {
+    display: flex;
+    justify-content: center;
+    font-family: "Work Sans", sans-serif;
     text-align: center;
     margin: 20px 0;
-    }
+}
 
-    .section-title {
-        display: inline-block;
-        position: relative;
-        font-size: 20px;
-        color: #555; /* Bạn có thể thay đổi màu sắc nếu cần */
-    }
+.section-title {
+    display: inline-block;
+    position: relative;
+    font-size: 20px;
+    color: #555;
+}
 
-    .section-title::before,
-    .section-title::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        width: 100px;
-        height: 2px;
-        background-color: #ccc;
-    }
+.section-title::before,
+.section-title::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 2px;
+    background-color: #ccc;
+}
 
-    .section-title::before {
-        left: -110px; /* Khoảng cách từ tiêu đề đến vạch trái */
-    }
+.section-title::before {
+    left: -110px;
+}
 
-    .section-title::after {
-        right: -110px; /* Khoảng cách từ tiêu đề đến vạch phải */
-    }
+.section-title::after {
+    right: -110px;
+}
 
 </style>
 </head>
@@ -159,13 +151,14 @@
 
     <div class="title-favourite-product"> 
         <h2 class="section-title">
-            <span class="text-uppercase fw-bold">
+            <span class="text-uppercase">
                 SẢN PHẨM YÊU THÍCH
             </span>
         </h2>
         
     </div>
     <div class="container">
+        <div class="container1">
     <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -211,7 +204,7 @@
         $conn->close();
     ?>
 </div> <!-- Kết thúc container -->
-
+</div>
 </body>
 </html>
 

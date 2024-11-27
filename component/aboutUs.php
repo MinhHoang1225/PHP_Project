@@ -24,7 +24,7 @@
         <div class="row bannerNews-home">
           <div class="col-3">
             <div class="bannerNews-home-content">
-              <a class="image-content">
+              <a class="image-content" style="text-decoration: none;">
                 <img src="assets/img/aboutUs_img/sale.png" alt="Sale">
               </a>
               <a href="javascript:void(0);" class="bannerNews-home-name">Sale</a>
@@ -41,7 +41,7 @@
           </div>
           <div class="col-3">
             <div class="bannerNews-home-content">
-              <a class="image-content">
+              <a class="image-content" style="text-decoration: none">
                 <img src="assets/img/aboutUs_img/sale.png" alt="Sale">
               </a>
               <a href="javascript:void(0);" class="bannerNews-home-name">Super Sale</a>

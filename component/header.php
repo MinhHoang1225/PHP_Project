@@ -20,7 +20,7 @@
   $result = $stmt->get_result();
 
  ?>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -386,8 +386,7 @@ header img {
       <div class="row">
           <div class="col-md-2">
             <div class="pt-2">
-              <a href=""><img src="/PHP_Project/assets/img/header_img/logo.png" class="img-fluid w-80" alt="Logo cửa hàng"></a>
-              
+              <img src="/PHP_Project/assets/img/header_img/logo.png" class="img-fluid w-80" alt="Logo cửa hàng" onclick="navigateTo('./index.php')"></a>
             </div>
           </div>
           <div class="col-md-9">
@@ -445,9 +444,9 @@ header img {
                         <li class="lv2">Giày Adidas</li>
                       </ul>
                     </li>
-                    <li class="lv1 cate_hover">Yêu thích</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/favorite_product.php')">Yêu thích</li>
                     <li class="lv1 cate_hover">Quần áo</li>
-                    <li class="lv1 cate_hover">Khuyến mại</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/discount.php')">Khuyến mại</li>
                   </ul>
                 </div>
               </div>
@@ -455,12 +454,11 @@ header img {
           </div>
             <div class="col-md-1 position-relative">
               <div class="p-3 d-flex justify-content-center gap-3">
-                <i class="fa-solid fa-circle-user fs-2 pt-3 " id='navigate_login'></i>
+                <i class="fa-solid fa-circle-user fs-2 pt-3 " onclick="navigateTo('./model/register_login.php')"></i>
                 <div class="h-50"></div>
                 <!-- Gói cart-icon và box-notifi trong container -->
                 <div class="hover-area position-relative">
                   <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon"></i>
-                  <span class="cart-count position-absolute">0</span>
                   <div class="box-notifi">
                     <div id="cart-content">
                       <h2 style="text-align: center;padding:15px;color: var(--main-color)">Giỏ hàng</h2>
@@ -511,23 +509,6 @@ header img {
   </header>
   <script src="assets\js\main.js">
 </script>
-<script>
-  // Lấy số lượng từ localStorage
-function loadCartCount() {
-    const cartCount = localStorage.getItem('cartCount') || 0;
-    updateCartCount(cartCount);
-}
-
-// Cập nhật số lượng và lưu vào localStorage
-function addToCart() {
-    cartCount++;
-    localStorage.setItem('cartCount', cartCount);
-    updateCartCount(cartCount);
-}
-
-// Gọi khi trang load
-loadCartCount();
-
 </script>
 
 </body>

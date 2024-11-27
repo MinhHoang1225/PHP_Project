@@ -8,6 +8,182 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
    <script src="../assets/js/font-aware.js"></script>
+   <script src="../assets/js/navigation.js"></script>
+   <style>
+   :root {
+  --bg-header: #e5e5e5;
+  --bg-btn: #0c6478;
+  --bg-hover-btn: #159198;
+  --main-font: 'Poppins', sans-serif;
+  --main-color: #000;
+  --second-color: #666666b3;
+  --title-text-size: 32px;
+  --main-text-size: 16px;
+  --highlight-color: #fc0;
+}
+
+body {
+  font-family: var(--main-font);
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: var(--main-color);
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  background-color: #fff;
+  padding: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* CSS chung */
+.heading-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--bg-btn);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.row-line {
+  width: 60px;
+  height: 4px;
+  background-color: var(--highlight-color);
+  margin: 20px auto;
+  border-radius: 2px;
+}
+
+.heading-description {
+  font-size: 1.2rem;
+  color: var(--second-color);
+  line-height: 1.6;
+  text-align: center;
+}
+
+/* Who We Are */
+.who-we-are {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.who-we-are .image {
+  flex: 1;
+  border: 8px solid var(--highlight-color);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.img-who-we-are {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.heading-who-we-are {
+  flex: 2;
+  text-align: left;
+}
+
+.heading-who-we-are .heading-description {
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* What We Do */
+.menu-description {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  position: relative;
+}
+
+.menu-item::before {
+  content: '•';
+  color: var(--highlight-color);
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+/* Our Team */
+.our-team {
+  text-align: center;
+}
+
+.card {
+    display: grid;
+    grid-auto-flow: column; /* Đặt tất cả thẻ vào hàng ngang */
+    gap: 110px; /* Khoảng cách giữa các thẻ */
+    justify-content: start; /* Hoặc dùng justify-content: center; để căn giữa */
+    overflow-x: auto; /* Cho phép thanh cuộn nếu không đủ không gian */
+}
+
+.card-member {
+    width: 300px;
+    text-align: center;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.card-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-links a {
+  color: var(--bg-btn);
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: var(--bg-hover-btn);
+}
+
+.info-member .name-member {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color:#fff
+}
+
+.info-member .position-member {
+  font-size: 1rem;
+  color: #ccc;
+  margin-top: 5px;
+}
+
+   </style>
 </head>
 
 <body>
@@ -60,18 +236,18 @@
             <h2 class="heading-title">Our Team</h2>
             <div class="card">
             <div class="card-member">
-                    <div class="profile-image">
+                <div class="profile-image">
                     <img src="../assets/img/who_we_are.jpg" alt="Amanda Care">
-                    </div>
-                    <div class="social-links">
+                </div>
+                <div class="social-links">
                     <a href="#"><i class="fa-brands fa-facebook"></i></a>
                     <a href="#"><i class="fa-brands fa-instagram"></i></a>
                     <a href="#"><i class="fa-solid fa-envelope"></i></i></a>
-                    </div>
-                    <div class="info-member">
+                </div>
+                <div class="info-member">
                     <h2 class="name-member">Đoàn Minh Hoàng</h2>
                     <p class="position-member">Leader</p>
-                    </div>
+                </div>
                 </div>
                 <div class="card-member">
                     <div class="profile-image">
