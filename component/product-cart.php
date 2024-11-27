@@ -1,6 +1,4 @@
 <?php
-    session_start();
-    error_reporting(E_ALL ^ E_DEPRECATED);
 
     include '../database/connect.php';
     /**
@@ -85,7 +83,7 @@
                                     </td>
                                     <td class="price"><?php echo number_format($row['product_price'], 0, ',', '.'); ?> đ</td>
                                     <td class="remove">
-                                        <a href="http://t0239.store.nhanh.vn/cart">
+                                        <a href="./delete-product-cart.php?product_id=<?php echo $row['product_id']; ?>&cart_id=<?php echo $row['cart_id']; ?>">
                                             <i class="fa-regular fa-circle-xmark"></i>
                                         </a>
                                     </td>
@@ -93,7 +91,7 @@
                                 <?php
                                         }
                                     }else {
-                                        echo "<tr><td colspan='5' class='text-center'>Giỏ hàng của bạn đang trống. <a href='/shop'><i class='fa fa-reply' aria-hidden='true'></i>Mua sắm ngay</a></td></tr>";
+                                        echo "<tr><td colspan='5' class='text-center'>Giỏ hàng của bạn đang trống. <a href='/shop'> </br> <i class='fa fa-reply' aria-hidden='true'></i>Mua sắm ngay</a></td></tr>";
                                     }
                                 ?>
                             </tbody>
