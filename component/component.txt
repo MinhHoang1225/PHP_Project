@@ -10,4 +10,4 @@ font-family: "Work Sans", sans-serif;
 -- khi code mà dùng bootstrap thì copy cái này bỏ lên phần <head></head>
     <link rel="stylesheet" href="assets\css\bootstrap.min.css">
     <script src="assets\js\bootstrap.bundle.min.js"></script>
-    <script src="assets\js\font-aware.js"></script>
+   <script src="assets\js\font-aware.js"></script>
