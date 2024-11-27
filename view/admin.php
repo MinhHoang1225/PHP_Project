@@ -91,6 +91,7 @@ $cart_result = $cart_stmt->get_result();
     <link rel="stylesheet" href="assets/css/admin.css">
     <script src="../assets/js/admin.js" defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="../assets/js/navigation.js"></script>
     <style>
   :root {
   --bg-header: #e5e5e5;
@@ -277,22 +278,114 @@ body {
 .add_product{
   padding: 10px;
   color: var(--main-color);
-  background-color: #159198;
+  background-color: var(--bg-btn);
   font-size: 16px;
   font-weight: bold;
 }
 .add_product:hover{
   color: var(--bg-header);
+  background-color: var(--bg-hover-btn);
   transform: translateY(-2px);
   transition: transform 0.3s ease;
 }
+
+/* Modal background */
+.modal {
+    display: none; /* Mặc định không hiển thị */
+    position: fixed;
+    z-index: 1; /* Đảm bảo modal luôn ở trên các phần tử khác */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0); /* Màu nền đen mờ */
+    background-color: rgba(0, 0, 0, 0.4); /* Nền đen mờ với độ trong suốt */
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Chiều rộng modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
+    border-radius: 8px; /* Bo tròn các góc */
+}
+
+/* Đóng modal */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Form container */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Khoảng cách giữa các trường trong form */
+}
+
+/* Label và input */
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: "Work Sans", sans-serif;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Button */
+button {
+    background-color: var(--bg-btn); /* Màu nền nút */
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: var(--bg-hover-btn); /* Màu nền khi hover */
+}
+
+/* Thêm khoảng cách cho tiêu đề */
+h3 {
+    text-align: center;
+    font-size: 24px;
+    font-family: "Work Sans", sans-serif;
+    color: #fff;
+}
+
     </style>
 </head>
 <body>
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="logo">
-            <img src="../assets/img/header_img/logo.png" alt="" style="width: 200px;">
+            <img src="../assets/img/header_img/logo.png" alt="" style="width: 200px;" onclick="navigateTo('./index.php')">
         </div>
         <nav class="menu">
             <a href="#" data-section="dashboard" class="active">
@@ -458,6 +551,29 @@ body {
                 modal.style.display = "none";
             }
         }
+    </script>
+    <script>
+      const menuItems = document.querySelectorAll(".menu a");
+      const sections = document.querySelectorAll(".section");
+      menuItems.forEach((item) => {
+        item.addEventListener("click", (event) => {
+          event.preventDefault();
+          menuItems.forEach((menuItem) => menuItem.classList.remove("active"));
+          item.classList.add("active");
+          sections.forEach((section) => {
+            section.style.display = "none";
+          });
+          const sectionId = item.getAttribute("data-section");
+          const activeSection = document.getElementById(sectionId);
+          if (activeSection) {
+            activeSection.style.display = "block";
+          }
+        });
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        sections.forEach((section) => (section.style.display = "none"));
+        document.getElementById("dashboard").style.display = "block";
+      });
     </script>
 </body>
 </html>
