@@ -356,6 +356,28 @@ header img {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+.hover-area {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    position: absolute;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 </style>
 </head>
 <body>
@@ -438,6 +460,7 @@ header img {
                 <!-- Gói cart-icon và box-notifi trong container -->
                 <div class="hover-area position-relative">
                   <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon"></i>
+                  <span class="cart-count position-absolute">0</span>
                   <div class="box-notifi">
                     <div id="cart-content">
                       <h2 style="text-align: center;padding:15px;color: var(--main-color)">Giỏ hàng</h2>
@@ -487,6 +510,24 @@ header img {
     </div>
   </header>
   <script src="assets\js\main.js">
+</script>
+<script>
+  // Lấy số lượng từ localStorage
+function loadCartCount() {
+    const cartCount = localStorage.getItem('cartCount') || 0;
+    updateCartCount(cartCount);
+}
+
+// Cập nhật số lượng và lưu vào localStorage
+function addToCart() {
+    cartCount++;
+    localStorage.setItem('cartCount', cartCount);
+    updateCartCount(cartCount);
+}
+
+// Gọi khi trang load
+loadCartCount();
+
 </script>
 
 </body>
