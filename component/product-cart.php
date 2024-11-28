@@ -79,18 +79,19 @@
                                         </a>
                                     </td>
                                     <td class="qty">
-                                        <input type="number" min="1" max="5000" value="<?php echo $row['cart_quantity'] ?>" class="item-quantity" data-id="37960161">
+                                        <input type="number" min="1" max="5000" value="<?php echo $row['cart_quantity'] ?>" class="item-quantity" data-id="<?php echo $row['cart_id']; ?>" >
                                     </td>
                                     <td class="price"><?php echo number_format($row['product_price'], 0, ',', '.'); ?> đ</td>
                                     <td class="remove">
-                                        <a href="./delete-product-cart.php?product_id=<?php echo $row['product_id']; ?>&cart_id=<?php echo $row['cart_id']; ?>">
-                                            <i class="fa-regular fa-circle-xmark"></i>
+                                        <a href="javascript:void(0)" 
+                                            onclick="confirmDelete('<?php echo $row['product_id']; ?>', '<?php echo $row['cart_id']; ?>')">
+                                                <i class="fa-regular fa-circle-xmark"></i>
                                         </a>
                                     </td>
                                 </tr>
                                 <?php
                                         }
-                                    }else {
+                                    } else {
                                         echo "<tr><td colspan='5' class='text-center'>Giỏ hàng của bạn đang trống. <a href='/shop'> </br> <i class='fa fa-reply' aria-hidden='true'></i>Mua sắm ngay</a></td></tr>";
                                     }
                                 ?>
@@ -120,3 +121,15 @@
     </div>
 </body>
 </html>
+<!-- Xoá sản phẩm -->
+<script>
+    function confirmDelete(productId, cartId) {
+        // Hiển thị hộp thoại xác nhận
+        const isConfirmed = confirm("Bạn có chắc chắn muốn xoá sản phẩm khỏi giỏ hàng không?")
+        if(isConfirmed) {
+            // Nếu người dùng xác nhận, chuyển hướng đến tệp PHP xử lý xoá
+            window.location.href = `./delete-product-cart.php?product_id=${productId}&cart_id=${cartId}`;
+        }
+    }
+
+ </script>

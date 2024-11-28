@@ -2,12 +2,15 @@
 
     include '../database/connect.php';
 
-    // Lấy các id của sản phẩm
-    $product_id = $_GET['product_id'];
-    $cart_id = $_GET['cart_id'];
 
-    // Kiểm tra 
+    // Kiểm tra tham số đầu vào
     if(isset($_GET['product_id']) && isset($_GET['cart_id'])){
+
+
+        // Lấy các id của sản phẩm
+        $product_id = $_GET['product_id'];
+        $cart_id = $_GET['cart_id'];
+
         // Xoá sản phẩm
         $delete_sql = "DELETE FROM cart_items WHERE product_id = ? AND cart_id = ?";
         $delete_stmt = $conn->prepare($delete_sql);
