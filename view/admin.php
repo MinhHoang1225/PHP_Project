@@ -499,7 +499,7 @@ h3 {
                           <td>
                               <button class="btn edit" 
                                   onclick="openEditModal(
-                                      <?= $product['product_id'] ?>, 
+                                      <?= $product['product_idg'] ?>, 
                                       '<?= addslashes($product['name']) ?>', 
                                       <?= $product['price'] ?>, 
                                       <?= $product['stock'] ?>, 
