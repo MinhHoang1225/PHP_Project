@@ -1,100 +1,3 @@
-<?php
-// Kết nối với cơ sở dữ liệu
-require_once '../database/connect.php';
-require_once '../phpmailler/Exception.php';
-require_once '../phpmailler/PHPMailer.php';
-require_once '../phpmailler/SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Khởi tạo session để lưu trữ OTP tạm thời
-session_start();
-
-if (isset($_POST['submit'])) {
-    // Lấy thông tin từ form
-    $username = trim($_POST['username']);
-    $email = trim($_POST['email']);
-    $password = trim($_POST['password']);
-    $confirm_password = trim($_POST['confirm_password']);
-
-    // Kiểm tra các trường bắt buộc
-    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
-        die("All fields are required.");
-    }
-
-    // Kiểm tra mật khẩu có khớp không
-    if ($password !== $confirm_password) {
-        die("Passwords do not match.");
-    }
-
-    // Mã hóa mật khẩu
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Tạo mã OTP (6 chữ số)
-    $otp = random_int(100000, 999999);
-
-    // Lưu thông tin người dùng và OTP vào session
-    $_SESSION['username'] = $username;
-    $_SESSION['email'] = $email;
-    $_SESSION['password'] = $hashed_password;
-    $_SESSION['otp'] = $otp;
-
-    // Gửi OTP qua email
-    $mail = new PHPMailer(true);
-    try {
-        $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'hoangdzai22@gmail.com'; // Thay bằng email của bạn
-        $mail->Password = 'ppxsuuhcpijgirxv'; // Thay bằng mật khẩu email của bạn
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-
-        $mail->setFrom('hoangdzai22@gmail.com', 'Sneaker Home');
-        $mail->addAddress($email);
-        $mail->isHTML(true);
-        $mail->Subject = 'Your OTP Code';
-        $mail->Body = "<h1>Hello, $username!</h1>
-                       <p>Your OTP for account verification is:</p>
-                       <h2 style='color:blue;'>$otp</h2>
-                       <p>Please enter this code on the verification page to activate your account.</p>";
-
-        $mail->send();
-        echo "Registration successful! Please check your email for the OTP.";
-    } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-    }
-}
-
-// Xử lý xác thực OTP
-if (isset($_POST['verify'])) {
-    // Lấy OTP người dùng nhập
-    $user_otp = trim($_POST['otp']);
-
-    // Kiểm tra OTP
-    if ($user_otp == $_SESSION['otp']) {
-        // Lưu người dùng vào cơ sở dữ liệu nếu OTP đúng
-        $username = $_SESSION['username'];
-        $email = $_SESSION['email'];
-        $password = $_SESSION['password'];
-
-        // Lưu thông tin người dùng vào cơ sở dữ liệu
-        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-        if (mysqli_query($conn, $sql)) {
-            $message = "Đăng ký thành công!";
-            session_unset(); // Xóa dữ liệu session
-        } else {
-            $message = "Lỗi: " . mysqli_error($conn);
-        }
-    } else {
-        $message = "OTP không chính xác!";
-    }
-
-    echo $message;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -117,43 +20,42 @@ if (isset($_POST['verify'])) {
     <div class="container" id="container">
       <div class="form-container register-container">
       <button class="close-button-register" onclick="navigateTo('./index.php')">&times;</button>
-        <form>
+      <!-- Form Đăng ký -->
+      <form method="POST" id="register-form" action="register_login.php">
           <h1>Đăng ký tại đây</h1>
           <div class="form-control">
-            <input type="text" id="username" placeholder="Tên đăng nhập" />
+            <input type="text" name="username" id="username" placeholder="Tên đăng nhập" required />
             <small id="username-error"></small>
-            <span></span>
           </div>
           <div class="form-control">
-            <input type="email" id="email" placeholder="E-mail" />
+            <input type="email" name="email" id="email" placeholder="E-mail" required />
             <small id="email-error"></small>
-            <span></span>
           </div>
           <div class="form-control">
-            <input type="password" id="password" placeholder="Mật khẩu" />
+            <input type="password" name="password" id="password" placeholder="Mật khẩu" required />
             <small id="password-error"></small>
-            <span></span>
           </div>
           <div class="form-control">
-            <input type="password" id="confirm-password" placeholder="Xác nhận mật khẩu" />
+            <input type="password" name="confirm_password" id="confirm-password" placeholder="Xác nhận mật khẩu" required />
             <small id="confirm-password-error"></small>
-            <span></span>
           </div>
-          <div class="form-control">
-            <button type="button" id="send-otp-btn">Gửi OTP</button>
+          <button type="submit" name="submit" id="send-otp-btn">Đăng ký và Gửi OTP</button>
+        </form>
+      </div>
+
+      <!-- Form Xác minh OTP -->
+      <div class="form-container otp-container" style="display: none;">
+        <form method="POST" id="otp-form">
+          <label>Nhập OTP:</label>
+          <div class="otp-container">
+            <input type="text" name="otp1" maxlength="1" class="otp-input" required />
+            <input type="text" name="otp2" maxlength="1" class="otp-input" required />
+            <input type="text" name="otp3" maxlength="1" class="otp-input" required />
+            <input type="text" name="otp4" maxlength="1" class="otp-input" required />
+            <input type="text" name="otp5" maxlength="1" class="otp-input" required />
+            <input type="text" name="otp6" maxlength="1" class="otp-input" required />
           </div>
-          <!-- OTP -->
-          <form method="POST">
-            <label style="padding-top: 10px;">Enter OTP:</label>
-            <div class="otp-container">
-                <input type="text" name="otp1" maxlength="1" class="otp-input" required>
-                <input type="text" name="otp2" maxlength="1" class="otp-input" required>
-                <input type="text" name="otp3" maxlength="1" class="otp-input" required>
-                <input type="text" name="otp4" maxlength="1" class="otp-input" required>
-                <input type="text" name="otp5" maxlength="1" class="otp-input" required>
-                <input type="text" name="otp6" maxlength="1" class="otp-input" required>
-            </div>
-            <button type="submit" name="verify">Verify</button>
+          <button type="submit" name="verify" id="verify">Xác nhận OTP</button>
         </form>
       </div>
 
@@ -262,24 +164,8 @@ if (isset($_POST['verify'])) {
 
 
 
-  <script>
-      document.getElementById('send-otp-btn').addEventListener('click', function() {
-        const email = document.getElementById('email').value;
-        if (email) {
-          alert('Mã OTP đã được gửi đến email của bạn.');
-          document.getElementById('otp-container').style.display = 'block';
-        } else {
-          alert('Vui lòng nhập email trước khi yêu cầu OTP.');
-        }
-      });
-    </script>
-  <script>
-    document.getElementById("navigate_index2").onclick = function() {
-      setTimeout(function() {
-          window.location.href = "../index.php";  
-      }, 100); 
-      };
-  </script>
+
+
 
   <script >
     const registerButton = document.getElementById("register");
