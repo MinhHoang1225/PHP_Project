@@ -44,9 +44,9 @@
                 <div class="product-size">
                     <label>Size:</label>
                     <div class="size-options">
-                        <button>L</button>
-                        <button>M</button>
-                        <button>S</button>
+                        <button value="L">L</button>
+                        <button value="M">M</button>
+                        <button value="S">S</button>
                     </div>
                 </div>
                 <p class="stock-status">Còn hàng</p>
