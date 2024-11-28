@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../assets/js/navigation.js"></script>
     <title>registerAndLogin</title>
      <style>
         /* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"); */
@@ -491,7 +492,7 @@
   <body>
     <div class="container" id="container">
       <div class="form-container register-container">
-      <button class="close-button-register" id="navigate_index">&times;</button>
+      <button class="close-button-register" onclick="navigateTo('./index.php')">&times;</button>
         <form>
           <h1>Đăng ký tại đây</h1>
           <div class="form-control">
@@ -521,7 +522,7 @@
       </div>
 
       <div class="form-container login-container">
-        <button class="close-button-login " id="navigate_index">&times;</button>
+        <button class="close-button-login " onclick="navigateTo('./index.php')">&times;</button>
         <form class="form-lg">
           <h1>Đăng nhập tại đây</h1>
           <div class="form-control2">
@@ -587,13 +588,13 @@
       </div>
     </div>
   </body>
+
   <script>
-    document.getElementById("navigate_index").onclick = function() {
+    document.getElementById("navigate_index2").onclick = function() {
       setTimeout(function() {
           window.location.href = "../index.php";  
-      }, 600); 
+      }, 100); 
       };
-
   </script>
 
   <script >
