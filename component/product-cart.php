@@ -79,7 +79,7 @@
                                         </a>
                                     </td>
                                     <td class="qty">
-                                        <input type="number" min="1" max="5000" value="<?php echo $row['cart_quantity'] ?>" class="item-quantity" data-id="<?php echo $row['cart_id']; ?>" >
+                                        <input type="number" min="1" max="5000" value="<?php echo $row['cart_quantity'] ?>" class="item-quantity" data-id="<?php echo $row['cart_id']; ?>" onchange="updateQuantity(this,'<?php echo $row['product_id']; ?>','<?php echo $row['cart_id']; ?>')">
                                     </td>
                                     <td class="price"><?php echo number_format($row['product_price'], 0, ',', '.'); ?> đ</td>
                                     <td class="remove">
@@ -105,9 +105,12 @@
                             <span class="text-bold"><?php echo number_format($total, 0, ',', '.'); ?> đ</span>
                         </div>
                         <div class="cart-buttons buttons">
-                            <button type="button" id="update-cart" class="button-default">
-                                <i class="fa-solid fa-arrow-left"></i> Tiếp tục mua sắm
-                            </button>
+                            <a href="../index.php">
+                                <button type="button" id="update-cart" class="button-default">
+                                    <i class="fa-solid fa-arrow-left"></i> Tiếp tục mua sắm
+                                </button>
+
+                            </a>
                             <button type="button" id="checkout" class="button-default">
                                 Thanh toán
                             </button>
@@ -132,4 +135,45 @@
         }
     }
 
+    // <!-- Cập nhật số lượng Sản phẩm -->
+    function updateQuantity(inputQuantity, productId, cartId) {
+        const newQuantity = inputQuantity.value;
+
+        // Kiểm tra số lượng nhập có hợp lệ không
+        if (newQuantity <= 0) {
+            alert("Số lượng không hợp lệ!");
+            return;
+        }
+
+        // Gửi dữ liệu qua fetch API
+        fetch(`./update-cart.php?product_id=${productId}&cart_id=${cartId}&new_quantity=${newQuantity}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Cập nhật tổng tiền mới
+                    document.querySelector(".box-totalMoney .text-bold").textContent = data.total_price;
+
+                    // Có thể cập nhật các mục khác nếu cần
+                    console.log("Cập nhật thành công!");
+                } else {
+                    alert(data.error || "Cập nhật thất bại.");
+                }
+            })
+            .catch(error => console.error("Lỗi khi cập nhật: ", error));
+    }
+
+    // Cập nhật số lượng và làm mất focus khi nhấn Enter
+        document.querySelectorAll('.item-quantity').forEach(input => {
+            input.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    const productId = input.dataset.id;
+                    const cartId = input.closest('tr').querySelector('.remove').dataset.cartId;
+                    updateQuantity(input, productId, cartId);
+                    input.blur(); // Làm mất focus khỏi input
+                }
+            });
+        });
+
  </script>
+
+
