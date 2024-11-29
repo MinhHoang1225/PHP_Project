@@ -12,7 +12,6 @@
         .container2 {
             display: flex; 
             width: 100%;
-            height: 100vh; 
         }
         .slidebar {
             margin-top: 50px;

@@ -70,7 +70,7 @@
                                 <ul class="list-unstyled mt-2">
                                     <li>
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes1" aria-expanded="false" aria-controls="collapseSubShoes1">
-                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày Puma">Giày Puma</a></li> <i class="fa-solid fa-plus ms-2"></i>
+                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày Puma">Giày Puma</a></li>
                                         </button>
                                         <div id="collapseSubShoes1" class="collapse">
                                             <!-- <ul class="list-unstyled mt-2">
@@ -81,7 +81,7 @@
                                     </li>
                                     <li>
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes2" aria-expanded="false" aria-controls="collapseSubShoes2">
-                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày Nike">Giày Nike</a></li> <i class="fa-solid fa-plus ms-2"></i>
+                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày Nike">Giày Nike</a></li>
                                         </button>
                                         <div id="collapseSubShoes2" class="collapse">
                                             <!-- <ul class="list-unstyled mt-2">
@@ -92,7 +92,7 @@
                                     </li>
                                     <li>
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes2" aria-expanded="false" aria-controls="collapseSubShoes2">
-                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày adidas">Giày adidas</a></li> <i class="fa-solid fa-plus ms-2"></i>
+                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày adidas">Giày adidas</a></li>
                                         </button>
                                         <div id="collapseSubShoes2" class="collapse">
                                             <!-- <ul class="list-unstyled mt-2">
@@ -161,84 +161,35 @@ document.addEventListener('DOMContentLoaded', function () {
     const priceRange = document.getElementById('priceRange');
     const minPrice = document.getElementById('minPrice');
     const productContainer = document.querySelector('.show-product');
-
-    // Hàm định dạng giá
-    function formatPrice(value) {
-        return Number(value).toLocaleString('vi-VN');
-    }
-
-    // Cập nhật giá trị thanh trượt và thực hiện lọc sản phẩm
-    priceRange.addEventListener('input', function () {
-        const priceValue = parseInt(this.value);
-        minPrice.textContent = `Từ: ${formatPrice(priceValue)}đ`;
-
-        // Cập nhật màu nền thanh trượt
-        let percentage = ((this.value - this.min) / (this.max - this.min)) * 100;
-        this.style.background = `linear-gradient(90deg, rgb(63, 60, 60) ${percentage}%, rgba(255,255,255) ${percentage}%)`;
-
-        // Gửi yêu cầu AJAX để lấy sản phẩm theo giá
-        updateProductList();
-    });
-
-    // Gắn sự kiện cho danh mục
-    const categoryItems = document.querySelectorAll('.category-item');
-
-    if (categoryItems.length === 0) {
-        console.warn("Không có mục danh mục nào để gắn sự kiện.");
-        return;
-    }
-
-    categoryItems.forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            const categoryId = this.getAttribute('data-category-id');
-            const searchKeyword = this.getAttribute('data-search-keyword');
-
-            // Cập nhật danh mục đã chọn
-            currentCategoryId = categoryId || searchKeyword;
-
-            updateProductList();
-        });
-    });
-
-    // Cập nhật giá trị ban đầu của thanh trượt
-    minPrice.textContent = `Từ: ${formatPrice(priceRange.value)}đ`;
-
-    // Lấy các phần tử checkbox kích thước
-    const sizeCheckboxes = document.querySelectorAll('.form-check-input');
-
-    sizeCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            // Gửi yêu cầu AJAX khi kích thước thay đổi
-            updateProductList();
-        });
-    });
-
-    // Biến lưu trữ thông tin danh mục và kích thước đã chọn
+    const loadingIndicator = document.querySelector('.loading'); // Spinner hoặc loading text
     let currentCategoryId = null;
     let selectedSizes = [];
 
-    // Hàm cập nhật danh sách sản phẩm dựa trên bộ lọc
-    function updateProductList() {
-        selectedSizes = Array.from(document.querySelectorAll('.form-check-input:checked'))
-            .map(cb => encodeURIComponent(cb.value)); // Mã hóa giá trị để phù hợp với URL
+    // Hàm định dạng giá
+    const formatPrice = (value) => Number(value).toLocaleString('vi-VN') + 'đ';
 
+    // Cập nhật giá trị hiển thị của thanh trượt giá
+    const updatePriceDisplay = () => {
+        const priceValue = parseInt(priceRange.value);
+        minPrice.textContent = `Từ: ${formatPrice(priceValue)}`;
+        const percentage = ((priceRange.value - priceRange.min) / (priceRange.max - priceRange.min)) * 100;
+        priceRange.style.background = `linear-gradient(90deg, rgb(63, 60, 60) ${percentage}%, rgba(255,255,255) ${percentage}%)`;
+    };
+
+    // Lấy danh sách kích thước đã chọn
+    const getSelectedSizes = () => {
+        return Array.from(document.querySelectorAll('.form-check-input:checked'))
+            .map(checkbox => encodeURIComponent(checkbox.value));
+    };
+
+    // Tạo URL dựa trên các bộ lọc hiện tại
+    const buildFilterURL = () => {
         const minPriceValue = priceRange.value || 0;
-
-        // Tạo URL động với các tham số lọc
+        selectedSizes = getSelectedSizes();
         let url = 'show_product.php?';
 
-        // Thêm điều kiện lọc theo giá
-        if (minPriceValue) {
-            url += `min_price=${minPriceValue}&`;
-        }
-
-        // Thêm điều kiện lọc theo kích thước
-        if (selectedSizes.length > 0) {
-            url += `size=${selectedSizes.join(',')}&`;
-        }
-
-        // Thêm điều kiện lọc theo danh mục
+        if (minPriceValue) url += `min_price=${minPriceValue}&`;
+        if (selectedSizes.length > 0) url += `size=${selectedSizes.join(',')}&`;
         if (currentCategoryId) {
             if (isNaN(currentCategoryId)) {
                 url += `category_name=${encodeURIComponent(currentCategoryId)}&`;
@@ -246,71 +197,57 @@ document.addEventListener('DOMContentLoaded', function () {
                 url += `category_id=${encodeURIComponent(currentCategoryId)}&`;
             }
         }
+        return url;
+    };
 
-        // Gửi yêu cầu AJAX
+    // Cập nhật danh sách sản phẩm
+    const updateProductList = () => {
+        const url = buildFilterURL();
+
+        if (loadingIndicator) loadingIndicator.style.display = 'block'; // Hiển thị loading
+
         fetch(url)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
                 return response.text();
             })
             .then(html => {
-                if (productContainer) {
-                    productContainer.innerHTML = html;
-                } else {
-                    console.error('Không tìm thấy container để hiển thị sản phẩm.');
-                }
+                if (productContainer) productContainer.innerHTML = html;
             })
-            .catch(error => {
-                console.error('Lỗi khi tải sản phẩm:', error);
-                alert('Có lỗi xảy ra khi tải sản phẩm. Vui lòng thử lại.');
+            .catch(error => console.error('Lỗi khi tải dữ liệu:', error))
+            .finally(() => {
+                if (loadingIndicator) loadingIndicator.style.display = 'none'; // Ẩn loading
             });
-    }
+    };
 
-    // Hiển thị và ẩn kích thước tùy theo danh mục
-    const size44Checkbox = document.getElementById("size44");
-    const size43Checkbox = document.getElementById("size43");
-    const sizeLCheckbox = document.getElementById("sizeL");
-    const sizeMCheckbox = document.getElementById("sizeM");
-    const sizeSCheckbox = document.getElementById("sizeS");
-
-    size44Checkbox.parentElement.style.display = "none";
-    size43Checkbox.parentElement.style.display = "none";
-
-    const shoeCategories = document.querySelectorAll(
-        '[data-search-keyword="Giày Puma"], [data-search-keyword="Giày Nike"], [data-search-keyword="Giày adidas"], [data-search-keyword="Dép"]'
-    );
-
-    const otherCategories = document.querySelectorAll(
-        '.category-item:not([data-search-keyword="Giày Puma"]):not([data-search-keyword="Giày Nike"]):not([data-search-keyword="Giày adidas"]):not([data-search-keyword="Dép"])'
-    );
-
-    function showShoeSizes() {
-        size44Checkbox.parentElement.style.display = "block";
-        size43Checkbox.parentElement.style.display = "block";
-        sizeLCheckbox.parentElement.style.display = "none";
-        sizeMCheckbox.parentElement.style.display = "none";
-        sizeSCheckbox.parentElement.style.display = "none";
-    }
-
-    function showAllSizesExceptShoes() {
-        size44Checkbox.parentElement.style.display = "none";
-        size43Checkbox.parentElement.style.display = "none";
-        sizeLCheckbox.parentElement.style.display = "block";
-        sizeMCheckbox.parentElement.style.display = "block";
-        sizeSCheckbox.parentElement.style.display = "block";
-    }
-
-    shoeCategories.forEach(category => {
-        category.addEventListener("click", showShoeSizes);
+    // Gán sự kiện cho thanh trượt giá
+    priceRange.addEventListener('input', () => {
+        updatePriceDisplay();
+        updateProductList();
     });
 
-    otherCategories.forEach(category => {
-        category.addEventListener("click", showAllSizesExceptShoes);
+    // Gán sự kiện cho các danh mục
+    const categoryItems = document.querySelectorAll('.category-item');
+    categoryItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            currentCategoryId = item.getAttribute('data-category-id') || item.getAttribute('data-search-keyword');
+            updateProductList();
+        });
     });
+
+    // Gán sự kiện cho các checkbox kích thước
+    const sizeCheckboxes = document.querySelectorAll('.form-check-input');
+    sizeCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateProductList);
+    });
+
+    // Cập nhật giá ban đầu
+    updatePriceDisplay();
 });
 
-    </script>
+</script>
+
+
 </body>
 </html>
