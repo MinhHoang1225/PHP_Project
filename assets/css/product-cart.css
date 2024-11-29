@@ -75,14 +75,18 @@ img {
 }
 
 
-a {
+.product-Name a {
     color: #446084 !important;
-    font-weight: 500;
+    font-weight: bold;
     text-decoration: none !important;    
 }
 
 .text-hover:hover {
-    color: #333;
+    color: var(--main-color);
+}
+
+.qty input {
+    border: 1px solid #6666;
 }
 
 /* Ẩn thanh bấm số tăng/giảm mặc định của input[type="number"] */
@@ -97,8 +101,17 @@ a {
     text-align: center;
 }
 
+/* Icon delete */
 .remove {
     padding: 0px 5px;
+}
+
+.remove .fa-regular {
+    color: #6666;
+}
+
+.remove .fa-regular:hover {
+    color: var(--bg-hover-btn);
 }
 /* T-C */
 .total-checkout {
@@ -146,10 +159,10 @@ a {
 
 #update-cart:hover {
     color: #fff;
-    background-color: #333;
+    background-color: var(--main-color);
 }
 
 #checkout {
     color: #fff;
-    background-color: #333;
+    background-color: var(--main-color);
 }

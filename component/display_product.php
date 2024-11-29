@@ -34,6 +34,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>favourite</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/font-aware.js"></script>
@@ -41,10 +42,12 @@
     <style>
     
     .container1 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        margin-top: 30px;
+    }
+
 
 .product-card {
     width: 260px;
@@ -52,11 +55,13 @@
     border-radius: 8px;
     overflow: hidden;
     text-align: center;
-    margin: 30px;
+    box-shadow: 15px #a0a0a0;
+    box-shadow: 0 4px 5px rgba(160, 160, 160, 0.5);
+    /* margin: 30px; */
 }
 
+
 .product-card img {
-    width: 100%;
     height: 200px;
     object-fit: cover;  /* Đảm bảo ảnh không bị biến dạng */
 }
@@ -72,7 +77,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px 0;
+    margin: 5px 0px;
     font-family: "Work Sans", sans-serif;
 }
 
@@ -105,7 +110,7 @@
 }
 
 .cart-icon {
-    margin: 5px 10px;
+    margin: 0px 10px;
     display: flex;
     justify-content: flex-start;
     font-size: 30px;
@@ -144,6 +149,19 @@
 .section-title::after {
     right: -110px;
 }
+
+.cart-icon i {
+    color: #c9c5c5; /* Màu xám mặc định */
+    transition: color 0.3s ease; /* Thêm hiệu ứng chuyển màu */
+    visibility: hidden;
+}
+
+.cart-icon:hover i {
+    color: red; /* Màu đỏ khi hover */
+    visibility: visible;
+
+}
+
 
 </style>
 </head>
