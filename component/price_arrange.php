@@ -30,25 +30,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const priceDropdown = document.getElementById('price');
     const productContainer = document.querySelector('.show-product');
 
-    // Biến lưu trữ thông tin sắp xếp
     let sortPrice = '';
-
-    // Lắng nghe sự kiện thay đổi của dropdown
     priceDropdown.addEventListener('change', function (event) {
-        event.preventDefault(); // Ngăn chặn hành vi mặc định (submit form)
-        sortPrice = this.value; // Lấy giá trị sắp xếp được chọn
-        updateProductList(); // Cập nhật danh sách sản phẩm
+        event.preventDefault(); 
+        sortPrice = this.value; 
+        updateProductList(); 
     });
 
     function updateProductList() {
-        // Lấy các kích thước đã chọn
+
         const selectedSizes = Array.from(document.querySelectorAll('.form-check-input:checked'))
             .map(cb => encodeURIComponent(cb.value));
 
-        // Giá trị lọc theo giá tối thiểu
         const minPriceValue = document.getElementById('priceRange')?.value || 0;
 
-        // Xây dựng URL với các tham số lọc và sắp xếp
         let url = 'show_product.php?';
 
         if (minPriceValue) {
@@ -73,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(html => {
                 if (productContainer) {
-                    productContainer.innerHTML = html; // Cập nhật sản phẩm vào container
+                    productContainer.innerHTML = html; 
                 } else {
                     console.error('Không tìm thấy container để hiển thị sản phẩm.');
                 }

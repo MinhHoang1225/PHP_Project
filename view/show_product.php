@@ -1,7 +1,5 @@
 <?php
- include('../database/connect.php');
-
-
+include '../database/connect.php';
 $categoryName = isset($_GET['category_name']) ? trim($_GET['category_name']) : null;
 $category_id = isset($_GET['category_id']) ? (int)$_GET['category_id'] : 0;
 $min_price = isset($_GET['min_price']) ? (int)$_GET['min_price'] : 0;
