@@ -1,66 +1,107 @@
 <?php
-session_start(); // Đảm bảo session được khởi tạo
-require "../database/connect.php"; // Kết nối cơ sở dữ liệu
+// Import PHPMailer classes
+require_once '../phpmailler/Exception.php';
+require_once '../phpmailler/PHPMailer.php';
+require_once '../phpmailler/SMTP.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Lấy dữ liệu từ form
-    $data = json_decode(file_get_contents('php://input'), true);
-    $email = $data['email'];
-    $otp_input = $data['otp']; // OTP mà người dùng nhập vào
-    $username = $data['username'];
-    $password = $data['password'];
-    $confirm_password = $data['confirm_password'];
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-    // Kiểm tra nếu session OTP tồn tại
-    if (isset($_SESSION['otp'])) {
-        // Kiểm tra thời gian OTP (5 phút)
-        $otp_time = $_SESSION['otp_time'];
-        if (time() - $otp_time > 300) { // OTP hết hạn sau 5 phút
-            echo json_encode(['status' => 'error', 'message' => 'OTP đã hết hạn!']);
+session_start();
+error_reporting(E_ALL ^ E_DEPRECATED);
+require_once '../database/connect.php';
+
+if (isset($_POST['submit'])) {
+
+    // Lấy thông tin từ form và bảo vệ dữ liệu khỏi SQL Injection
+    if (isset($_POST['username'])) {
+        $username = mysqli_real_escape_string($conn, $_POST['username']);
+    }
+
+    if (isset($_POST['email'])) {
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+    }
+
+    if (isset($_POST['password'])) {
+        $password = mysqli_real_escape_string($conn, $_POST['password']);
+    }
+
+    // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
+    $email_check = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $email_check);
+    
+    if (mysqli_num_rows($result) > 0) {
+        // Nếu email đã tồn tại, hiển thị thông báo và không làm gì thêm
+        echo '<script>alert("Email đã tồn tại. Vui lòng sử dụng email khác."); window.location.href="register_login.php";</script>';
+        exit();
+    } else {
+        // Nếu email chưa tồn tại, thực hiện đăng ký người dùng mới
+        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', md5('$password'))";
+        $res = mysqli_query($conn, $sql);
+        
+        if ($res) {
+            // Đăng ký thành công, gửi email xác nhận
+            if (sendRegistrationEmail($email, $username)) {
+                // Đăng ký thành công và gửi email, chuyển hướng đến trang đăng nhập
+                echo '<script>alert("Đăng ký thành công! Chúng tôi đã gửi một email xác nhận. Vui lòng kiểm tra email của bạn."); window.location.href="register_login.php";</script>';
+            } else {
+                // Gửi email thất bại
+                echo '<script>alert("Đăng ký thành công nhưng không thể gửi email xác nhận. Vui lòng thử lại sau."); window.location.href="register_login.php";</script>';
+            }
+            exit();
+        } else {
+            // Đăng ký thất bại, hiển thị alert và quay lại trang đăng ký
+            echo '<script>alert("Đăng ký thất bại. Vui lòng thử lại."); window.location.href="register_login.php";</script>';
             exit();
         }
-
-        // Kiểm tra OTP
-        if ($otp_input == $_SESSION['otp']) {
-            // Kiểm tra mật khẩu
-            if ($password === $confirm_password) {
-                // Mã hóa mật khẩu
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-                // Kiểm tra email có tồn tại trong cơ sở dữ liệu không
-                $checkEmailQuery = "SELECT * FROM users WHERE email = ?";
-                $stmt = $conn->prepare($checkEmailQuery);
-                $stmt->bind_param("s", $email);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                if ($result->num_rows > 0) {
-                    echo json_encode(["status" => "error", "message" => "Email đã tồn tại!"]);
-                } else {
-                    // Thêm người dùng vào cơ sở dữ liệu
-                    $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-                    $stmt = $conn->prepare($sql);
-                    $stmt->bind_param("sss", $username, $email, $hashed_password);
-
-                    if ($stmt->execute()) {
-                        echo json_encode(["status" => "success", "message" => "Đăng ký thành công!"]);
-                    } else {
-                        echo json_encode(["status" => "error", "message" => "Lỗi database: " . $stmt->error]);
-                    }
-                }
-            } else {
-                echo json_encode(["status" => "error", "message" => "Mật khẩu không khớp!"]);
-            }
-        } else {
-            echo json_encode(["status" => "error", "message" => "OTP không đúng!"]);
-        }
-    } else {
-        echo json_encode(["status" => "error", "message" => "Không tìm thấy OTP trong session!"]);
     }
 }
 
+// Hàm gửi email xác nhận đăng ký
+function sendRegistrationEmail($toEmail, $username) {
+    $mail = new PHPMailer(true);
+
+    try {
+        // Cấu hình SMTP
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';  // SMTP server của Gmail
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'hoangdzai22@gmail.com';  // Thay thế bằng email của bạn
+        $mail->Password   = 'cobw sctq cspc ttui';  // Thay bằng mật khẩu ứng dụng Gmail của bạn
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;  // Cổng SMTP cho STARTTLS (587)
+
+        // Người gửi và người nhận email
+        $mail->setFrom('shop@sneakerhome.vn', 'Sneaker Home');
+        $mail->addAddress($toEmail);  // Email người nhận (email của người dùng đã đăng ký)    
+
+        // Nội dung email
+        $mail->isHTML(true);
+        $mail->Subject = 'Thông tin đăng ký tài khoản';
+        $mail->Body    = "
+            <h2>Chúc mừng bạn đã đăng ký thành công!</h2>
+            <p>Chào <strong>$username</strong>,</p>
+            <p>Chúng tôi vui mừng thông báo rằng tài khoản của bạn đã được đăng ký thành công.</p>
+            <p>Vui lòng truy cập vào <a href='http://localhost:8080/PHP_Project/model/register_login.php'>đây</a> để đăng nhập vào tài khoản của bạn.</p>
+            <p>Chúc bạn có một trải nghiệm tuyệt vời với chúng tôi!</p>
+        ";
+        $mail->SMTPDebug = 2;
+        // Gửi email
+        if ($mail->send()) {
+            return true;
+        } else {
+            throw new Exception("Không thể gửi email.");
+        }
+    } catch (Exception $e) {
+        echo "Lỗi gửi email: {$mail->ErrorInfo}";
+        return false;
+    }
+}
 ?>
 
+
+
+ 
 
 
 
@@ -126,16 +167,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" name="confirm_password" id="confirm-password" placeholder="Xác nhận mật khẩu" required />
             <small id="confirm-password-error"></small>
         </div>
-        <!-- Nút gửi OTP -->
-        <div class="form-control">
-            <button type="button" id="send-otp">Gửi OTP</button>
-        </div>
-        <!-- Thêm 6 ô OTP -->
-        <div class="form-control">
-            <label for="otp">Nhập mã OTP:</label>
-            <input type="text" name="otp" id="otp" placeholder="Nhập mã OTP (6 ký tự)" maxlength="6" required />
-            <small id="otp-error"></small>
-        </div>
         <button type="submit" name="submit" id="submit">Đăng ký</button>
     </form>
 
@@ -186,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="overlay">
           <div class="overlay-panel overlay-left">
             <h1 class="title">
-              Xin chào <br />
+              Xin chào <br>
                bạn
             </h1>
             <p>Nếu bạn có tài khoản, hãy đăng nhập vào đây và vui chơi</p>
@@ -243,105 +274,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-
-
-
-  <script>
-document.getElementById('send-otp').addEventListener('click', function() {
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
-    const email = document.getElementById('email').value;
-
-    if (password === confirmPassword) {
-        alert('Mật khẩu đã khớp. Đã gửi OTP tới email ' + email);
-
-        // Gửi OTP qua AJAX
-        fetch('send_mail.php', {
-            method: 'POST',
-            body: JSON.stringify({ email: email }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                alert('OTP đã được gửi!');
-            } else {
-                alert('Lỗi khi gửi OTP: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Có lỗi xảy ra khi gửi OTP:', error);
-            alert('Có lỗi xảy ra khi gửi OTP.');
-        });
-    } else {
-        alert('Mật khẩu không khớp!');
-    }
-});
-
-document.getElementById('register-form').addEventListener('submit', function(e) {
-    e.preventDefault(); // Ngừng gửi form
-
-    const otp = document.getElementById('otp').value.trim();
-
-    // Gửi yêu cầu kiểm tra OTP tới server
-    fetch('verify_otp.php', {
-        method: 'POST',
-        body: JSON.stringify({ otp: otp }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert('OTP chính xác. Tiến hành đăng ký.');
-
-            // Tiến hành đăng ký, gửi dữ liệu form qua AJAX
-            const formData = new FormData(this);
-            fetch('register_login.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert(data.message);
-                    // Có thể chuyển hướng hoặc làm gì đó sau khi đăng ký thành công
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Có lỗi xảy ra khi đăng ký:', error);
-                alert('Có lỗi xảy ra khi đăng ký.');
-            });
-        } else {
-            alert('OTP không đúng, vui lòng thử lại!');
-        }
-    })
-    .catch(error => {
-        console.error('Có lỗi xảy ra khi xác thực OTP:', error);
-        alert('Có lỗi xảy ra khi xác thực OTP.');
-    });
-});
-
-</script>
-
-
   <script >
-    const registerButton = document.getElementById("register");
-    const loginButton = document.getElementById("login");
-    // const container = document.getElementById("container");
+const registerButton = document.getElementById("register");
+const loginButton = document.getElementById("login");
+// const container = document.getElementById("container");
 
-    registerButton.addEventListener("click", () => {
-      container.classList.add("right-panel-active");
-    });
+// Hiệu ứng chuyển đổi giao diện
+registerButton.addEventListener("click", () => {
+    container.classList.add("right-panel-active");
+});
 
-    loginButton.addEventListener("click", () => {
-      container.classList.remove("right-panel-active");
-    });
+loginButton.addEventListener("click", () => {
+    container.classList.remove("right-panel-active");
+});
+
+// // Kiểm tra trạng thái đăng ký từ URL
+// window.addEventListener("load", () => {
+//     const urlParams = new URLSearchParams(window.location.search);
+//     const success = urlParams.get("rs");
+//     if (success === "success") {
+//         alert("Đăng ký thành công! Chuyển sang đăng nhập...");
+//         container.classList.add("right-panel-active");
+//     } else if (urlParams.get("rf") === "fail") {
+//         alert("Đăng ký thất bại. Vui lòng thử lại.");
+//     }
+// });
+
+
 
     // const form = document.querySelector('form')
     // const username = document.getElementById('username')

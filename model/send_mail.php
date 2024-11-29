@@ -1,59 +1,50 @@
 <?php
-session_start(); // Đảm bảo session được khởi tạo
+// Import PHPMailer classes
+require_once '../phpmailler/Exception.php';
+require_once '../phpmailler/PHPMailer.php';
+require_once '../phpmailler/SMTP.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require "../phpmailler/Exception.php";
-require "../phpmailler/PHPMailer.php";
-require "../phpmailler/SMTP.php";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Lấy dữ liệu từ form
-    $data = json_decode(file_get_contents('php://input'), true);
-    $email = $data['email'];
-
-    // Kiểm tra định dạng email
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo json_encode(['status' => 'error', 'message' => 'Email không hợp lệ!']);
-        exit();
-    }
-
-    // Tạo mã OTP ngẫu nhiên
-    $otp = random_int(100000, 999999); // Sử dụng random_int() thay vì rand()
-
-    // Lưu OTP và thời gian vào session để kiểm tra sau này
-    $_SESSION['otp'] = $otp;
-    $_SESSION['otp_time'] = time(); // Thời gian OTP được tạo
-
-    // Cấu hình PHPMailer để gửi email
+function sendRegistrationEmail($toEmail, $username) {
     $mail = new PHPMailer(true);
+
     try {
-        // Cấu hình server
+        // Cấu hình SMTP
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
-        $mail->SMTPAuth = true;
-        $mail->Username = 'hoangdzai22@gmail.com'; // Email gửi
-        $mail->Password = 'pfru bwks ifwz mwqb'; // Mật khẩu email (nên lấy từ môi trường)
+        $mail->Host       = 'smtp.gmail.com';  // SMTP server của Gmail
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'hoangdzai22@gmail.com';  // Thay thế bằng email của bạn
+        $mail->Password   = 'cobw sctq cspc ttui';  // Thay bằng mật khẩu ứng dụng Gmail của bạn
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Port       = 587;  // Cổng SMTP cho STARTTLS (587)
 
-        // Thông tin email
+        // Người gửi và người nhận email
         $mail->setFrom('hoangdzai22@gmail.com', 'Sneaker Home');
-        $mail->addAddress($email); // Nhận OTP qua email
+        $mail->addAddress($toEmail);  // Email người nhận (email của người dùng đã đăng ký)	
 
+        // Nội dung email
         $mail->isHTML(true);
-        $mail->Subject = 'Mã OTP đăng ký';
-        $mail->Body    = 'Mã OTP của bạn là: ' . $otp;
+        $mail->Subject = 'Thông tin đăng ký tài khoản';
+        $mail->Body    = "
+            <h2>Chúc mừng bạn đã đăng ký thành công!</h2>
+            <p>Chào <strong>$username</strong>,</p>
+            <p>Chúng tôi vui mừng thông báo rằng tài khoản của bạn đã được đăng ký thành công.</p>
+            <p>Vui lòng truy cập vào <a href='https://example.com/login'>đây</a> để đăng nhập vào tài khoản của bạn.</p>
+            <p>Chúc bạn có một trải nghiệm tuyệt vời với chúng tôi!</p>
+        ";
+
+        // Debug mode, giúp tìm lỗi khi gửi email (có thể bỏ qua nếu không cần)
+        $mail->SMTPDebug = 0;
 
         // Gửi email
-        if ($mail->send()) {
-            echo json_encode(['status' => 'success']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Email không gửi được!']);
-        }
+        $mail->send();
+        echo 'Email đã được gửi thành công!';
     } catch (Exception $e) {
-        echo json_encode(['status' => 'error', 'message' => $mail->ErrorInfo]);
+        // Nếu có lỗi trong quá trình gửi email
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
-
 ?>
+
