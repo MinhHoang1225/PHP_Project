@@ -3,44 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Accessores</title>
     <link rel="stylesheet" href="..\assets\css\bootstrap.min.css">
     <script src="..\assets\js\bootstrap.bundle.min.js"></script>
     <script src="..\assets\js\font-aware.js"></script>
     <style>
-        /* Container chính */
         .container2 {
-            display: flex; /* Sử dụng Flexbox */
+            display: flex; 
             width: 100%;
-            height: 100vh; /* Chiều cao toàn màn hình */
+            height: 100vh; 
         }
-
-        /* Slidebar */
         .slidebar {
-            flex: 1; /* Chiếm 1 phần trong tổng layout */
-            max-width: 30%; /* Giới hạn chiều rộng tối đa */
-            background-color: #f4f4f4; /* Màu nền cho dễ kiểm tra */
-            padding: 10px;
-            box-sizing: border-box; /* Đảm bảo padding không ảnh hưởng kích thước */
+            margin-top: 50px;
         }
-
-        /* Product Card */
-        .product-card {
-            flex: 3; /* Chiếm 3 phần trong tổng layout */
-            max-width: 70%; /* Giới hạn chiều rộng tối đa */
-            background-color: #fff; /* Màu nền */
-            padding: 10px;
-            box-sizing: border-box;
+        .price-arrange {
+            margin-left: 80px;
         }
     </style>
 </head>
 <body>
+    <div class="header">
+        <?php include("../component/header.php"); ?> 
+        </div>
+    <div class="price-arrange">
+        <?php include("../component/price_arrange.php"); ?>
+        </div>
     <div class="container2">
         <div class="slidebar">
             <?php include("../component/slidebar.php"); ?>
         </div>
-        <div class="product-card">
-            <?php include("../component/product_card.php"); ?>
+        <div class="show-product">
+            <?php include("show_product.php"); ?>
         </div>
     </div>
 </body>

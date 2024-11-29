@@ -1,5 +1,5 @@
 <?php
-  include('database/connect.php');
+  include('../database/connect.php');
   $cart_id = 1; 
   $cart_sql = "SELECT 
     shopping_cart.cart_id AS cart_id,

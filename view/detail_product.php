@@ -13,7 +13,7 @@
             <a href="#">Trang chủ</a> / <a href="#">Quần áo</a>
         </div>
         <div class="product-details">
-            <div class="product-image-slider">
+            <div class="product-image-slider"> 
                 <div class="slide-container">
                     <div class="slide">
                         <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_dZgJKtFCz30YW9owCdOGrnL0.png" alt="Sản phẩm 1">
@@ -26,18 +26,18 @@
                     </div>
                     <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
                     <button class="next" onclick="changeSlide(1)">&#10095;</button>
-                </div>
+                </div> 
                 <div class="dot-container">
                     <span class="dot" onclick="currentSlide(1)"></span>
                     <span class="dot" onclick="currentSlide(2)"></span>
                     <span class="dot" onclick="currentSlide(3)"></span>
-                </div>
+                </div> 
                 <div class="thumbnail-gallery">
                     <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_dZgJKtFCz30YW9owCdOGrnL0.png" alt="Thumbnail 1" onclick="currentSlide(1)">
                     <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_xrt2x5YMMxm8PXSeoZP8LXJo.png" alt="Thumbnail 2" onclick="currentSlide(2)">
                     <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_ppm7XRanLvI0v1gbAcBlvXw5.png" alt="Thumbnail 3" onclick="currentSlide(3)">
                 </div>
-            </div>
+            </div> 
             <div class="product-info">
                 <h1>Quần Nike AS M NSW Club JGGR FT 'Black'</h1>
                 <p class="product-price">2.100.000₫</p>
@@ -48,7 +48,7 @@
                         <button>M</button>
                         <button>S</button>
                     </div>
-                </div>
+                </div> 
                 <p class="stock-status">Còn hàng</p>
                 <div class="quantity-control">
                     <button class="qty-btn decrement">-</button>

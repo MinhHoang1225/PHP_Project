@@ -1,3 +1,66 @@
+<?php
+include('../database/connect.php'); // Kết nối cơ sở dữ liệu
+
+// Xử lý form đăng nhập
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lấy email và password từ form
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $password = isset($_POST['password']) ? trim($_POST['password']) : '';
+
+    if (!empty($email) && !empty($password)) {
+        // Kiểm tra thông tin trong bảng admins
+        $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ? AND password = ?");
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $admin = $result->fetch_assoc();
+            // Lưu thông tin admin vào cookies (30 ngày)
+            $cookie_expire_time = time() + (30 * 24 * 60 * 60); // 30 ngày
+            setcookie('user_role', 'admin', $cookie_expire_time, '/');
+            setcookie('user_id', $admin['admin_id'], $cookie_expire_time, '/');
+            setcookie('username', $admin['username'], $cookie_expire_time, '/');
+            setcookie('email', $admin['email'], $cookie_expire_time, '/');
+            setcookie('is_login', true, $cookie_expire_time, '/'); // Đánh dấu đã đăng nhập
+            $stmt->close();
+            $conn->close();
+            // Chuyển hướng đến trang admin
+            header("Location: ../view/admin.php");
+            exit();
+        }
+
+        // Kiểm tra thông tin trong bảng users
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+            // Lưu thông tin user vào cookies (30 ngày)
+            $cookie_expire_time = time() + (30 * 24 * 60 * 60); // 30 ngày
+            setcookie('user_role', 'user', $cookie_expire_time, '/');
+            setcookie('user_id', $user['user_id'], $cookie_expire_time, '/');
+            setcookie('username', $user['username'], $cookie_expire_time, '/');
+            setcookie('email', $user['email'], $cookie_expire_time, '/');
+            setcookie('is_login', true, $cookie_expire_time, '/'); // Đánh dấu đã đăng nhập
+            $stmt->close();
+            $conn->close();
+            // Chuyển hướng đến trang chính
+            header("Location: ../index.php");
+            exit();
+        }
+
+        // Nếu không tìm thấy email trong cả hai bảng
+        $error_message = "Email hoặc mật khẩu không chính xác!";
+        $stmt->close();
+    } else {
+        $error_message = "Vui lòng nhập đầy đủ thông tin!";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -23,7 +86,7 @@
           --main-text-size:16px;
           }
         body {
-          background-color: #686c78;
+          /* background-color: #686c78; */
           display: flex;
           justify-content: center;
           align-items: center;
@@ -32,7 +95,15 @@
           overflow: hidden;
           height: 100vh;
         }
-
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; 
+        }
         h1 {
           font-weight: 700;
           letter-spacing: -1.5px;
@@ -445,39 +516,7 @@
           cursor: pointer;
           font-size: 12px;
         }
-        .close-button-login {
-          position: absolute;
-          /* top: 10px;  */
-          margin-top: 10px;
-          margin-left: 20px;
-          /* left: 10px;  */
-          background: transparent;
-          border: none;
-          font-size: 24px; 
-          color: #333; 
-          cursor: pointer;
-          padding: 0;
-        }
-        .close-button-register {
-          position: absolute;
-          /* top: 10px;  */
-          margin-top: 10px;
-          margin-left: 350px;
-          /* left: 10px;  */
-          background: transparent;
-          border: none;
-          font-size: 24px; 
-          color: #333; 
-          cursor: pointer;
-          padding: 0;
-        }
-
-        .close-button-login:hover {
-          color: #ff0000; 
-        }
-        .close-button-register:hover {
-          color: #ff0000; 
-        }
+        
 
      </style>
     <link
@@ -490,9 +529,11 @@
   </head>
   <body>
     <div class="container" id="container">
+    <video class="video-background" autoplay loop muted>
+        <source src="../assets/video/background2.mp4" type="video/mp4">
+    </video>
       <div class="form-container register-container">
-      <button class="close-button-register">&times;</button>
-        <form>
+        <form >
           <h1>Đăng ký tại đây</h1>
           <div class="form-control">
             <input type="text" id="username" placeholder="Tên đăng nhập" />
@@ -519,43 +560,41 @@
           <button type="submit" value="submit">Đăng ký</button>
         </form>
       </div>
-
       <div class="form-container login-container">
-        <button class="close-button-login">&times;</button>
-        <form class="form-lg">
-          <h1>Đăng nhập tại đây</h1>
-          <div class="form-control2">
-            <input type="email" class="email-2" placeholder="E-mail" />
-            <small class="email-error-2"></small>
-            <span></span>
-          </div>
-          <div class="form-control2">
-            <input type="password" class="password-2" placeholder="Mật khẩu" />
-            <small class="password-error-2"></small>
-            <span></span>
-          </div>
+        <form class="form-lg" action="" method="POST">
+            <h1>Đăng nhập tại đây</h1>
+            <?php if (isset($error_message)): ?>
+            <div id="error-message" class="alert alert-danger" style="display: none;">
+                <?php echo $error_message; ?>
+            </div>
+        <?php endif; ?>
+            <div class="form-control2">
+                <input type="email" name="email" class="email-2" placeholder="E-mail" required />
+                <small class="email-error-2"></small>
+            </div>
+            <div class="form-control2">
+                <input type="password" name="password" class="password-2" placeholder="Mật khẩu" required />
+                <small class="password-error-2"></small>
+            </div>
 
-          <div class="content">
-            <div class="checkbox">
-              <input type="checkbox" name="checkbox" id="checkbox" />
-              <label for="">Remember me</label>
+            <div class="content">
+                <div class="checkbox">
+                    <input type="checkbox" name="remember" id="checkbox" <?php echo isset($_COOKIE['user_email']) ? 'checked' : ''; ?> />
+                    <label for="checkbox">Remember me</label>
+                </div>
+                <div class="pass-link">
+                    <a href="#">Bạn quên mật khẩu?</a>
+                </div>
             </div>
-            <div class="pass-link">
-              <a href="#">Bạn quên mật khẩu?</a>
+            <button type="submit" value="submit">Đăng nhập</button>
+            <span>Hoặc sử dụng tài khoản của bạn</span>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+                <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
             </div>
-          </div>
-          <button type="submit" value="submit">Đăng nhập</button>
-          <span>Hoặc sử dụng tài khoản của bạn</span>
-          <div class="social-container">
-            <a href="#" class="social"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-            <a href="#" class = "social"><i class="fa-brands fa-google"></i></a>
-            <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
-          </div>
         </form>
       </div>
-
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-left">
@@ -590,8 +629,6 @@
   <script >
     const registerButton = document.getElementById("register");
     const loginButton = document.getElementById("login");
-    const container = document.getElementById("container");
-
     registerButton.addEventListener("click", () => {
       container.classList.add("right-panel-active");
     });
@@ -599,156 +636,15 @@
     loginButton.addEventListener("click", () => {
       container.classList.remove("right-panel-active");
     });
-
-    const form = document.querySelector('form')
-    const username = document.getElementById('username')
-    const usernameError = document.querySelector("#username-error")
-    const email = document.getElementById('email')
-    const emailError = document.querySelector("#email-error")
-    const password = document.getElementById('password')
-    const passwordError = document.querySelector("#password-error")
-
-    function showError(input, message) {
-        const formControl = input.parentElement
-        formControl.className = 'form-control error'
-        const small = formControl.querySelector('small')
-        small.innerText = message
-    }
-    function showSuccess(input) {
-        const formControl = input.parentElement
-        formControl.className = 'form-control success'
-        const small = formControl.querySelector('small')
-        small.innerText = ''
-    }
-    function checkEmail(email) {
-        const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        return emailRegex.test(email);
-    }
-
-    email.addEventListener("input", function(){
-        if (!checkEmail(email.value)) {
-            emailError.textContent = "*Email không hợp lệ"
-        }else {
-            emailError.textContent = "";
+    document.addEventListener('DOMContentLoaded', function () {
+        const errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+            errorMessage.style.display = 'block';
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 4000);
         }
-    })
-    username.addEventListener("input", function(){
-        if (username.value.length < 4) {
-            usernameError.textContent = "*Tên đăng nhập phải có ít nhất 8 ký tự."
-        }else if(username.value.length > 20){
-            usernameError.textContent = "*Tên đăng nhập phải ít hơn 20 ký tự.";
-        }else {
-            usernameError.textContent = "";
-        }
-    })
-
-    password.addEventListener("input", function(){
-        if (password.value.length < 8) {
-            passwordError.textContent = "*Mật khẩu phải có ít nhất 8 ký tự."
-        }else if(password.value.length > 20){
-            passwordError.textContent = "*Mật khẩu phải ít hơn 20 ký tự."
-        }else {
-            passwordError.textContent = "";
-        }
-    })
-
-    function checkRequired(inputArr) {
-        let isRequired = false
-        inputArr.forEach(function(input) {
-            if (input.value.trim() === '') {
-                showError(input, `*${getFieldName(input)} là bắt buộc`)
-                isRequired = true
-            }else {
-                showSuccess(input)
-            }
-        })
-
-        return isRequired
-    }
-
-    function getFieldName(input) {
-        return input.id.charAt(0).toUpperCase() + input.id.slice(1)
-    }
-
-    // Event listeners
-    form.addEventListener('submit', function (e) {
-        e.preventDefault()
-
-        if (!checkRequired([username, email, password])) {
-            // checkLength(username, 3, 15)
-            // checkLength(password, 6, 25)
-            // checkEmail(email)
-        } 
-    })
-
-    let lgForm = document.querySelector('.form-lg')
-    let lgEmail = document.querySelector('.email-2')
-    let lgEmailError = document.querySelector(".email-error-2")
-    let lgPassword = document.querySelector('.password-2')
-    let lgPasswordError = document.querySelector(".password-error-2")
-
-    function showError2(input, message) {
-        const formControl2 = input.parentElement
-        formControl2.className = 'form-control2 error'
-        const small2 = formControl2.querySelector('small')
-        small2.innerText = message
-    }
-
-    function showSuccess2(input) {
-        const formControl2 = input.parentElement
-        formControl2.className = 'form-control2 success'
-        const small2 = formControl2.querySelector('small')
-        small2.innerText = '';
-    }
-
-    function checkEmail2(lgEmail) {
-        const emailRegex2 = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        return emailRegex2.test(lgEmail);
-    }
-
-    lgEmail.addEventListener("input", function(){
-        if (!checkEmail2(lgEmail.value)) {
-            lgEmailError.textContent = "**Email không hợp lệ"
-        }else {
-            lgEmailError.textContent = "";
-        }
-    })
-
-    lgPassword.addEventListener("input", function(){
-        if (lgPassword.value.length < 8) {
-            lgPasswordError.textContent = "*Mật khẩu phải có ít nhất 8 ký tự."
-        }else if (lgPassword.value.length > 20){
-            lgPasswordError.textContent = "*Mật khẩu phải ít hơn 20 ký tự."
-        }else {
-            lgPasswordError.textContent = "";
-        }
-    })
-
-    function checkRequiredLg(inputArr2) {
-        let isRequiredLg = false
-        inputArr2.forEach(function(input){
-            if (input.value.trim() === '') {
-                showError2(input, `*${getFieldNameLg(input)}Vui lòng nhập thông tin vào trường này`)
-                isRequiredLg = true
-            }else {
-                showSuccess2(input)
-            }
-        })
-
-        return isRequiredLg
-    }
-
-    function getFieldNameLg(input) {
-        return input.id.charAt(0).toUpperCase() + input.id.slice(1)
-    }
-
-    lgForm.addEventListener('submit', function (e){
-        e.preventDefault()
-
-        if (!checkRequiredLg([lgEmail, lgPassword])) {
-            checkEmail2(lgEmail)
-        }
-    })    
+    });
   </script>
 </html>
 
