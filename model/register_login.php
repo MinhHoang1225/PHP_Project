@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
         exit();
     } else {
         // Nếu email chưa tồn tại, thực hiện đăng ký người dùng mới
-        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', md5('$password'))";
+        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
         $res = mysqli_query($conn, $sql);
         
         if ($res) {
