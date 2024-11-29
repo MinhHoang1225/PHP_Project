@@ -1,10 +1,119 @@
+<?php
+    include('../database/connect.php');
+
+    // Lấy user_id (giả sử là 1 cho user_id mẫu)
+    $user_id = 1; // Bạn có thể thay đổi hoặc lấy từ session nếu có đăng nhập
+
+    // Truy vấn để lấy thông tin sản phẩm từ giỏ hàng của người dùng
+    $sql = "SELECT cart_items.product_id, cart_items.quantity, products.price, products.img, products.name 
+            FROM cart_items
+            INNER JOIN products ON cart_items.product_id = products.product_id
+            WHERE cart_items.cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $total_amount = 0;
+    $products = [];
+    while ($row = $result->fetch_assoc()) {
+        $total_amount += $row['price'] * $row['quantity'];
+        $products[] = $row;  // Lưu thông tin sản phẩm vào mảng
+    }
+
+?>
+
+
+<?php
+include('../database/connect.php');
+
+// Lấy user_id (giả sử là 1 cho user_id mẫu)
+$user_id = 1; // Bạn có thể thay đổi hoặc lấy từ session nếu có đăng nhập
+
+// Truy vấn để lấy thông tin sản phẩm từ giỏ hàng của người dùng
+$sql = "SELECT cart_items.product_id, cart_items.quantity, products.price, products.img, products.name 
+        FROM cart_items
+        INNER JOIN products ON cart_items.product_id = products.product_id
+        WHERE cart_items.cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('i', $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$total_amount = 0;
+$products = [];
+while ($row = $result->fetch_assoc()) {
+    $total_amount += $row['price'] * $row['quantity'];
+    $products[] = $row;  // Lưu thông tin sản phẩm vào mảng
+}
+
+// Xử lý dữ liệu sau khi nhấn nút thanh toán
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Kiểm tra nếu giỏ hàng trống
+    if (empty($products)) {
+        echo "<script>alert('Giỏ hàng của bạn đang trống, không thể thanh toán.');</script>";
+    } else {
+        // Lấy thông tin từ form
+        $fullname = $_POST['fullname'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $address = $_POST['address'];
+        $notes = $_POST['notes'];
+        
+        // Kiểm tra xem 'payment_method' có trong $_POST hay không
+        $payment_method = isset($_POST['payment_method']) ? $_POST['payment_method'] : 'Cash on Delivery'; // Mặc định là "Cash on Delivery"
+
+        // Lưu thông tin đơn hàng vào bảng orders
+        $order_sql = "INSERT INTO orders (user_id, fullname, phone, email, address, notes, total_amount) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $order_stmt = $conn->prepare($order_sql);
+        $order_stmt->bind_param('isssssd', $user_id, $fullname, $phone, $email, $address, $notes, $total_amount);
+
+        if ($order_stmt->execute()) {
+            $order_id = $conn->insert_id;  // Lấy id đơn hàng vừa tạo
+
+            // Lưu thông tin phương thức thanh toán vào bảng payments
+            $payment_sql = "INSERT INTO payments (order_id, payment_method) VALUES (?, ?)";
+            $payment_stmt = $conn->prepare($payment_sql);
+            $payment_stmt->bind_param('is', $order_id, $payment_method);
+            $payment_stmt->execute();
+
+            // Lưu sản phẩm trong đơn hàng vào bảng order_items
+            foreach ($products as $product) {
+                $item_sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+                $item_stmt = $conn->prepare($item_sql);
+                $item_stmt->bind_param('iiid', $order_id, $product['product_id'], $product['quantity'], $product['price']);
+                $item_stmt->execute();
+            }
+
+            // Xóa giỏ hàng sau khi thanh toán
+            $delete_cart_sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
+            $delete_cart_stmt = $conn->prepare($delete_cart_sql);
+            $delete_cart_stmt->bind_param('i', $user_id);
+            $delete_cart_stmt->execute();
+
+            // Thông báo thanh toán thành công và không chuyển trang
+            echo "<script>alert('Thanh toán thành công!');</script>";
+        } else {
+            echo "<script>alert('Có lỗi xảy ra trong quá trình thanh toán.');</script>";
+        }
+    }
+}
+?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thanh toán</title>
-   <style>
+  <style>
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -71,7 +180,6 @@
       padding: 20px;
       margin-right: 150px;
       margin-top: 75px;
-
     }
 
     .product {
@@ -119,6 +227,7 @@
       border-radius: 4px;
       cursor: pointer;
     }
+
     .discount button:hover {
       background: #0056b3;
     }
@@ -150,49 +259,117 @@
     .checkout-btn:hover {
       background: #0056b3;
     }
+
     form input {
       width: 500px;
       height: 30px;
       margin-bottom: 5px;
     }
+
     textarea {
       width: 500px;
     }
 
-   </style>
+    /* Thêm style cho phương thức thanh toán */
+    .payment-method {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .payment-method label {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .payment-method input {
+      /* margin-right: 10px; */
+      /* font-size:15px; */
+      /* display: flex;
+      justify-content: flex-start; */
+      width: 130px;
+      font-size: 20px;
+      height:20px;
+    }
+
+  </style>
 </head>
 <body>
-  <div class="container">
+<div class="container">
     <div class="delivery-info">
       <h2>Thông tin giao hàng</h2>
-      <p>
-        Bạn đã có tài khoản? <a href="#">Đăng nhập</a>
-      </p>
-      <form>
-        <input type="text" placeholder="Họ và tên" required>
-        <input type="tel" placeholder="Số điện thoại" required>
-        <input type="tel" placeholder="Email" required>
-        <input type="text" placeholder="Địa chỉ" required>
-        <textarea placeholder="Ghi chú ..."></textarea>
+      <p>Bạn đã có tài khoản? <a href="#">Đăng nhập</a></p>
+      
+      <!-- Thêm form với method POST -->
+      <form id="orderForm" method="POST">
+        <input type="text" name="fullname" placeholder="Họ và tên" required>
+        <input type="tel" name="phone" placeholder="Số điện thoại" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="address" placeholder="Địa chỉ" required>
+        <textarea name="notes" placeholder="Ghi chú ..."></textarea>
+
+        <!-- Phương thức thanh toán -->
+        <div class="payment-method">
+          <label>Phương thức thanh toán:</label><br>
+          <input type="radio" name="payment_method" value="Cash on Delivery" checked> Thanh toán khi nhận hàng
+        </div>
       </form>
     </div>
+    
     <div class="order-summary">
-      <div class="product">
-        <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_XCjeXFlLuTcz8fMzWFV7ujGX.png" alt="Kính Gucci Havana">
-        <p>Kính Gucci Havana - 40</p>
-        <span>5,490,000₫</span>
-      </div>
+      <?php if (!empty($products)) { 
+        foreach ($products as $product) { ?>
+        <div class="product">
+          <img src="../assets/img/<?php echo $product['img']; ?>" alt="<?php echo $product['name']; ?>">
+          <p><?php echo $product['name']; ?> - <?php echo $product['quantity']; ?></p>
+          <span><?php echo number_format($product['price'] * $product['quantity'], 0, ',', '.'); ?>₫</span>
+        </div>
+      <?php }} ?>
+
       <div class="discount">
         <input type="text" placeholder="Mã giảm giá">
         <button>Sử dụng</button>
       </div>
+      
       <div class="price-details">
-        <p>Tạm tính <span>5,490,000₫</span></p>
+        <p>Tạm tính <span><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
         <p>Phí vận chuyển <span>0₫</span></p>
-        <p class="total">Tổng cộng <span>5,490,000₫</span></p>
+        <p class="total">Tổng cộng <span><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
       </div>
-      <button class="checkout-btn">Thanh toán</button>
+
+      <!-- Nút Thanh toán gọi form -->
+      <button type="button" class="checkout-btn" onclick="submitOrder()">Thanh toán</button>
+
     </div>
   </div>
+
+  <script>
+    function submitOrder() {
+      document.getElementById('orderForm').submit();
+    }
+  </script>
+  <script>
+    function validateForm() {
+        var fullname = document.forms["orderForm"]["fullname"].value;
+        var phone = document.forms["orderForm"]["phone"].value;
+        var email = document.forms["orderForm"]["email"].value;
+        var address = document.forms["orderForm"]["address"].value;
+
+        if (fullname == "" || phone == "" || email == "" || address == "") {
+            alert("Vui lòng điền đầy đủ thông tin.");
+            return false;
+        }
+
+        // Gửi form nếu tất cả các trường hợp lệ
+        return true;
+    }
+
+    function submitOrder() {
+        if (validateForm()) {
+            document.getElementById('orderForm').submit();
+        }
+    }
+</script>
+
 </body>
 </html>
