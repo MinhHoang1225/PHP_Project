@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="..\assets\css\bootstrap.min.css">
     <script src="..\assets\js\bootstrap.bundle.min.js"></script>
     <script src="..\assets\js\font-aware.js"></script>
+    <script src="../assets/js/navigation.js"></script>
     <style>
         .container2 {
             display: flex; 
