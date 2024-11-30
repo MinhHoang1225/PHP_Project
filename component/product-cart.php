@@ -9,16 +9,17 @@
     
          // Lấy dữ liệu giỏ hàng
     $cart_sql = "SELECT 
-            shopping_cart.cart_id AS cart_id,
-            products.product_id AS product_id,
-            products.name AS product_name,
-            products.price AS product_price,
-            products.img AS product_image,
-            cart_items.quantity AS cart_quantity,
-            (products.price * cart_items.quantity) AS total_price
-        FROM shopping_cart
-        INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
-        INNER JOIN products ON cart_items.product_id = products.product_id";
+    shopping_cart.cart_id AS cart_id,
+    products.product_id AS product_id,
+    products.name AS product_name,
+    products.price AS product_price,
+    products.img AS product_img,
+    cart_items.quantity AS cart_quantity,
+    (products.price * cart_items.quantity) AS total_price
+    FROM shopping_cart
+    INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+    INNER JOIN products ON cart_items.product_id = products.product_id
+    WHERE shopping_cart.user_id = 1;";
     $cart_stmt = $conn->prepare($cart_sql);
     $cart_stmt->execute();
     $cart_result = $cart_stmt->get_result();
@@ -69,16 +70,16 @@
                                 ?>
                                 <tr class="item">
                                     <td class="image">
-                                        <div class="product-image">
-                                            <a href="http://t0239.store.nhanh.vn/cart"> 
-                                                <img src="../assets./img/<?php echo $row['product_image']?>" alt="<?php echo $row['product_name'] ?>" data-sizes="auto" style="font-size: 16px">
-                                            </a>
-                                        </div>
-                                    </td>
+                                    <?php 
+                                        if (!empty($row['product_img'])) {
+                                            echo '<img src="/PHP_Project/assets/img/' . $row['product_img'] . '" alt="Product Image" class="product-img">';
+                                        } else {
+                                            echo '<p>No image</p>';
+                                        }?>
+                                                    </td>
                                     <td class="product-Name">
-                                        <a href="http://t0239.store.nhanh.vn/cart">
                                            <span class="text-hover"><?php echo $row['product_name'] ?></span>
-                                        </a>
+
                                     </td>
                                     <td class="qty">
                                         <input type="number" min="1" max="5000" value="<?php echo $row['cart_quantity'] ?>" class="item-quantity" data-id="<?php echo $row['cart_id']; ?>" onchange="updateQuantity(this,'<?php echo $row['product_id']; ?>','<?php echo $row['cart_id']; ?>')">

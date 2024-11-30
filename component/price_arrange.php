@@ -77,7 +77,7 @@
 <body>
 <div class="muc_gia">
     <div class="muc1">
-        <div class="home"><a href="#trangchu">Trang chủ</a></div>
+        <div class="home"><a href="../index.php" style="color:#0c6478">Trang chủ</a></div>
         <div class="acc"><b>/ Accessores</b></div>
     </div>
     <div class="gia">

@@ -9,9 +9,11 @@
     products.img AS product_img,
     cart_items.quantity AS cart_quantity,
     (products.price * cart_items.quantity) AS total_price
-  FROM shopping_cart
-  INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
-  INNER JOIN products ON cart_items.product_id = products.product_id";
+FROM shopping_cart
+INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+INNER JOIN products ON cart_items.product_id = products.product_id
+WHERE shopping_cart.user_id = 1;"
+  ;
   $stmt = $conn->prepare($cart_sql);
   if ($stmt === false) {
     die("Error preparing statement: " . $conn->error);
@@ -67,6 +69,7 @@ header {
     background-color: var(--bg-header);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
+    ;
 }
 
 header img {

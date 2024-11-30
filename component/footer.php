@@ -189,7 +189,8 @@
                     <div class="col-lg-3 col-md-6 f_widget_1">
                         <div class="f_widget social-widget pl_70 wow fadeInLeft" data-wow-delay="0.8s" style="visibility: visible; animation-delay: 0.8s; animation-name: fadeInLeft;">
                             <div class="logo-container">
-                            <img src="/PHP_Project/assets/img/header_img/logo.png" alt="Logo" class="logo">
+                                <a href="../index.php">
+                                <img src="/PHP_Project/assets/img/header_img/logo.png" alt="Logo" class="logo"></a>
 
                             </div>
                             <!-- <p class="logo-description"><b>SNEAKER HOME </b> là cửa hàng chuyên cung cấp các mẫu giày sneaker hiện đại, phù hợp với nhiều phong cách và độ tuổi.</p> -->
