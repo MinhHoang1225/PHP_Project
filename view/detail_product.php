@@ -1,3 +1,35 @@
+<?php
+if (isset($_GET['id'])) {
+    $product_id = $_GET['id'];
+
+    // Kết nối tới cơ sở dữ liệu
+    include '../database/connect.php'; // File kết nối database
+
+    // Truy vấn lấy thông tin sản phẩm và danh mục
+    $query = "
+        SELECT products.*, categories.name AS category_name 
+        FROM products
+        INNER JOIN categories ON products.category_id = categories.category_id
+        WHERE products.product_id = ?
+    ";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $product = $result->fetch_assoc();
+
+    // Kiểm tra kết quả
+    if (!$product) {
+        echo "Sản phẩm không tồn tại.";
+        exit;
+    }
+} else {
+    echo "Không có sản phẩm được chọn.";
+    exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -8,73 +40,46 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="product-container">
-        <div class="breadcrumb">
-            <a href="#">Trang chủ</a> / <a href="#">Quần áo</a>
-        </div>
-        <div class="product-details">
-            <div class="product-image-slider"> 
-                <div class="slide-container">
-                    <div class="slide">
-                        <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_dZgJKtFCz30YW9owCdOGrnL0.png" alt="Sản phẩm 1">
-                    </div>
-                    <div class="slide">
-                        <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_xrt2x5YMMxm8PXSeoZP8LXJo.png" alt="Sản phẩm 2">
-                    </div>
-                    <div class="slide">
-                        <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_ppm7XRanLvI0v1gbAcBlvXw5.png" alt="Sản phẩm 3">
-                    </div>
-                    <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
-                    <button class="next" onclick="changeSlide(1)">&#10095;</button>
-                </div> 
-                <div class="dot-container">
-                    <span class="dot" onclick="currentSlide(1)"></span>
-                    <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
-                </div> 
-                <div class="thumbnail-gallery">
-                    <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_dZgJKtFCz30YW9owCdOGrnL0.png" alt="Thumbnail 1" onclick="currentSlide(1)">
-                    <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_xrt2x5YMMxm8PXSeoZP8LXJo.png" alt="Thumbnail 2" onclick="currentSlide(2)">
-                    <img src="https://pos.nvncdn.com/eb9ddb-116318/ps/20220323_ppm7XRanLvI0v1gbAcBlvXw5.png" alt="Thumbnail 3" onclick="currentSlide(3)">
+<div class="product-container">
+    <div class="breadcrumb">
+        <a href="../index.php">Trang chủ</a> / <a href="category.php">Quần áo</a> / <span><?php echo $product['name']; ?></span>
+    </div>
+    <div class="product-details" style="padding-top:70px" >
+        <!-- Hình ảnh sản phẩm -->
+        <div class="product-image-slider">
+            <div class="slide-container">
+                <div class="slide">
+                    <img src="../assets/img/<?php echo $product['img']; ?>" alt="<?php echo $product['name']; ?>">
                 </div>
-            </div> 
-            <div class="product-info">
-                <h1>Quần Nike AS M NSW Club JGGR FT 'Black'</h1>
-                <p class="product-price">2.100.000₫</p>
-                <div class="product-size">
-                    <label>Size:</label>
-                    <div class="size-options">
-                        <button>L</button>
-                        <button>M</button>
-                        <button>S</button>
-                    </div>
-                </div> 
-                <p class="stock-status">Còn hàng</p>
-                <div class="quantity-control">
-                    <button class="qty-btn decrement">-</button>
-                    <input type="text" value="1" class="quantity-input">
-                    <button class="qty-btn increment">+</button>
-                </div>
-                
-                <div class="product-actions">
-                    <button class="add-to-cart">Thêm vào giỏ hàng</button>
-                    <button class="buy-now">Mua ngay</button>
-                </div>
-                <button class="contact-btn">Liên hệ chúng tôi</button>
-                <div class="product-meta">
-                    <p>Mã: Q1203</p>
-                    <p>Danh mục: Quần áo</p>
-                    <div class="social-icons">
-                        <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="icon"><i class="fas fa-envelope"></i></a>
-                        <a href="#" class="icon"><i class="fab fa-pinterest-p"></i></a>
-                        <a href="#" class="icon"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>                
+                <!-- Nếu có nhiều hình ảnh phụ, thêm các slide khác -->
             </div>
         </div>
+
+        <!-- Thông tin sản phẩm -->
+        <div class="product-info">
+            <h1><?php echo $product['name']; ?></h1>
+            <p class="product-price">
+                <?php echo number_format($product['price'], 0, ',', '.'); ?>₫
+            </p>
+
+            <p class="stock-status">
+                <?php echo $product['stock'] > 0 ? "Còn hàng" : "Hết hàng"; ?>
+            </p>
+            <div class="quantity-control">
+                <button class="qty-btn decrement">-</button>
+                <input type="text" value="1" class="quantity-input">
+                <button class="qty-btn increment">+</button>
+            </div>
+
+            <div class="product-actions">
+                <button class="add-to-cart">Thêm vào giỏ hàng</button>
+                <button class="buy-now">Mua ngay</button>
+            </div>
+                <p style="padding-top:30px">Danh mục: <?php echo htmlspecialchars($product['category_name']); ?></p>
+        </div>
     </div>
+</div>
+
  <script>
     let slideIndex = 1;
     showSlide(slideIndex);
