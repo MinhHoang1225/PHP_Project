@@ -37,6 +37,8 @@
     <script src="..\assets\js\font-aware.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="../assets/js/navigation.js"></script>
+
 </head>
 <body>
     <div id="cart">
@@ -111,7 +113,7 @@
                                 </button>
 
                             </a>
-                            <button type="button" id="checkout" class="button-default">
+                            <button type="button" id="checkout" class="button-default" onclick="navigateTo('./component/checkout.php')">
                                 Thanh toán
                             </button>
                         </div>

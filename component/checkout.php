@@ -113,7 +113,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thanh toán</title>
+  <script src="../assets/js/font-aware.js"></script>
+  <script src="../assets/js/navigation.js"></script>
+
   <style>
+    :root{
+    --bg-header: #e5e5e5;
+--bg-btn: #0c6478;
+--bg-hover-btn: #159198;
+--main-font: sans-serif;
+--main-color: black;
+--second-color: #666666B3;
+--title-text-size: 32px;
+--main-text-size:16px;  
+}
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -147,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     .delivery-info a {
-      color: #007bff;
+      color: var(--bg-btn);
       text-decoration: none;
     }
 
@@ -221,7 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     .discount button {
       padding: 10px 15px;
-      background: black;
+      background: var(--bg-btn);
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -229,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     .discount button:hover {
-      background: #0056b3;
+      background: var(--bg-hover-btn);
     }
 
     .price-details p {
@@ -247,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       display: block;
       width: 100%;
       padding: 10px;
-      background: black;
+      background: var(--bg-btn);
       color: #fff;
       border: none;
       border-radius: 4px;
@@ -257,7 +270,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     .checkout-btn:hover {
-      background: #0056b3;
+      background: var(--bg-hover-btn);
     }
 
     form input {
@@ -292,13 +305,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       height:20px;
     }
 
+    .big_img_logo{
+      width: 200px;
+      padding-left: 600px;
+    }
+    .arrow-back{
+      font-size: 32px;
+      padding: 10px 0 0 10px;
+      cursor: pointer;
+      color: var(--bg-btn);
+    }
+    .arrow-back:hover{
+      color: var(--bg-hover-btn)
+    }
   </style>
 </head>
 <body>
+<div class="big_img_logo"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
 <div class="container">
+<div class="arrow-back" ><i class="fa-solid fa-arrow-left" onclick="navigateTo('./component/product-cart.php')"></i></div>
     <div class="delivery-info">
       <h2>Thông tin giao hàng</h2>
-      <p>Bạn đã có tài khoản? <a href="#">Đăng nhập</a></p>
+      <!-- <p>Bạn đã có tài khoản? <a href="#">Đăng nhập</a></p> -->
       
       <!-- Thêm form với method POST -->
       <form id="orderForm" method="POST">

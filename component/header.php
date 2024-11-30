@@ -458,7 +458,7 @@ header img {
                 <div class="h-50"></div>
                 <!-- Gói cart-icon và box-notifi trong container -->
                 <div class="hover-area position-relative">
-                  <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon"></i>
+                  <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon" onclick="navigateTo('./component/product-cart.php')" ></i>
                   <div class="box-notifi">
                     <div id="cart-content">
                       <h2 style="text-align: center;padding:15px;color: var(--main-color)">Giỏ hàng</h2>
@@ -488,7 +488,7 @@ header img {
                               echo "No data found!";
                           }
                         ?>
-                        <button class="cart_btn">Giỏ hàng</button>
+                        <button class="cart_btn"  onclick="navigateTo('./component/product-cart.php')">Giỏ hàng</button>
                     </div>
                   </div>
                 </div>
