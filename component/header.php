@@ -394,7 +394,7 @@ header img {
               <div class="container-fluid pt-1">
                 <div class="d-none d-lg-flex justify-content-center">
                   <ul class="nav menu-pc gap-3 fs-4">
-                    <li class="lv1 cate_hover">
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/accessores.php')">
                       Accessories
                       <i class="fas fa-caret-down"></i>
                       <ul class="wrap">

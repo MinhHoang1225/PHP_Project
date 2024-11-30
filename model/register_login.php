@@ -171,6 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="../assets/js/navigation.js"></script>
     <title>Đăng nhập và Đăng kí</title>
 
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -185,8 +186,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <source src="../assets/video/background2.mp4" type="video/mp4">
     </video>
       <div class="form-container register-container">
-      <!-- <button class="close-button-register" onclick="navigateTo('./index.php')">&times;</button> -->
       <form method="POST" id="register-form" action="register_login.php">
+      <div class="close-button-register" onclick="navigateTo('./index.php')">&times;</div>
         <h1>Đăng ký tại đây</h1>
         <div class="form-control">
             <input type="text" name="username" id="username" placeholder="Tên đăng nhập" required />
@@ -210,6 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div class="form-container login-container">
         <form class="form-lg" action="" method="POST">
+        <div class="close-button-login" onclick="navigateTo('./index.php')">&times;</div>
             <h1>Đăng nhập tại đây</h1>
             <?php if (isset($error_message)): ?>
             <div id="error-message" class="alert alert-danger" style="display: none;">

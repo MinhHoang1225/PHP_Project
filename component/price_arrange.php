@@ -5,6 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../assets/css/price_arrange.css">
+    <style>
+        /* Mục Giá */
+.muc_gia {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Mục 1 (Trang chủ và Acc) */
+.muc_gia .muc1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.muc_gia .muc1 .home a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.muc_gia .muc1 .home a:hover {
+    text-decoration: underline;
+}
+
+.muc_gia .muc1 .acc {
+    font-size: 16px;
+    color: #555;
+    margin-left: 5px;
+}
+
+/* Kết quả tìm kiếm và chọn giá */
+.muc_gia .gia {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.muc_gia .gia .kq {
+    font-size: 16px;
+    color: #333;
+}
+
+.muc_gia .gia form {
+    display: flex;
+    align-items: center;
+}
+
+.muc_gia .gia select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.muc_gia .gia select:focus {
+    border-color: #007bff;
+}
+
+.muc_gia .gia select option {
+    padding: 8px;
+}
+
+    </style>
 </head>
 <body>
 <div class="muc_gia">

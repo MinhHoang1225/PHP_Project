@@ -463,3 +463,14 @@ border-radius: 5px;
 outline: none;
 border-color: #4d90fe;
 }
+
+.close-button-login{
+  position: absolute;
+  top:5px;
+  left: 5px;
+
+}
+
+.close-button-register{
+
+}
