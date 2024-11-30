@@ -25,7 +25,7 @@
                     <div class="accordion-item" data-category-id="1">
                         <h2 class="accordion-header" id="headingAccessories">
                             <button class="accordion-button collapsed category-item" type="button" data-category-id="1" data-bs-toggle="collapse" data-bs-target="#collapseAccessories" aria-expanded="false" aria-controls="collapseAccessories">
-                                Accessories <i class="fa-solid fa-plus ms-2"></i>
+                                Sản phẩm <i class="fa-solid fa-plus ms-2"></i>
                             </button>
                         </h2>
                         <div id="collapseAccessories" class="accordion-collapse collapse" aria-labelledby="headingAccessories" data-bs-parent="#categoryAccordion">

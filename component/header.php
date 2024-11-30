@@ -397,58 +397,12 @@ header img {
               <div class="container-fluid pt-1">
                 <div class="d-none d-lg-flex justify-content-center">
                   <ul class="nav menu-pc gap-3 fs-4">
-                    <li class="lv1 cate_hover" onclick="navigateTo('./view/accessores.php')">
-                      Accessories
-                      <i class="fas fa-caret-down"></i>
-                      <ul class="wrap">
-                        <li class="lv2">Phụ kiện 
-                          <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Mũ</li>
-                            <li class="lv3">Dép<i class="fas fa-caret-right"></i>
-                              <ul class="sub-menu-3">
-                                <li class="lv4">Dép Nike</li>
-                                <li class="lv4">Dép Adidas</li>
-                                <li class="lv4">Dép MLB</li>
-                              </ul>
-                            </li>
-                            <li class="lv3">Tất</li>
-                            <li class="lv3">Kính</li>
-                          </ul>
-                        </li>
-                        <li class="lv2 balo">Balo
-                          <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Herschel</li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="lv1 cate_hover">Giày<i class="fas fa-caret-down"></i>
-                      <ul class="wrap">
-                        <li class="lv2">Giày Puma <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Puma Mule</li>
-                            <li class="lv3">Puma RS</li>
-                          </ul>
-                        </li>
-                        <li class="lv2">Giày Nike 
-                          <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Air Max<i class="fas fa-caret-right"></i>
-                              <ul class="sub-menu-3">
-                                <li class="lv4">Air Max 1</li>
-                                <li class="lv4">Air Max 90</li>
-                              </ul>
-                            </li>
-                            <li class="lv3">Air Zoom</li>
-                          </ul>
-                        </li>
-                        <li class="lv2">Giày Adidas</li>
-                      </ul>
-                    </li>
-                    <li class="lv1 cate_hover" onclick="navigateTo('./view/favorite_product.php')">Yêu thích</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./index.php')">Trang chủ</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/accessores.php')">Sản phẩm</li>
+                    <li class="lv1 cate_hover">Phụ kiện</li>  
+                    <li class="lv1 cate_hover">Giày</li>
                     <li class="lv1 cate_hover">Quần áo</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/favorite_product.php')">Yêu thích</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/discount.php')">Khuyến mại</li>
                   </ul>
                 </div>
