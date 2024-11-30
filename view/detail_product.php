@@ -33,11 +33,11 @@ if (isset($_GET['id'])) {
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sản phẩm</title>
-<link rel="stylesheet" href="../assets/css/detail_product.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm</title>
+    <link rel="stylesheet" href="../assets/css/detail_product.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <div class="product-container">
@@ -107,19 +107,27 @@ if (isset($_GET['id'])) {
     }
 
     const decrementBtn = document.querySelector(".decrement");
-    const incrementBtn = document.querySelector(".increment");
     const quantityInput = document.querySelector(".quantity-input");
-    decrementBtn.addEventListener("click", () => {
-        let currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) { 
-            quantityInput.value = currentValue - 1;
-        }
-    });
+    const hiddenQuantityInput = document.getElementById("quantity-hidden");
+
     incrementBtn.addEventListener("click", () => {
         let currentValue = parseInt(quantityInput.value);
         quantityInput.value = currentValue + 1;
+        hiddenQuantityInput.value = quantityInput.value;
     });
-    
- </script>
- </body>
+
+    decrementBtn.addEventListener("click", () => {
+        let currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+            hiddenQuantityInput.value = quantityInput.value;
+        }
+    });
+
+    quantityInput.addEventListener("input", () => {
+        hiddenQuantityInput.value = quantityInput.value;
+    });
+</script>
+
+</body>
 </html>
