@@ -1,149 +1,106 @@
-:root{
-    --bg-header: #e5e5e5;
---bg-btn: #0c6478;
---bg-hover-btn: #159198;
---main-font: sans-serif;
-/* second-font:; */
---main-color: black;
---second-color: #666666B3;
---title-text-size: 32px;
---main-text-size:16px;
-}
-
-
-body {
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-    font-family: var(--main-font);
-}
-
+/* Tổng quan */
 .left-page {
-    background-color: pink;
-    max-width: 270px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
     padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
 }
 
-/* Danh mục */
-.text-uppercase {
+/* Tiêu đề phần */
+.left-page h4 {
     font-size: 18px;
-    opacity: 0.4;
-    font-weight: 200;
+    color: #333;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
 }
 
-
-/* Accordion, Kích thước */
-.accordion, .form-checkbox, .price-slider {
-    margin-top: 30px;
+/* Accordion */
+.accordion-item {
+    border: none;
+    margin-bottom: 10px;
 }
 
-/* Thay đổi nút cộng và trừ */
-.accordion-button::after {
-    display: none; /* Ẩn biểu tượng mặc định của Bootstrap */
+.accordion-button {
+    background-color: #fff;
+    color: #333;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
 }
 
-.accordion-button .fa-plus, .accordion-button .fa-minus {
-    margin-left: auto;
-}
-
-.accordion-button:not(.collapsed) .fa-plus {
-    display: none;
-}
-
-.accordion-button.collapsed .fa-minus {
-    display: none;
-}
-
-/* Thay đổi màu */
-.accordion-button:not(.collapsed) {
-    padding: 10px; /* Duy nhất */
-    color: inherit !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-}
-
-.accordion-body {
-    padding:0px 25px 0px 20px !important;
-}
-
-/* Chỉnh sửa lại css */
-
-.accordion-button.collapsed {
-    padding: 10px;
-}
-
-.accordion-header .accordion-button {
-    font-weight: bold;
+.accordion-button:hover {
+    background-color: #007bff;
+    color: #fff;
 }
 
 .accordion-button:focus {
-    box-shadow: none !important;
+    box-shadow: none;
 }
 
-/* list-unstyled */
-.accordion-item .list-unstyled {
-    margin-bottom: auto !important;
-    padding-left: 7px ;
+.accordion-body {
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.list-unstyled .list-item {
-    border-bottom: 1px solid #eae6e6;
-    padding: 5px;
+.accordion-item .list-unstyled li a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 0;
+    display: block;
+    transition: color 0.3s ease;
 }
 
-.list-unstyled .none {
-    border-bottom: none !important;
+.accordion-item .list-unstyled li a:hover {
+    color: #0056b3;
+    text-decoration: underline;
 }
 
-/* Lọc giá */
-.d-flex {
-    margin-bottom: 7px;
+/* Kích thước */
+.form-check-label {
+    font-size: 14px;
+    color: #555;
 }
 
-.price-slider #minPrice, 
-.price-slider #maxPrice {
-    opacity: 0.5;
-    font-size: 15px;
+.form-check-input:checked + .form-check-label {
+    color: #007bff;
+    font-weight: bold;
 }
 
-.range-input {
-    width: 100%;
+/* Thanh lọc giá */
+.price-slider {
+    margin-top: 15px;
 }
 
-.form-range-price {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 12px;
-    /* background: linear-gradient(90deg, rgb(63, 60, 60) 60%, rgba(255,255,255) 60%); */
-    outline: none;
-    cursor: pointer;
-    border-radius: 3px;
-    border: 1px solid #333;
-    -webkit-transition: 0.2s;
-    transition: opacity 0.2s;
+.price-slider span {
+    font-size: 14px;
+    color: #555;
+    font-weight: bold;
 }
 
-.form-range-price:hover {
-    opacity: 1;
+#priceRange {
+    margin-top: 10px;
+    accent-color: #007bff;
 }
 
-.range-input input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    border: 0.5rem solid #333;
-    height: 17px;
-    width: 17px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 2px solid rgb(240, 239, 239);
-    background-color: #333333;
-} 
+/* Responsive */
+@media (max-width: 768px) {
+    .left-page {
+        padding: 15px;
+    }
 
-.range-input input[type="range"]::-moz-range-thumb {
-    border: 0.5rem solid #333;
-    height: 17px;
-    width: 17px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 2px solid rgb(240, 239, 239);
-    background-color: #333333;
-} 
+    .accordion-button {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+
+    .price-slider span {
+        font-size: 12px;
+    }
+}

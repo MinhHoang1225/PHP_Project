@@ -9,9 +9,11 @@
     products.img AS product_img,
     cart_items.quantity AS cart_quantity,
     (products.price * cart_items.quantity) AS total_price
-  FROM shopping_cart
-  INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
-  INNER JOIN products ON cart_items.product_id = products.product_id";
+FROM shopping_cart
+INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+INNER JOIN products ON cart_items.product_id = products.product_id
+WHERE shopping_cart.user_id = 1;"
+  ;
   $stmt = $conn->prepare($cart_sql);
   if ($stmt === false) {
     die("Error preparing statement: " . $conn->error);
@@ -67,6 +69,7 @@ header {
     background-color: var(--bg-header);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
+    ;
 }
 
 header img {
@@ -394,7 +397,7 @@ header img {
               <div class="container-fluid pt-1">
                 <div class="d-none d-lg-flex justify-content-center">
                   <ul class="nav menu-pc gap-3 fs-4">
-                    <li class="lv1 cate_hover">
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/accessores.php')">
                       Accessories
                       <i class="fas fa-caret-down"></i>
                       <ul class="wrap">
@@ -458,7 +461,7 @@ header img {
                 <div class="h-50"></div>
                 <!-- Gói cart-icon và box-notifi trong container -->
                 <div class="hover-area position-relative">
-                  <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon"></i>
+                  <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon" onclick="navigateTo('./component/product-cart.php')" ></i>
                   <div class="box-notifi">
                     <div id="cart-content">
                       <h2 style="text-align: center;padding:15px;color: var(--main-color)">Giỏ hàng</h2>
@@ -488,7 +491,7 @@ header img {
                               echo "No data found!";
                           }
                         ?>
-                        <button class="cart_btn">Giỏ hàng</button>
+                        <button class="cart_btn"  onclick="navigateTo('./component/product-cart.php')">Giỏ hàng</button>
                     </div>
                   </div>
                 </div>
