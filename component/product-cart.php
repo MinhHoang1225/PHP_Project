@@ -107,7 +107,7 @@
                             <span class="text-bold"><?php echo number_format($total, 0, ',', '.'); ?> đ</span>
                         </div>
                         <div class="cart-buttons buttons">
-                            <a href="../index.php">
+                            <a href="../view/accessores.php">
                                 <button type="button" id="update-cart" class="button-default">
                                     <i class="fa-solid fa-arrow-left"></i> Tiếp tục mua sắm
                                 </button>
