@@ -43,7 +43,10 @@
                 <input type="hidden" name="redirect_url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
                 <div class="product-actions">
                     <button type="submit" name="add_to_cart" class="add-to-cart">Thêm vào giỏ hàng</button>
+                    <button class="buy-now">Mua ngay</button>
+
                 </div>
+                <button class="contact-btn">Liên hệ chúng tôi</button>
             </form>
         </div>
     </div>
