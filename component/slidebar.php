@@ -245,6 +245,46 @@ document.addEventListener('DOMContentLoaded', function () {
     // Cập nhật giá ban đầu
     updatePriceDisplay();
 });
+const size44Checkbox = document.getElementById("size44");
+    const size43Checkbox = document.getElementById("size43");
+    const sizeLCheckbox = document.getElementById("sizeL");
+    const sizeMCheckbox = document.getElementById("sizeM");
+    const sizeSCheckbox = document.getElementById("sizeS");
+
+    size44Checkbox.parentElement.style.display = "none";
+    size43Checkbox.parentElement.style.display = "none";
+
+    const shoeCategories = document.querySelectorAll(
+        '[data-search-keyword="Giày Puma"], [data-search-keyword="Giày Nike"], [data-search-keyword="Giày adidas"], [data-search-keyword="Dép"]'
+    );
+
+    const otherCategories = document.querySelectorAll(
+        '.category-item:not([data-search-keyword="Giày Puma"]):not([data-search-keyword="Giày Nike"]):not([data-search-keyword="Giày adidas"]):not([data-search-keyword="Dép"])'
+    );
+
+    function showShoeSizes() {
+        size44Checkbox.parentElement.style.display = "block";
+        size43Checkbox.parentElement.style.display = "block";
+        sizeLCheckbox.parentElement.style.display = "none";
+        sizeMCheckbox.parentElement.style.display = "none";
+        sizeSCheckbox.parentElement.style.display = "none";
+    }
+
+    function showAllSizesExceptShoes() {
+        size44Checkbox.parentElement.style.display = "none";
+        size43Checkbox.parentElement.style.display = "none";
+        sizeLCheckbox.parentElement.style.display = "block";
+        sizeMCheckbox.parentElement.style.display = "block";
+        sizeSCheckbox.parentElement.style.display = "block";
+    }
+
+    shoeCategories.forEach(category => {
+        category.addEventListener("click", showShoeSizes);
+    });
+
+    otherCategories.forEach(category => {
+        category.addEventListener("click", showAllSizesExceptShoes);
+    });
 
 </script>
 

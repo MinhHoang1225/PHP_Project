@@ -16,7 +16,9 @@
         </div>
     </div>
     <div class="btn">
-        <button type="submit">Tranng Chủ</button>
+        <a href="../index.php">
+            <button type="submit" class="btn-submit"><i class="fa-solid fa-arrow-left"></i>Trang chủ</button>
+        </a>
     </div>
     
 
@@ -56,6 +58,27 @@
         .payment-success-message .fa-regular {
             font-size: 50px;
             color: var(--bg-hover-btn);
+        }
+
+        .btn {
+            text-align: center;
+        }
+        .btn-submit {
+            font-size: 20px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .fa-solid {
+            margin-right: 10px;
+        }
+        
+        .btn-submit:hover {
+            background-color: var(--bg-btn);
+            color: #fff;
+            cursor: pointer;
+
         }
         
       

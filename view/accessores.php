@@ -36,5 +36,7 @@
             <?php include("show_product.php"); ?>
         </div>
     </div>
+    <?php include("../component/btn_up.php"); ?>
+
 </body>
 </html>
