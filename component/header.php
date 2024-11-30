@@ -1,4 +1,4 @@
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Project/database/connect.php"); ?>
+<?php include '../database/connect.php'; ?>
 <?php
   $cart_id = 1; 
   $cart_sql = "SELECT 
@@ -26,8 +26,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Header</title>
-    <link rel="stylesheet" type="" href="root/root.css">
-    <link rel="stylesheet" type="" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="" href="../root/root.css">
+    <link rel="stylesheet" type="" href="../assets/css/bootstrap.min.css">
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/font-aware.js"></script>
     <style>
