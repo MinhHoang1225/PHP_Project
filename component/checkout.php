@@ -193,6 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       padding: 20px;
       margin-right: 150px;
       margin-top: 75px;
+      
     }
 
     .product {
@@ -200,8 +201,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       align-items: center;
       gap: 10px;
       margin-bottom: 20px;
+      padding-right:15px
     }
 
+    .overflow{
+      overflow-y: scroll;
+      height: 250px;
+      width: 600px;
+    }
     .product img {
       width: 60px;
       height: 60px;
@@ -307,7 +314,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     .big_img_logo{
       width: 200px;
-      padding-left: 600px;
+      padding-left: 700px;
     }
     .arrow-back{
       font-size: 32px;
@@ -345,6 +352,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
     
     <div class="order-summary">
+      <div class="overflow">
       <?php if (!empty($products)) { 
         foreach ($products as $product) { ?>
         <div class="product">
@@ -353,11 +361,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           <span><?php echo number_format($product['price'] * $product['quantity'], 0, ',', '.'); ?>₫</span>
         </div>
       <?php }} ?>
+      </div>
 
-      <div class="discount">
+      <!-- <div class="discount">
         <input type="text" placeholder="Mã giảm giá">
         <button>Sử dụng</button>
-      </div>
+      </div> -->
       
       <div class="price-details">
         <p>Tạm tính <span><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>

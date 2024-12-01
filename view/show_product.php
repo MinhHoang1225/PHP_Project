@@ -238,15 +238,15 @@ $result = $stmt->get_result();
 </head>
 <body>
 <div class="container mt-5">
-        <div class="row">
-            <?php
-            if ($result && $result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    ?>
-                    <div class="col-md-3 col-sm-6 text-center justify-content-center">
-                        <div class="product-card">
-                            <div class="product-item_image">
-                                <div class="hoverimage1">
+    <div class="row">
+        <?php
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                ?>
+                <div class="col-md-3 col-sm-6 text-center justify-content-center">
+                    <div class="product-card">
+                        <div class="product-item_image">
+                            <a href="detail_product.php?id=<?php echo $row['product_id']; ?>" class="hoverimage1">
                                 <?php
                                     $imagePath = '../assets/img/' . $row['img'];
                                     if (file_exists($imagePath)) {
@@ -255,37 +255,38 @@ $result = $stmt->get_result();
                                         echo '<img src="uploads/default.jpg" alt="Default Image" class="product-image" width="100%" height="300">';
                                     }
                                 ?>
+                            </a>
+                            <a href="#" class="container d-flex justify-content-center align-items-center">
+                                <div class="heart-icon">
+                                    <i class="bi bi-heart-fill"></i>
                                 </div>
-                                <a href="#" class="container d-flex justify-content-center align-items-center">
-                                    <div class="heart-icon">
-                                        <i class="bi bi-heart-fill"></i>
-                                    </div>
-                                </a>
-                                <a href="#" class="container d-flex justify-content-center align-items-center">
-                                    <div class="cart-icon">
-                                        <i class="bi bi-bag-plus-fill"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="product-info">
-                                <?php
-                                    echo '<p class="product-name">' . htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') . '</p>';
-                                ?>
-                                <p class="price">
-                                    <span class="old-price"><?php echo number_format($row['old_price'], 0, ',', '.'); ?>₫</span>
-                                    <span class="sale-price"><?php echo number_format($row['price'], 0, ',', '.'); ?>₫</span>
-                                </p>
-                            </div>
+                            </a>
+                            <a href="#" class="container d-flex justify-content-center align-items-center">
+                                <div class="cart-icon">
+                                    <i class="bi bi-bag-plus-fill"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="product-info">
+                            <?php
+                                echo '<p class="product-name">' . htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8') . '</p>';
+                            ?>
+                            <p class="price">
+                                <span class="old-price"><?php echo number_format($row['old_price'], 0, ',', '.'); ?>₫</span>
+                                <span class="sale-price"><?php echo number_format($row['price'], 0, ',', '.'); ?>₫</span>
+                            </p>
                         </div>
                     </div>
-                    <?php
-                }
-            } else {
-                echo "<p class='text-center'>Không có sản phẩm nào phù hợp.</p>";
+                </div>
+                <?php
             }
-            ?>
-        </div>
+        } else {
+            echo "<p class='text-center'>Không có sản phẩm nào phù hợp.</p>";
+        }
+        ?>
     </div>
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

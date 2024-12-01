@@ -78,12 +78,12 @@
 <div class="muc_gia">
     <div class="muc1">
         <div class="home"><a href="../index.php" style="color:#0c6478">Trang chủ</a></div>
-        <div class="acc"><b>/ Accessores</b></div>
+        <div class="acc"><b>/ Accessories</b></div>
     </div>
     <div class="gia">
-        <div class="kq">Showing 1-19 of 19 result</div>
-        <form method="" action="">
-            <select name="sort_price" id="price" onchange="this.form.submit()">
+        <div class="kq">Showing 1-19 of 19 results</div>
+        <form id="priceForm">
+            <select name="sort_price" id="price" onchange="submitForm()">
                 <option value="">Thứ tự mặc định</option>
                 <option value="asc">Thứ tự theo giá: thấp đến cao</option>
                 <option value="desc">Thứ tự theo giá: cao xuống thấp</option>
@@ -92,20 +92,20 @@
     </div>
 </div>
 
+
 </body>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const priceDropdown = document.getElementById('price');
     const productContainer = document.querySelector('.show-product');
-
-    let sortPrice = '';
-    priceDropdown.addEventListener('change', function (event) {
-        event.preventDefault(); 
-        sortPrice = this.value; 
-        updateProductList(); 
+    
+    // Lắng nghe thay đổi dropdown
+    priceDropdown.addEventListener('change', function () {
+        updateProductList();
     });
 
     function updateProductList() {
+        const sortPrice = priceDropdown.value;
 
         const selectedSizes = Array.from(document.querySelectorAll('.form-check-input:checked'))
             .map(cb => encodeURIComponent(cb.value));
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
             url += `sort_price=${sortPrice}&`;
         }
 
-        // Gửi yêu cầu AJAX
+        // Gửi yêu cầu AJAX để tải lại sản phẩm
         fetch(url)
             .then(response => {
                 if (!response.ok) {
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(html => {
                 if (productContainer) {
-                    productContainer.innerHTML = html; 
+                    productContainer.innerHTML = html;  // Cập nhật nội dung sản phẩm
                 } else {
                     console.error('Không tìm thấy container để hiển thị sản phẩm.');
                 }
@@ -147,6 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     }
 });
+
 
 
 </script>
