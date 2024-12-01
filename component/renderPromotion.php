@@ -12,6 +12,167 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="assets\js\bootstrap.bundle.min.js"></script>
     <script src="assets\js\font-aware.js"></script>
+
+    <style>
+        
+        :root{
+            --bg-header: #e5e5e5;
+        --bg-btn: #0c6478;
+        --bg-hover-btn: #159198;
+        --main-font: sans-serif;
+        /* second-font:; */
+        --main-color: black;
+        --second-color: #666666B3;
+        --title-text-size: 32px;
+        --main-text-size:16px;
+        
+        }
+        
+        .title-product-main {
+            margin: 1.5em 0 2em 0;
+            font-family: var(--main-font);
+        }
+        
+        .title-product-main h2 {
+            line-height: 1.3;
+            font-size: 20px;
+            text-align: center;
+            font-weight: 600 !important;
+            font-family: var(--main-font);
+            text-transform: uppercase !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .title-product-main h2::before,
+        .title-product-main h2::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background-color: #ddd;
+            margin: 0 10px;
+        }
+        
+        .title-product-main span {
+            background: #fff;
+            color: #555;
+            padding: 0 15px;
+        }
+        
+        
+        .product-card {
+            width: 300px;
+            height: 500px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 25px;
+            margin-right: 290px;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: auto;
+        }
+        
+        .heart-icon, .cart-icon {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .product-card:hover .heart-icon, 
+        .product-card:hover .cart-icon {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .heart-icon {
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            position: absolute;
+            color: #ccc; 
+            border: 2px solid transparent; 
+            transition: all 0.3s ease-in-out; 
+            cursor: pointer;
+        }
+        
+        .cart-icon {
+            left: 10px;
+            font-size: 35px;
+            position: absolute;
+            color: #ccc; 
+            border: 2px solid transparent; 
+            transition: all 0.3s ease-in-out; 
+            cursor: pointer;
+        }
+        
+        .heart-icon:hover, .cart-icon:hover {
+            color: red; 
+            box-shadow: none; 
+        }
+        
+        .product-info {
+            padding-top: 20px
+        }
+        
+        .product-info h3 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            height: 60px; /* Chiều cao cố định cho tiêu đề */
+            padding: 50px 10px; /* Đệm trong để chữ không sát lề */
+            overflow: hidden;
+            text-overflow: ellipsis;
+           
+        }
+        
+        
+        .category {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            margin: 5px 0;
+        }
+        
+        .product-name {
+            font-family: var(--main-font);
+            font-size: 14px;
+            box-sizing: bol;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .price {
+            font-size: 15px;
+            color: #666;
+        }
+        
+        .original-price {
+            font-family: var(--main-font) ;
+            text-decoration: line-through;
+            margin-right: 5px;
+        }
+        
+        .sale-price {
+            font-family: var(--main-font);
+            font-size: 18px;
+            font-weight: bold;
+            color: #e60000;
+        }
+        
+        
+            </style>
 </head>
 <body>
     <div class="promotion_Products">
