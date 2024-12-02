@@ -9,16 +9,17 @@
     
          // Lấy dữ liệu giỏ hàng
     $cart_sql = "SELECT 
-            shopping_cart.cart_id AS cart_id,
-            products.product_id AS product_id,
-            products.name AS product_name,
-            products.price AS product_price,
-            products.img AS product_image,
-            cart_items.quantity AS cart_quantity,
-            (products.price * cart_items.quantity) AS total_price
-        FROM shopping_cart
-        INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
-        INNER JOIN products ON cart_items.product_id = products.product_id";
+    shopping_cart.cart_id AS cart_id,
+    products.product_id AS product_id,
+    products.name AS product_name,
+    products.price AS product_price,
+    products.img AS product_img,
+    cart_items.quantity AS cart_quantity,
+    (products.price * cart_items.quantity) AS total_price
+    FROM shopping_cart
+    INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+    INNER JOIN products ON cart_items.product_id = products.product_id
+    WHERE shopping_cart.user_id = 1;";
     $cart_stmt = $conn->prepare($cart_sql);
     $cart_stmt->execute();
     $cart_result = $cart_stmt->get_result();
@@ -37,13 +38,15 @@
     <script src="..\assets\js\font-aware.js"></script>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <script src="../assets/js/navigation.js"></script>
 </head>
 <body>
+<div class="big_img_logo" style="padding-left:700px"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
     <div id="cart">
         <div class="container-pre">
                 <div class="product-cart col-12 py-4" id="layout-page">
                     <div class="main-title  mt-2 mb-5">
-                        <h3 class="text-center">Giỏ hàng</h3>
+                        <h3 class="text-center fs-1" >Giỏ hàng</h3>
                     </div>
                     <div id="cartformpage" class="pb30">
                         <table class="cart cart-hidden">
@@ -67,16 +70,16 @@
                                 ?>
                                 <tr class="item">
                                     <td class="image">
-                                        <div class="product-image">
-                                            <a href="http://t0239.store.nhanh.vn/cart"> 
-                                                <img src="../assets./img/<?php echo $row['product_image']?>" alt="<?php echo $row['product_name'] ?>" data-sizes="auto" style="font-size: 16px">
-                                            </a>
-                                        </div>
-                                    </td>
+                                    <?php 
+                                        if (!empty($row['product_img'])) {
+                                            echo '<img src="/PHP_Project/assets/img/' . $row['product_img'] . '" alt="Product Image" class="product-img">';
+                                        } else {
+                                            echo '<p>No image</p>';
+                                        }?>
+                                                    </td>
                                     <td class="product-Name">
-                                        <a href="http://t0239.store.nhanh.vn/cart">
                                            <span class="text-hover"><?php echo $row['product_name'] ?></span>
-                                        </a>
+
                                     </td>
                                     <td class="qty">
                                         <input type="number" min="1" max="5000" value="<?php echo $row['cart_quantity'] ?>" class="item-quantity" data-id="<?php echo $row['cart_id']; ?>" onchange="updateQuantity(this,'<?php echo $row['product_id']; ?>','<?php echo $row['cart_id']; ?>')">
@@ -105,13 +108,13 @@
                             <span class="text-bold"><?php echo number_format($total, 0, ',', '.'); ?> đ</span>
                         </div>
                         <div class="cart-buttons buttons">
-                            <a href="../index.php">
+                            <a href="../view/accessores.php">
                                 <button type="button" id="update-cart" class="button-default">
                                     <i class="fa-solid fa-arrow-left"></i> Tiếp tục mua sắm
                                 </button>
 
                             </a>
-                            <button type="button" id="checkout" class="button-default">
+                            <button type="button" id="checkout" class="button-default" onclick="navigateTo('./component/checkout.php')">
                                 Thanh toán
                             </button>
                         </div>

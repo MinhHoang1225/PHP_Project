@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accessores</title>
+    <title>Giày</title>
     <link rel="stylesheet" href="..\assets\css\bootstrap.min.css">
     <script src="..\assets\js\bootstrap.bundle.min.js"></script>
     <script src="..\assets\js\font-aware.js"></script>
@@ -33,7 +33,7 @@
             <?php include("../component/slidebar.php"); ?>
         </div>
         <div class="show-product">
-            <?php include("show_product.php"); ?>
+            <?php include("../component/display_shoe_product.php"); ?>
         </div>
     </div>
     <?php include("../component/btn_up.php"); ?>

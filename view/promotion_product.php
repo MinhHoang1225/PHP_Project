@@ -25,17 +25,10 @@
     <div class="header">
         <?php include("../component/header.php"); ?> 
         </div>
-    <div class="price-arrange">
-        <?php include("../component/price_arrange.php"); ?>
-        </div>
-    <div class="container2">
-        <div class="slidebar">
-            <?php include("../component/slidebar.php"); ?>
-        </div>
-        <div class="show-product">
-            <?php include("show_product.php"); ?>
-        </div>
+    <div class="show-product">
+        <?php include("../component/renderPromotion.php"); ?>
     </div>
+
     <?php include("../component/btn_up.php"); ?>
 
 </body>

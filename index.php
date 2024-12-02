@@ -7,11 +7,11 @@
     <script src="assets/js/navigation.js"></script>
     </head>
 <body>
-    <?php include "../component/header.php"; ?> <!-- Dùng __DIR__ cho file trên server -->
-    <?php include("../component/banner.php"); ?>
-    <?php include("../component/aboutUs.php"); ?>
-    <?php include("../component/product_card.php"); ?>
-    <?php include("../component/footer.php"); ?>
-    <?php include("../component/btn_up.php"); ?>
+    <?php include(__DIR__ . "/component/header.php"); ?> <!-- Dùng __DIR__ cho file trên server -->
+    <?php include(__DIR__ . "/component/banner.php"); ?>
+    <?php include(__DIR__ . "/component/aboutUs.php"); ?>
+    <?php include(__DIR__ . "/component/product_card.php"); ?>
+    <?php include(__DIR__ . "/component/footer.php"); ?>
+    <?php include(__DIR__ . "/component/btn_up.php"); ?>
 </body>
 </html>

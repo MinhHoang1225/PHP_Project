@@ -9,9 +9,11 @@
     products.img AS product_img,
     cart_items.quantity AS cart_quantity,
     (products.price * cart_items.quantity) AS total_price
-  FROM shopping_cart
-  INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
-  INNER JOIN products ON cart_items.product_id = products.product_id";
+FROM shopping_cart
+INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
+INNER JOIN products ON cart_items.product_id = products.product_id
+WHERE shopping_cart.user_id = 1;"
+  ;
   $stmt = $conn->prepare($cart_sql);
   if ($stmt === false) {
     die("Error preparing statement: " . $conn->error);
@@ -67,6 +69,7 @@ header {
     background-color: var(--bg-header);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
+    ;
 }
 
 header img {
@@ -486,58 +489,12 @@ header img {
               <div class="container-fluid pt-1">
                 <div class="d-none d-lg-flex justify-content-center">
                   <ul class="nav menu-pc gap-3 fs-4">
-                    <li class="lv1 cate_hover">
-                      Accessories
-                      <i class="fas fa-caret-down"></i>
-                      <ul class="wrap">
-                        <li class="lv2">Phụ kiện 
-                          <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Mũ</li>
-                            <li class="lv3">Dép<i class="fas fa-caret-right"></i>
-                              <ul class="sub-menu-3">
-                                <li class="lv4">Dép Nike</li>
-                                <li class="lv4">Dép Adidas</li>
-                                <li class="lv4">Dép MLB</li>
-                              </ul>
-                            </li>
-                            <li class="lv3">Tất</li>
-                            <li class="lv3">Kính</li>
-                          </ul>
-                        </li>
-                        <li class="lv2 balo">Balo
-                          <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Herschel</li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="lv1 cate_hover">Giày<i class="fas fa-caret-down"></i>
-                      <ul class="wrap">
-                        <li class="lv2">Giày Puma <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Puma Mule</li>
-                            <li class="lv3">Puma RS</li>
-                          </ul>
-                        </li>
-                        <li class="lv2">Giày Nike 
-                          <i class="fas fa-caret-right"></i>
-                          <ul class="sub-menu-2">
-                            <li class="lv3">Air Max<i class="fas fa-caret-right"></i>
-                              <ul class="sub-menu-3">
-                                <li class="lv4">Air Max 1</li>
-                                <li class="lv4">Air Max 90</li>
-                              </ul>
-                            </li>
-                            <li class="lv3">Air Zoom</li>
-                          </ul>
-                        </li>
-                        <li class="lv2">Giày Adidas</li>
-                      </ul>
-                    </li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./index.php')">Trang chủ</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/accessores.php')">Sản phẩm</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/accesory.php')">Phụ kiện </li>  
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/shoe.php')">Giày</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/clother.php')">Quần áo</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/favorite_product.php')">Yêu thích</li>
-                    <li class="lv1 cate_hover">Quần áo</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/discount.php')">Khuyến mại</li>
                   </ul>
                 </div>
@@ -556,7 +513,7 @@ header img {
                 <div class="h-50"></div>
                 <!-- Gói cart-icon và box-notifi trong container -->
                 <div class="hover-area position-relative">
-                  <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon"></i>
+                  <i class="fa-solid fa-cart-shopping fs-2 pt-3 " id="cart-icon" onclick="navigateTo('./component/product-cart.php')" ></i>
                   <div class="box-notifi">
                     <div id="cart-content">
                       <h2 style="text-align: center;padding:15px;color: var(--main-color)">Giỏ hàng</h2>
@@ -584,7 +541,7 @@ header img {
                               echo "No data found!";
                           }
                         ?>
-                        <button class="cart_btn">Giỏ hàng</button>
+                        <button class="cart_btn"  onclick="navigateTo('./component/product-cart.php')">Giỏ hàng</button>
                     </div>
                   </div>
                 </div>
@@ -593,7 +550,7 @@ header img {
       </div>
     </div>
 
-<div class="container f">
+    <div class="container f">
   <form action="" method="get" class="d-flex form-group" role="search">
     <input 
       type="text" 
@@ -685,7 +642,29 @@ header img {
         })
         .catch(error => console.error("Error fetching user info:", error));
 });
+function fetchSuggestions() {
+    const input = document.getElementById('searchInput').value.trim();
+    const suggestionBox = document.getElementById('suggestionsList');
 
+    if (input.length === 0) {
+      suggestionBox.style.display = 'none';
+      suggestionBox.innerHTML = '';
+      return;
+    }
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '../component/suggestions.php', true); // Gửi request tới file suggestions.php
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        suggestionBox.innerHTML = xhr.responseText;
+        suggestionBox.style.display = 'block';
+      }
+    };
+
+    xhr.send('query=' + encodeURIComponent(input));
+  }
 </script>
 </body>
 </html>

@@ -33,7 +33,7 @@
             <?php include("../component/slidebar.php"); ?>
         </div>
         <div class="show-product">
-            <?php include("show_product.php"); ?>
+            <?php include("../component/render_products_clothes.php"); ?>
         </div>
     </div>
     <?php include("../component/btn_up.php"); ?>

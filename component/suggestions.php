@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
   if ($conn->connect_error) {
     die("Kết nối thất bại: " . $conn->connect_error);
   }
-  $stmt = $conn->prepare("SELECT product_id, name, img, old_price, price FROM products WHERE name LIKE CONCAT('%', ?, '%') LIMIT 10");
+  $stmt = $conn->prepare("SELECT product_id, name, img, old_price, price FROM products WHERE name LIKE CONCAT('%', ?, '%') LIMIT 15");
   if ($stmt === false) {
     die("Lỗi SQL: " . $conn->error);
   }
