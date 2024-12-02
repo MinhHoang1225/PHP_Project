@@ -1,5 +1,4 @@
-<?php include ("database/connect.php") ?>
-<?php
+<?php include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Project/database/connect.php"); ?><?php
   $cart_id = 1; 
   $cart_sql = "SELECT 
     shopping_cart.cart_id AS cart_id,
