@@ -94,8 +94,10 @@ $result = $stmt->get_result();
                                 ?>
                                 </div>
                                 <a href="#" class="container d-flex justify-content-center align-items-center">
-                                    <div class="heart-icon">
-                                        <i class="bi bi-heart-fill"></i>
+                                    <div class="heart-icon"
+                                        data-product-id="<?php echo $kq['product_id']; ?>" 
+                                        onclick="addToFavorites(this)">
+                                     <i class="bi bi-heart-fill"></i>
                                     </div>
                                 </a>
                                 <a href="#" class="container d-flex justify-content-center align-items-center">

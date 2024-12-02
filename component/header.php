@@ -28,8 +28,8 @@
     <title>Header</title>
     <link rel="stylesheet" type="" href="../root/root.css">
     <link rel="stylesheet" type="" href="../assets/css/bootstrap.min.css">
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/font-aware.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/font-aware.js"></script>
     <style>
     :root {
     --bg-header: #e5e5e5;
@@ -376,7 +376,99 @@ header img {
     justify-content: center;
     align-items: center;
 }
+.search-results {
+  position: absolute;
+  background: white;
+  border: 1px solid #ddd;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 500px;
+  z-index: 9999;
+  margin-left: 300px;
+  margin-top: 50px;
+}
 
+.search_inf {
+  display: flex;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  border-bottom: 1px solid #eee;
+}
+
+.search_inf:hover {
+  background-color: #f5f5f5;
+}
+
+.result_img img {
+  width: 50px;
+  height: 50px;
+}
+
+.search_name span {
+  font-size: 16px;
+}
+
+.search_price {
+  font-size: 14px;
+}
+.user-icon-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 120%; 
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px; 
+    display: none; 
+    z-index: 10;
+    min-width: 400px; 
+    max-height: 300px; 
+    overflow-y: auto; 
+    scrollbar-width: thin; 
+    scrollbar-color: #ccc transparent; 
+}
+
+.user-dropdown p, .user-dropdown a, .user-dropdown button {
+    display: block;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 10px;
+    margin: 8px 0;
+    font-size: 16px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+}
+
+.user-dropdown button:hover {
+    color: red;
+}
+
+.user-dropdown::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.user-dropdown::-webkit-scrollbar-thumb {
+    background-color: #ccc; 
+    border-radius: 5px; 
+}
+
+.user-dropdown::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa; 
+}
+
+.user-dropdown::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
 
 </style>
 </head>
@@ -454,7 +546,13 @@ header img {
           </div>
             <div class="col-md-1 position-relative">
               <div class="p-3 d-flex justify-content-center gap-3">
-                <i class="fa-solid fa-circle-user fs-2 pt-3 " onclick="navigateTo('./model/register_login.php')"></i>
+                <!-- <i class="fa-solid fa-circle-user fs-2 pt-3 " onclick="navigateTo('./model/register_login.php')"></i> -->
+                <div class="user-icon-container">
+                    <i class="fa-solid fa-circle-user fs-2 pt-3" id="user-icon"></i>
+                    <div class="user-dropdown" id="user-dropdown">
+                        <!-- Nội dung sẽ được thêm động qua JavaScript -->
+                    </div>
+                </div>
                 <div class="h-50"></div>
                 <!-- Gói cart-icon và box-notifi trong container -->
                 <div class="hover-area position-relative">
@@ -474,8 +572,6 @@ header img {
                                   } else {
                                       echo '<p>No image</p>';
                                   }
-
-                                  // Hiển thị thông tin sản phẩm
                                   echo '<div class="product-info">';
                                   echo '<h3 class="product-name">' . $row['product_name'] . '</h3>';
                                   echo '<p class="product-price">' . number_format($row['product_price'], 0, ',', '.') . ' VND</p>';
@@ -497,19 +593,99 @@ header img {
       </div>
     </div>
 
-
-    <div class="container f">
-      <form action="" method="get" class="d-flex form-group " role="search">
-        <input type="text" name="q" placeholder="Tìm kiếm sản phẩm" class="button_gradient form-control text-center  ">
-            <button type="submit" class="btn p-0">
-            <span class="fas fa-search"></span>
-        </button>
-      </form>
-    </div>
+<div class="container f">
+  <form action="" method="get" class="d-flex form-group" role="search">
+    <input 
+      type="text" 
+      name="q" 
+      placeholder="Tìm kiếm sản phẩm" 
+      class="button_gradient form-control text-center" 
+      oninput="fetchSuggestions()" 
+      autocomplete="off"
+      id="searchInput"
+    >
+    <button type="submit" class="btn p-0">
+      <span class="fas fa-search"></span>
+    </button>
+  </form>
+  <div class="search-results" id="suggestionsList" style="display: none;"></div>
+</div>
   </header>
-  <script src="assets\js\main.js">
+  <script src="../assets\js\main.js">
 </script>
-</script>
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+    const userIcon = document.getElementById("user-icon");
+    const userDropdown = document.getElementById("user-dropdown");
+    fetch("../component/fetch_user_info.php")
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                const user = data.user;
+                userDropdown.innerHTML = `
+                    <p><strong>Tên người dùng:</strong> ${user.username}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Mật khẩu:</strong> ${user.password}</p>
+                    <button id="logout-btn">Đăng xuất</button>
+                    <hr>
+                    <div id="order-history">
+                        <p><strong>Lịch sử đơn hàng:</strong></p>
+                        <ul id="orders-list">
+                            <li>Đang tải...</li>
+                        </ul>
+                    </div>
+                `;
+                fetch("../component/fetch_orders.php", {
+                    method: "POST",
+                })
+                    .then(response => response.json())
+                    .then(orderData => {
+                        const ordersList = document.getElementById("orders-list");
 
+                        if (orderData.status === 'success') {
+                            ordersList.innerHTML = '';
+                            orderData.orders.forEach(order => {
+                                ordersList.innerHTML += `
+                                    <li>
+                                        <strong>Order ID:</strong> ${order.order_id}<br>
+                                        <strong>Total Amount:</strong> $${order.total_amount}<br>
+                                        <strong>Status:</strong> ${order.status}<br>
+                                        <strong>Date:</strong> ${order.order_date}
+                                    </li>
+                                    <hr>
+                                `;
+                            });
+                        } else if (orderData.status === 'empty') {
+                            ordersList.innerHTML = '<li>Chưa có đơn hàng nào.</li>';
+                        }
+                    })
+                    .catch(err => console.error("Error fetching orders:", err));
+
+                // Hiển thị dropdown khi click vào icon
+                userIcon.addEventListener("click", () => {
+                    userDropdown.style.display =
+                        userDropdown.style.display === "block" ? "none" : "block";
+                });
+
+                // Xử lý sự kiện đăng xuất
+                document.getElementById("logout-btn").addEventListener("click", () => {
+                    document.cookie = "is_login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    document.cookie = "user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    document.cookie = "user_role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                    alert("Bạn đã đăng xuất!");
+                    window.location.reload();
+                });
+            } else {
+                // Chuyển hướng nếu chưa đăng nhập
+                userIcon.addEventListener("click", () => {
+                    window.location.href = "../model/register_login.php";
+                });
+            }
+        })
+        .catch(error => console.error("Error fetching user info:", error));
+});
+
+</script>
 </body>
 </html>

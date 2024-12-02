@@ -120,11 +120,11 @@
                                                             <img src="assets/img/<?php echo $kq['img']; ?>" alt="<?php echo $kq['product_name']; ?>" class="product-image" style="width:100%; height:auto;">
                                                         </div>
             
-                                                        <a href="#" class="container d-flex justify-content-center align-items-center" >
-                                                            <div class="heart-icon ">
-                                                                <i class="bi bi-heart-fill"></i>
-                                                            </div>
-                                                        </a>
+                                                        <button class="heart-icon" 
+                                                                data-product-id="<?php echo $kq['product_id']; ?>" 
+                                                                onclick="addToFavorites(this)">
+                                                            <i class="bi bi-heart-fill"></i>
+                                                        </button>
             
                                                         <a href="detail_product.php?id=<?php echo $kq['product_id']; ?>" class="container d-flex justify-content-center align-items-center" >
                                                             <div class="cart-icon">
