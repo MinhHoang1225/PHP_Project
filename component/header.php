@@ -401,7 +401,7 @@ header img {
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/accessores.php')">Sản phẩm</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/accesory.php')">Phụ kiện </li>  
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/shoe.php')">Giày</li>
-                    <li class="lv1 cate_hover">Quần áo</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/clother.php')">Quần áo</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/favorite_product.php')">Yêu thích</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/discount.php')">Khuyến mại</li>
                   </ul>
