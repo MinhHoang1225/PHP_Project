@@ -1,4 +1,4 @@
-<?php include '../database/connect.php'; ?>
+<?php include ("database/connect.php") ?>
 <?php
   $cart_id = 1; 
   $cart_sql = "SELECT 
@@ -568,7 +568,7 @@ header img {
   <div class="search-results" id="suggestionsList" style="display: none;"></div>
 </div>
   </header>
-  <script src="../assets\js\main.js">
+  <script src="../assets/js/main.js">
 </script>
 <script>
  document.addEventListener("DOMContentLoaded", () => {
