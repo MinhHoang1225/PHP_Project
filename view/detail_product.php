@@ -1,32 +1,103 @@
 <?php
+// Kết nối tới cơ sở dữ liệu
+include '../database/connect.php'; // File kết nối database
+
+// Kiểm tra nếu có tham số `id` được truyền qua URL
 if (isset($_GET['id'])) {
-    $product_id = $_GET['id'];
+    $product_id = intval($_GET['id']); // Lấy `product_id` từ URL
 
-    // Kết nối tới cơ sở dữ liệu
-    include '../database/connect.php'; // File kết nối database
+    // Kiểm tra xem sản phẩm có tồn tại trong bảng `products`
+    $query = "SELECT product_id FROM products WHERE product_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Truy vấn lấy thông tin sản phẩm và danh mục
-    $query = "
-        SELECT products.*, categories.name AS category_name 
-        FROM products
-        INNER JOIN categories ON products.category_id = categories.category_id
-        WHERE products.product_id = ?
-    ";
+    if ($result->num_rows == 0) {
+        // Nếu sản phẩm không tồn tại
+        echo json_encode(['success' => false, 'message' => 'Sản phẩm không tồn tại']);
+        exit;
+    }
+
+    // Truy vấn thông tin sản phẩm (bao gồm category_name)
+    $query = "SELECT products.*, categories.name as category_name FROM products INNER JOIN categories ON products.category_id = categories.category_id WHERE product_id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $product_id);
     $stmt->execute();
     $result = $stmt->get_result();
     $product = $result->fetch_assoc();
 
-    // Kiểm tra kết quả
+    // Nếu sản phẩm không tồn tại (lặp lại check từ đầu)
     if (!$product) {
-        echo "Sản phẩm không tồn tại.";
+        echo json_encode(['success' => false, 'message' => 'Sản phẩm không tồn tại']);
         exit;
     }
 } else {
-    echo "Không có sản phẩm được chọn.";
+    echo json_encode(['success' => false, 'message' => 'Không có sản phẩm được chọn']);
     exit;
 }
+
+// Nhận dữ liệu JSON từ frontend
+$data = json_decode(file_get_contents('php://input'), true);
+
+// Lấy thông tin từ request
+$quantity = intval($data['quantity-input'] ?? 1); // Lấy số lượng, mặc định là 1
+$user_id = 1; // Giả định user_id = 1 (thay bằng session user_id nếu có đăng nhập)
+
+// Kiểm tra điều kiện hợp lệ
+if ($quantity > 0 && $product['stock'] > 0) {
+    // Kiểm tra nếu người dùng đã có giỏ hàng
+    $query = "SELECT cart_id FROM shopping_cart WHERE user_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $cart = $result->fetch_assoc();
+
+    if (!$cart) {
+        // Nếu chưa có giỏ hàng, tạo mới
+        $query = "INSERT INTO shopping_cart (user_id) VALUES (?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+        $cart_id = $stmt->insert_id;
+    } else {
+        // Nếu đã có giỏ hàng, lấy cart_id
+        $cart_id = $cart['cart_id'];
+    }
+
+    // Kiểm tra nếu sản phẩm đã tồn tại trong giỏ hàng
+    $query = "SELECT cart_item_id, quantity FROM cart_items WHERE cart_id = ? AND product_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param('ii', $cart_id, $product_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $existing_item = $result->fetch_assoc();
+
+    if ($existing_item) {
+        // Cập nhật số lượng nếu sản phẩm đã tồn tại
+        $new_quantity = $existing_item['quantity'] + $quantity;
+        $query = "UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('ii', $new_quantity, $existing_item['cart_item_id']);
+        $stmt->execute();
+    } else {
+        // Thêm sản phẩm mới vào giỏ hàng
+        $query = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('iii', $cart_id, $product_id, $quantity);
+        $stmt->execute();
+    }
+
+    // Phản hồi JSON thành công
+    // echo json_encode(['success' => true, 'message' => 'Thêm vào giỏ hàng thành công']);
+} else {
+    // Phản hồi lỗi nếu không hợp lệ
+    echo json_encode(['success' => false, 'message' => 'Sản phẩm hết hàng hoặc số lượng không hợp lệ']);
+}
+
+// Đóng kết nối
+$conn->close();
 ?>
 
 
@@ -38,28 +109,28 @@ if (isset($_GET['id'])) {
     <title>Chi tiết sản phẩm</title>
     <link rel="stylesheet" href="../assets/css/detail_product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 </head>
 <body>
 <div class="product-container">
     <div class="breadcrumb">
         <a href="../index.php">Trang chủ</a> / <a href="category.php">Quần áo</a> / <span><?php echo $product['name']; ?></span>
     </div>
-    <div class="product-details" style="padding-top:70px" >
+    <div class="product-details" style="padding-top:70px">
         <!-- Hình ảnh sản phẩm -->
         <div class="product-image-slider">
             <div class="slide-container">
                 <div class="slide">
                     <img src="../assets/img/<?php echo $product['img']; ?>" alt="<?php echo $product['name']; ?>">
                 </div>
-                <!-- Nếu có nhiều hình ảnh phụ, thêm các slide khác -->
             </div>
         </div>
 
         <!-- Thông tin sản phẩm -->
-        <div class="product-info">
+        <div class="product-info" method="POST">
             <h1><?php echo $product['name']; ?></h1>
             <p class="product-price">
-                <?php echo number_format($product['price'], 0, ',', '.'); ?>₫
+            <?php echo number_format($product['price'], 0, ',', '.'); ?>₫
             </p>
 
             <p class="stock-status">
@@ -73,61 +144,71 @@ if (isset($_GET['id'])) {
 
             <div class="product-actions">
                 <button class="add-to-cart">Thêm vào giỏ hàng</button>
-                <button class="buy-now">Mua ngay</button>
+                <a href="../component/product-cart.php"><button class="buy-now">Mua ngay</button></a>
             </div>
-                <p style="padding-top:30px">Danh mục: <?php echo htmlspecialchars($product['category_name']); ?></p>
+            <p style="padding-top:30px">Danh mục: <?php echo htmlspecialchars($product['category_name']); ?></p>
         </div>
     </div>
 </div>
 
- <script>
-    let slideIndex = 1;
-    showSlide(slideIndex);
-
-    function changeSlide(n) {
-        showSlide(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-        showSlide(slideIndex = n);
-    }
-
-    function showSlide(n) {
-        const slides = document.querySelectorAll(".slide");
-        const dots = document.querySelectorAll(".dot");
-
-        if (n > slides.length) { slideIndex = 1 }
-        if (n < 1) { slideIndex = slides.length }
-
-        slides.forEach(slide => slide.style.display = "none");
-        dots.forEach(dot => dot.classList.remove("active"));
-
-        slides[slideIndex - 1].style.display = "block";
-        dots[slideIndex - 1].classList.add("active");
-    }
-
-    const decrementBtn = document.querySelector(".decrement");
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const decrementButton = document.querySelector(".decrement");
+    const incrementButton = document.querySelector(".increment");
     const quantityInput = document.querySelector(".quantity-input");
-    const hiddenQuantityInput = document.getElementById("quantity-hidden");
+    const addToCartButton = document.querySelector(".add-to-cart");
 
-    incrementBtn.addEventListener("click", () => {
-        let currentValue = parseInt(quantityInput.value);
-        quantityInput.value = currentValue + 1;
-        hiddenQuantityInput.value = quantityInput.value;
-    });
-
-    decrementBtn.addEventListener("click", () => {
-        let currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
+    // Xử lý sự kiện giảm số lượng
+    decrementButton.addEventListener("click", () => {
+        let currentValue = parseInt(quantityInput.value, 10);
+        if (!isNaN(currentValue) && currentValue > 1) {
             quantityInput.value = currentValue - 1;
-            hiddenQuantityInput.value = quantityInput.value;
         }
     });
 
-    quantityInput.addEventListener("input", () => {
-        hiddenQuantityInput.value = quantityInput.value;
+    // Xử lý sự kiện tăng số lượng
+    incrementButton.addEventListener("click", () => {
+        let currentValue = parseInt(quantityInput.value, 10);
+        if (!isNaN(currentValue)) {
+            quantityInput.value = currentValue + 1;
+        }
     });
-</script>
 
+    // Kiểm tra giá trị nhập vào trong ô input
+    quantityInput.addEventListener("input", () => {
+        let currentValue = parseInt(quantityInput.value, 10);
+        if (isNaN(currentValue) || currentValue < 1) {
+            quantityInput.value = 1; // Reset to 1 if invalid input
+        }
+    });
+
+    
+    // Xử lý sự kiện khi nhấn vào nút thêm vào giỏ hàng
+    addToCartButton.addEventListener("click", () => {
+        const quantity = parseInt(quantityInput.value, 10);
+        const productId = <?php echo $product['product_id']; ?>; // Lấy product_id từ dữ liệu của sản phẩm
+        alert("Đã thêm <?php echo $product["name"] ?> vào giỏ hàng")
+        // Gửi số lượng và product_id qua yêu cầu AJAX
+        fetch('./detail_product.php?id=' + productId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ quantity: quantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message); // Hiển thị thông báo thành công
+            } else {
+                alert(data.message); // Hiển thị thông báo lỗi
+            }
+        })
+        .catch(error => console.error('Lỗi:', error));
+    });
+});
+
+
+</script>
 </body>
 </html>

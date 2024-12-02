@@ -174,17 +174,9 @@
             </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="product-main">
-                    <div class="title-product-main"> 
-                        <h2 class="section-title">
-                            <span class="text-uppercase fw-bold">
-                                QUẦN ÁO
-                            </span>
-                        </h2>
-                    </div>
                 <div class="content-product-main">
                                 <div class="row">   
                                     <?php

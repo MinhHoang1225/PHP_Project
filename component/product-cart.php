@@ -39,14 +39,14 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <script src="../assets/js/navigation.js"></script>
-
 </head>
 <body>
+<div class="big_img_logo" style="padding-left:700px"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
     <div id="cart">
         <div class="container-pre">
                 <div class="product-cart col-12 py-4" id="layout-page">
                     <div class="main-title  mt-2 mb-5">
-                        <h3 class="text-center">Giỏ hàng</h3>
+                        <h3 class="text-center fs-1" >Giỏ hàng</h3>
                     </div>
                     <div id="cartformpage" class="pb30">
                         <table class="cart cart-hidden">
