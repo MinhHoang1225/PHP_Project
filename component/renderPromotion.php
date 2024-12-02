@@ -188,65 +188,65 @@
                     </div>
     
                     <div class="content-product-main">
-                                            <div class="row">   
-                                                <?php
-                                                include '../database/connect.php';
-                                                $sql = "SELECT p.product_id, p.img, p.name as product_name, p.old_price, p.price, p.created_at, c.name as category_name 
-                                                    FROM products as p 
-                                                    INNER JOIN categories as c ON p.category_id = c.category_id
-                                                    WHERE c.name IN ('Ba lô', 'Giày', 'Phụ kiện', 'Quần áo')
-                                                    ORDER BY RAND()
-                                                    LIMIT 7";
-                                        
-            
-                                                    $result = mysqli_query($conn,$sql);
-                                                    if (!$result) {
-                                                        die("Lỗi truy vấn: " . mysqli_error($conn));
-                                                    }
-                                                    
-                                                    while ($kq = mysqli_fetch_assoc($result)) {
-                                                            
-                                                ?>      
-                                                        <div class="col-md-3 col-sm-6 text-center">
-                                                            <div class="product-card">
-                                                                <div class="product-item_image">
-                                                                    <div class="hoverimage1">
-                                                                        <img src="../assets/img/<?php echo $kq['img']; ?>" alt="<?php echo $kq['product_name']; ?>" class="product-image" style="width:100%; height:auto;">
-                                                                    </div>
-                        
-                                                                    <a href="#" class="container d-flex justify-content-center align-items-center" >
-                                                                        <div class="heart-icon ">
-                                                                            <i class="bi bi-heart-fill"></i>
-                                                                        </div>
-                                                                    </a>
-                        
-                                                                    <a href="detail.php?id=<?php echo $kq['product_id']; ?>" class="container d-flex justify-content-center align-items-center" >
-                                                                        <div class="cart-icon">
-                                                                            <i class="bi bi-bag-plus-fill"></i>
-                                                                        </div>
-                                                                    </a>
-                                                                </div>
-            
-                                                                <!-- Thông tin sản phẩm -->
-                                                                <div class="product-info" style="margin-left:0px;">
-                                                                    <h3 class="product-name">
-                                                                        <?php echo $kq['product_name']; ?>
-                                                                    </h3>
-                                                                    <p class="price">
-                                                                        <span class="original-price">
-                                                                            <?php echo $kq['old_price']; ?> <sup> ₫ </sup> 
-                                                                        </span>
-                                                                        <span class="sale-price">
-                                                                            <?php echo $kq['price']; ?> <sup> ₫ </sup>
-                                                                        </span>
-                                                                    </p>
-                                                                </div>
-                                                            </div><!-- product card-->
-                                                        </div><!-- /col -->   
-                                                    <?php } ?>
-                                            </div><!-- /row -->
-                                        </div>
+    <div class="row">
+        <?php
+        include '../database/connect.php';
+        $sql = "SELECT p.product_id, p.img, p.name AS product_name, p.old_price, p.price, p.created_at, c.name AS category_name
+                FROM products AS p
+                INNER JOIN categories AS c ON p.category_id = c.category_id
+                WHERE c.name IN ('Ba lô', 'Giày', 'Phụ kiện', 'Quần áo')
+                ORDER BY RAND()
+                LIMIT 7";
+
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            die("Lỗi truy vấn: " . mysqli_error($conn));
+        }
+
+        while ($kq = mysqli_fetch_assoc($result)) {
+        ?>
+            <div class="col-md-3 col-sm-6 text-center">
+                <div class="product-card">
+                    <div class="product-item_image">
+                        <!-- Image and product link -->
+                        <a href="detail_product.php?id=<?php echo $kq['product_id']; ?>" class="hoverimage1">
+                            <img src="../assets/img/<?php echo $kq['img']; ?>" alt="<?php echo $kq['product_name']; ?>" class="product-image" style="width:100%; height:auto;">
+                        </a>
+
+                        <!-- Heart icon for wishlist -->
+                        <a href="#" class="container d-flex justify-content-center align-items-center">
+                            <div class="heart-icon">
+                                <i class="bi bi-heart-fill"></i>
+                            </div>
+                        </a>
+
+                        <!-- Cart icon for adding product to cart -->
+                        <a href="detail.php?id=<?php echo $kq['product_id']; ?>" class="container d-flex justify-content-center align-items-center">
+                            <div class="cart-icon">
+                                <i class="bi bi-bag-plus-fill"></i>
+                            </div>
+                        </a>
                     </div>
+
+                    <!-- Product Information -->
+                    <div class="product-info" style="margin-left:0px;">
+                        <h3 class="product-name" style="font-weight:bold">
+                            <?php echo $kq['product_name']; ?>
+                        </h3>
+                        <p class="price">
+                            <span class="original-price">
+                                <?php echo number_format($kq['old_price'], 0, ',', '.'); ?> <sup>₫</sup>
+                            </span>
+                            <span class="sale-price">
+                                <?php echo number_format($kq['price'], 0, ',', '.'); ?> <sup>₫</sup>
+                            </span>
+                        </p>
+                    </div>
+                </div><!-- product card -->
+            </div><!-- /col -->
+        <?php } ?>
+    </div><!-- /row -->
+</div><!-- /content-product-main -->
 
                 </div>
             </div>

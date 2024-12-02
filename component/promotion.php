@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="banner.css">
-     
+    <script src="assets/js/font-aware.js"></script>
+
     <style>
         img{
             width: 100%;
@@ -26,13 +27,13 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="../assets/img/banner/sale1.jpg" class="d-block w-100" alt="...">
+            <img src="../assets/img/banner/sale1.jpg" class="d-block w-100" alt="..." onclick="navigateTo('./view/promotion_product.php')">
         </div>
         <div class="carousel-item">
-            <img src="../assets/img/banner/sale2.webp" class="d-block w-100" alt="...">
+            <img src="../assets/img/banner/sale2.webp" class="d-block w-100" alt="..." onclick="navigateTo('./view/promotion_product.php')">
         </div>
         <div class="carousel-item">
-            <img src="../assets/img/banner/sale3.jpg" class="d-block w-100" alt="...">
+            <img src="../assets/img/banner/sale3.jpg" class="d-block w-100" alt="..." onclick="navigateTo('./view/promotion_product.php')">
         </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
