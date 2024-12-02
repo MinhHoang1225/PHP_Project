@@ -399,8 +399,8 @@ header img {
                   <ul class="nav menu-pc gap-3 fs-4">
                     <li class="lv1 cate_hover" onclick="navigateTo('./index.php')">Trang chủ</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/accessores.php')">Sản phẩm</li>
-                    <li class="lv1 cate_hover">Phụ kiện</li>  
-                    <li class="lv1 cate_hover">Giày</li>
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/accesory.php')">Phụ kiện </li>  
+                    <li class="lv1 cate_hover" onclick="navigateTo('./view/shoe.php')">Giày</li>
                     <li class="lv1 cate_hover">Quần áo</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/favorite_product.php')">Yêu thích</li>
                     <li class="lv1 cate_hover" onclick="navigateTo('./view/discount.php')">Khuyến mại</li>
@@ -453,6 +453,7 @@ header img {
             </div>
       </div>
     </div>
+
 
 
     <div class="container f">

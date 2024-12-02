@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,6 +147,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('Có lỗi xảy ra khi tải sản phẩm. Vui lòng thử lại.');
             });
     }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const accElement = document.querySelector(".acc");
+    
+    // Kiểm tra xem phần tử acc có tồn tại hay không
+    if (!accElement) {
+        console.error("Không tìm thấy phần tử .acc");
+        return;
+    }
+
+    // Lấy tên trang hiện tại từ URL
+    const currentPage = window.location.pathname;
+
+    // Định nghĩa một đối tượng để ánh xạ trang với tên mục tương ứng
+    const pageMappings = {
+        "/view/accessores.php": "Sản phẩm",
+        "/view/accesory.php": "Phụ kiện",
+        "/view/shoe.php": "Giày",
+        "/view/clother.php": "Quần áo"
+    };
+
+    // Kiểm tra nếu trang hiện tại khớp với một trong các trang đã định nghĩa
+    for (const [path, name] of Object.entries(pageMappings)) {
+        if (currentPage.includes(path)) {
+            accElement.innerHTML = `<b>/ ${name}</b>`;
+            return;
+        }
+    }
+
+    // Nếu không khớp với bất kỳ trang nào, mặc định là "Trang chủ"
+    accElement.innerHTML = "<b>/ Trang chủ</b>";
 });
 
 
