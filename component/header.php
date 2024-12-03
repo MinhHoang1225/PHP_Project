@@ -522,11 +522,13 @@ header img {
                                   echo '<div class="product">';
                                   
                                   // Hiển thị hình ảnh nếu có
+                                  echo '<a href="./view/detail_product.php?id=' . $row['product_id'] . '">';
                                   if (!empty($row['product_img'])) {
                                       echo '<img src="/PHP_Project/assets/img/' . $row['product_img'] . '" alt="Product Image" class="product-img">';
                                   } else {
                                       echo '<p>No image</p>';
                                   }
+                                  echo '</a>';
                                   echo '<div class="product-info">';
                                   echo '<h3 class="product-name">' . $row['product_name'] . '</h3>';
                                   echo '<p class="product-price">' . number_format($row['product_price'], 0, ',', '.') . ' VND</p>';

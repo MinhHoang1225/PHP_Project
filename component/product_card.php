@@ -199,7 +199,7 @@
                                                 WHERE c.name IN ('Ba lô', 'Giày', 'Phụ kiện', 'Quần áo')
                                                 ORDER BY p.created_at DESC
                                                 Limit 8";
-
+ 
                                         $result = mysqli_query($conn,$sql);
                                         if (!$result) {
                                             die("Lỗi truy vấn: " . mysqli_error($conn));
