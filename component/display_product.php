@@ -94,7 +94,7 @@ $result = $stmt->get_result();
             object-fit: cover;
         }
 
-         .cart-icon {
+             .cart-icon {
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;

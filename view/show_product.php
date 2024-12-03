@@ -256,10 +256,10 @@ $result = $stmt->get_result();
                             ?>
                         </a>
                         <div class="container d-flex justify-content-center align-items-center">
-                                                    <div class="heart-icon" onclick="addToFavourites(<?php echo $kq['product_id']; ?>)">
-                                                        <i class="bi bi-heart-fill"></i>
-                                                    </div>
-                                                </div>
+                            <div class="heart-icon" onclick="addToFavourites(<?php echo $kq['product_id']; ?>)">
+                                <i class="bi bi-heart-fill"></i>
+                            </div>
+                        </div>
                         
                         <a href="#" class="container d-flex justify-content-center align-items-center">
                             <div class="cart-icon">
