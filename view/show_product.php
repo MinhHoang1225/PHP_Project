@@ -256,10 +256,11 @@ $result = $stmt->get_result();
                             ?>
                         </a>
                         <div class="container d-flex justify-content-center align-items-center">
-                            <div class="heart-icon" onclick="addToFavourites(<?php echo $kq['product_id']; ?>)">
+                            <div class="heart-icon" onclick="addToFavourites(<?php echo $row['product_id']; ?>)">
                                 <i class="bi bi-heart-fill"></i>
                             </div>
                         </div>
+
                         
                         <a href="#" class="container d-flex justify-content-center align-items-center">
                             <div class="cart-icon">
@@ -287,22 +288,24 @@ $result = $stmt->get_result();
 </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-        function addToFavourites(productId) {
-            const xhr = new XMLHttpRequest();
-            xhr.open("POST", "../component/add_to_favourite.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            function addToFavourites(productId) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "../component/add_to_favourite.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    alert(xhr.responseText); // Hiển thị thông báo từ server
-                }
-            };
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert(xhr.responseText); // Hiển thị thông báo từ server
+                    }
+                };
 
-            xhr.send("product_id=" + productId);
-        }
+                xhr.send("product_id=" + productId);
+            }
         </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
 <?php
