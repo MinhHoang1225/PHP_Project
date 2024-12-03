@@ -663,6 +663,22 @@ function fetchSuggestions() {
 
     xhr.send('query=' + encodeURIComponent(input));
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.querySelector('.btn[type="submit"]');
+
+  searchButton.addEventListener('click', function (event) {
+    const query = searchInput.value.trim(); 
+    if (query.length > 0) {
+      const searchUrl = `../view/accessores.php?category_name=${encodeURIComponent(query)}`;
+      window.location.href = searchUrl;
+    } else {
+      alert('Vui lòng nhập từ khóa tìm kiếm.');
+    }
+    event.preventDefault(); 
+  });
+});
 </script>
 </body>
 </html>

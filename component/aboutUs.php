@@ -56,7 +56,7 @@
     <script>
       document.getElementById("navigate_about").onclick = function() {
           setTimeout(function() {
-              window.location.href = "./view/about.php";
+              window.location.href = "./view/aboutus.php";
           }, 600);
         };
     </script>
