@@ -123,9 +123,6 @@ $result = $stmt->get_result();
             transition: all 0.3s ease-in-out;
         }
 
-        .heart-icon:hover, .cart-icon:hover {
-            color: red;
-        }
 
         .product-info {
             padding-top: 20px;
