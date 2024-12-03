@@ -215,11 +215,11 @@
                                                         <img src="assets/img/<?php echo $kq['img']; ?>" alt="<?php echo $kq['product_name']; ?>" class="product-image" style="width:100%; height:auto;">
                                                     </a>
 
-                                                    <a href="#" class="container d-flex justify-content-center align-items-center">
-                                                        <div class="heart-icon">
+                                                    <div class="container d-flex justify-content-center align-items-center">
+                                                        <div class="heart-icon" onclick="addToFavourites(<?php echo $kq['product_id']; ?>)">
                                                             <i class="bi bi-heart-fill"></i>
                                                         </div>
-                                                    </a>
+                                                    </div>
 
                                                     <a href="detail.php?id=<?php echo $kq['product_id']; ?>" class="container d-flex justify-content-center align-items-center">
                                                         <div class="cart-icon">
@@ -283,11 +283,11 @@
                                                     <img src="assets/img/<?php echo $kq['img']; ?>" alt="<?php echo $kq['product_name']; ?>" class="product-image" style="width:100%; height:auto;">
                                                 </a>
 
-                                                <a href="#" class="container d-flex justify-content-center align-items-center">
-                                                    <div class="heart-icon">
+                                                <div class="container d-flex justify-content-center align-items-center">
+                                                    <div class="heart-icon" onclick="addToFavourites(<?php echo $kq['product_id']; ?>)">
                                                         <i class="bi bi-heart-fill"></i>
                                                     </div>
-                                                </a>
+                                                </div>
 
                                                 <a href="detail.php?id=<?php echo $kq['product_id']; ?>" class="container d-flex justify-content-center align-items-center">
                                                     <div class="cart-icon">
@@ -323,6 +323,22 @@
                 </div><!-- /row -->
             </div><!-- /container -->
         <!-- </div> /container_big -->
+
+        <script>
+            function addToFavourites(productId) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "../component/add_to_favourite.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        alert(xhr.responseText); // Hiển thị thông báo từ server
+                    }
+                };
+
+                xhr.send("product_id=" + productId);
+            }
+        </script>
 
 </body>
 </html>
