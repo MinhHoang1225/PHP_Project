@@ -9,9 +9,10 @@
         /* Mục Giá */
 .muc_gia {
     background-color: #f9f9f9;
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 /* Mục 1 (Trang chủ và Acc) */
@@ -44,7 +45,7 @@
     align-items: center;
 }
 
-.muc_gia .gia .kq {
+.muc_gia .gia {
     font-size: 16px;
     color: #333;
 }
@@ -80,8 +81,9 @@
         <div class="home"><a href="../index.php" style="color:#0c6478">Trang chủ</a></div>
         <div class="acc"><b>/ Accessories</b></div>
     </div>
+
     <div class="gia">
-        <div class="kq">Showing 1-19 of 19 results</div>
+    <div class="kq">Showing 1-19 of 19 results</div>
         <form id="priceForm">
             <select name="sort_price" id="price" onchange="submitForm()">
                 <option value="">Thứ tự mặc định</option>
@@ -148,6 +150,37 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const accElement = document.querySelector(".acc");
+    
+    // Kiểm tra xem phần tử acc có tồn tại hay không
+    if (!accElement) {
+        console.error("Không tìm thấy phần tử .acc");
+        return;
+    }
+
+    // Lấy tên trang hiện tại từ URL
+    const currentPage = window.location.pathname;
+
+    // Định nghĩa một đối tượng để ánh xạ trang với tên mục tương ứng
+    const pageMappings = {
+        "/view/accessores.php": "Sản phẩm",
+        "/view/accesory.php": "Phụ kiện",
+        "/view/shoe.php": "Giày",
+        "/view/clother.php": "Quần áo"
+    };
+
+    // Kiểm tra nếu trang hiện tại khớp với một trong các trang đã định nghĩa
+    for (const [path, name] of Object.entries(pageMappings)) {
+        if (currentPage.includes(path)) {
+            accElement.innerHTML = `<b>/ ${name}</b>`;
+            return;
+        }
+    }
+
+    // Nếu không khớp với bất kỳ trang nào, mặc định là "Trang chủ"
+    accElement.innerHTML = "<b>/ Trang chủ</b>";
+});
 
 
 </script>
