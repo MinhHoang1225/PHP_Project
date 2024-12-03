@@ -50,8 +50,7 @@ WHERE shopping_cart.user_id = 1;"
 }
 
 html, body {
-    line-height: 1.6;
-    background-color: var(--bg-header);
+    
     color: var(--main-color);
 }
 
@@ -68,7 +67,7 @@ header {
     background-color: var(--bg-header);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px 0;
-    ;
+
 }
 
 header img {

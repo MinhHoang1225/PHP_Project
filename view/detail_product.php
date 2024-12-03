@@ -109,9 +109,13 @@ $conn->close();
     <title>Chi tiết sản phẩm</title>
     <link rel="stylesheet" href="../assets/css/detail_product.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <style>
+    
+    </style>
 </head>
 <body>
+
+<div class="big_img_logo" style="padding-left:700px"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
 <div class="product-container">
     <div class="breadcrumb">
         <a href="../index.php">Trang chủ</a> / <a href="category.php">Quần áo</a> / <span><?php echo $product['name']; ?></span>

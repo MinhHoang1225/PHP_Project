@@ -15,10 +15,7 @@
     --title-text-size: 32px;
     --main-text-size:16px;
     }
-body {
-    padding: 20px;
-    background-color: white;
-}
+
 
 .product-container {
     max-width: 1200px;

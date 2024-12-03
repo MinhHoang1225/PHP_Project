@@ -13,6 +13,8 @@
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Mục 1 (Trang chủ và Acc) */
@@ -83,7 +85,7 @@
     </div>
 
     <div class="gia">
-    <div class="kq">Showing 1-19 of 19 results</div>
+    <!-- <div class="kq">Showing 1-19 of 19 results</div> -->
         <form id="priceForm">
             <select name="sort_price" id="price" onchange="submitForm()">
                 <option value="">Thứ tự mặc định</option>

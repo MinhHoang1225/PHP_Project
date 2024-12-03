@@ -10,16 +10,30 @@
    <script src="../assets/js/font-aware.js"></script>
    <script src="../assets/js/navigation.js"></script>
    <style>
-   :root {
+/* Định nghĩa các biến chung */
+:root {
   --bg-header: #e5e5e5;
   --bg-btn: #0c6478;
   --bg-hover-btn: #159198;
   --main-font: 'Poppins', sans-serif;
   --main-color: #000;
-  --second-color: #666666b3;
-  --title-text-size: 32px;
-  --main-text-size: 16px;
+  --second-color: rgba(102, 102, 102, 0.7);
   --highlight-color: #fc0;
+  --card-bg: #333;
+  --card-text-color: #fff;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+  --shadow-dark: rgba(0, 0, 0, 0.2);
+  --border-radius: 8px;
+  --padding-section: 50px;
+  --gap-large: 50px;
+  --gap-small: 15px;
+}
+
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -30,24 +44,24 @@ body {
   color: var(--main-color);
 }
 
+/* Vùng "About Us" */
 .about {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: var(--gap-large);
   background-color: #fff;
-  padding: 50px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  padding: var(--padding-section);
+  box-shadow: 0 4px 10px var(--shadow-light);
+  border-radius: var(--border-radius);
 }
 
-/* CSS chung */
 .heading-title {
   font-size: 2rem;
   font-weight: bold;
   text-transform: uppercase;
   color: var(--bg-btn);
-  margin-bottom: 10px;
   text-align: center;
+  margin-bottom: var(--gap-small);
 }
 
 .row-line {
@@ -69,15 +83,15 @@ body {
 .who-we-are {
   display: flex;
   align-items: center;
-  gap: 50px;
+  gap: var(--gap-large);
 }
 
-.who-we-are .image {
+.image {
   flex: 1;
   border: 8px solid var(--highlight-color);
-  border-radius: 8px;
+  border-radius: var(--border-radius);
   overflow: hidden;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px var(--shadow-light);
 }
 
 .img-who-we-are {
@@ -93,7 +107,7 @@ body {
 
 .heading-who-we-are .heading-description {
   font-size: 1rem;
-  margin-bottom: 15px;
+  margin-bottom: var(--gap-small);
 }
 
 /* What We Do */
@@ -105,7 +119,7 @@ body {
 
 .menu-item {
   font-size: 1rem;
-  margin-bottom: 10px;
+  margin-bottom: var(--gap-small);
   line-height: 1.5;
   position: relative;
 }
@@ -123,41 +137,39 @@ body {
 }
 
 .card {
-    display: grid;
-    grid-auto-flow: column; /* Đặt tất cả thẻ vào hàng ngang */
-    gap: 110px; /* Khoảng cách giữa các thẻ */
-    justify-content: start; /* Hoặc dùng justify-content: center; để căn giữa */
-    overflow-x: auto; /* Cho phép thanh cuộn nếu không đủ không gian */
+  display: flex;
+  gap: 100px;
+  justify-content: start;
+  overflow-x: auto;
 }
 
 .card-member {
-    width: 300px;
-    text-align: center;
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #000;
-    color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--card-bg);
+  color: var(--card-text-color);
+  box-shadow: 0 4px 6px var(--shadow-light);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-
-
 
 .card-member:hover {
   transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px var(--shadow-dark);
 }
 
 .profile-image img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: var(--border-radius);
 }
 
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 15px;
+  gap: var(--gap-small);
+  margin-top: var(--gap-small);
 }
 
 .social-links a {
@@ -173,8 +185,7 @@ body {
 .info-member .name-member {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-top: 10px;
-  color:#fff
+  margin-top: var(--gap-small);
 }
 
 .info-member .position-member {
@@ -182,6 +193,7 @@ body {
   color: #ccc;
   margin-top: 5px;
 }
+
 
    </style>
 </head>
