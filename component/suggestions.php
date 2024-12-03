@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
 
   if (!empty($searchResults)) {
     foreach ($searchResults as $item) {
-      echo '<a href="../view/accessores.php?id=' . $item['product_id'] . '" class="search_inf row">';
+      echo '<a href="../view/detail_product.php?id=' . $item['product_id'] . '" class="search_inf row">';
       echo '<div class="result_img col-2">';
       echo '<img src="../assets/img/' . (file_exists('../assets/img/' . $item['img']) ? $item['img'] : 'default.png') . '" alt="' . htmlspecialchars($item['name']) . '" style="width: 50px; height: auto; margin-right: 10px;">';
       echo '</div>';

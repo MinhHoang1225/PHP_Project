@@ -138,20 +138,39 @@ body {
 
 .card {
   display: flex;
-  gap: 100px;
-  justify-content: start;
-  overflow-x: auto;
+  justify-content: center; /* Canh giữa các phần tử */
+  gap: 20px; /* Khoảng cách giữa các card */
 }
 
 .card-member {
-  width: 300px;
-  text-align: center;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  background-color: var(--card-bg);
-  color: var(--card-text-color);
-  box-shadow: 0 4px 6px var(--shadow-light);
-  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column; /* Giữ các thành phần bên trong theo chiều dọc */
+  align-items: center; /* Canh giữa nội dung */
+  width: 300px; /* Đặt chiều rộng cố định cho các card */
+  padding: 20px;
+  border: 1px solid #ddd; /* Đường viền */
+  border-radius: 10px; /* Bo góc */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+  text-align: center; /* Căn giữa nội dung văn bản */
+  background-color: #fff; /* Màu nền */
+}
+
+.profile-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%; /* Bo tròn hình ảnh */
+  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+}
+
+.social-links a {
+  margin: 0 10px; /* Khoảng cách giữa các icon */
+  color: #333;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+
+.social-links a:hover {
+  color: #007bff; /* Thay đổi màu khi hover */
 }
 
 .card-member:hover {
@@ -199,7 +218,6 @@ body {
 </head>
 
 <body>
-<?php include("../component/header.php"); ?>
 
 <div class="about">
         <div class="about-us">
@@ -247,7 +265,7 @@ body {
             </div>
             <h2 class="heading-title">Our Team</h2>
             <div class="card">
-            <div class="card-member">
+              <div class="card-member">
                 <div class="profile-image">
                     <img src="../assets/img/who_we_are.jpg" alt="Amanda Care">
                 </div>
@@ -322,6 +340,5 @@ body {
     </div>
     <!-- ===================================================================== -->
 </body>
-<?php include("../component/footer.php") ?>
-<?php include("../component/btn_up.php") ?>
+
 </html>
