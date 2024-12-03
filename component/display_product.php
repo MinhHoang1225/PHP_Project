@@ -94,7 +94,7 @@ $result = $stmt->get_result();
             object-fit: cover;
         }
 
-        .heart-icon, .cart-icon {
+         .cart-icon {
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -111,7 +111,7 @@ $result = $stmt->get_result();
             right: 10px;
             font-size: 24px;
             position: absolute;
-            color: #ccc; 
+            color: red; 
             transition: all 0.3s ease-in-out;
         }
 
@@ -123,9 +123,6 @@ $result = $stmt->get_result();
             transition: all 0.3s ease-in-out;
         }
 
-        .heart-icon:hover, .cart-icon:hover {
-            color: red;
-        }
 
         .product-info {
             padding-top: 20px;
