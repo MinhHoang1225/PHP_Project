@@ -3,12 +3,12 @@ session_start();
 include '../database/connect.php'; // Kết nối cơ sở dữ liệu
 
 if (isset($_POST['add_to_cart'])) {
-    // // Kiểm tra cookie user_id
-    // $user_id = isset($_COOKIE['user_id']) ? $_COOKIE['user_id'] : null;
-    // if (!$user_id) {
-    //     echo "Người dùng chưa đăng nhập.";
-    //     exit();
-    // }
+    // Lấy `user_id` từ session
+    if (!isset($_SESSION['user_id'])) {
+        echo "Người dùng chưa đăng nhập.";
+        exit();
+    }
+    $user_id = $_SESSION['user_id'];
 
     $product_id = $_POST['product_id'];
     $product_name = $_POST['product_name'];
@@ -80,3 +80,4 @@ if (isset($_POST['add_to_cart'])) {
     echo "Yêu cầu không hợp lệ.";
 }
 ?>
+        
