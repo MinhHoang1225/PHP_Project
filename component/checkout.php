@@ -1,40 +1,12 @@
 <?php
-    include('../database/connect.php');
-
-    // Lấy user_id (giả sử là 1 cho user_id mẫu)
-    $user_id = 1; // Bạn có thể thay đổi hoặc lấy từ session nếu có đăng nhập
-
-    // Truy vấn để lấy thông tin sản phẩm từ giỏ hàng của người dùng
-    $sql = "SELECT cart_items.product_id, cart_items.quantity, products.price, products.img, products.name 
-            FROM cart_items
-            INNER JOIN products ON cart_items.product_id = products.product_id
-            WHERE cart_items.cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('i', $user_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $total_amount = 0;
-    $products = [];
-    while ($row = $result->fetch_assoc()) {
-        $total_amount += $row['price'] * $row['quantity'];
-        $products[] = $row;  // Lưu thông tin sản phẩm vào mảng
-    }
-
-?>
-
-
-<?php
 include('../database/connect.php');
-
-// Lấy user_id (giả sử là 1 cho user_id mẫu)
-$user_id = 1; // Bạn có thể thay đổi hoặc lấy từ session nếu có đăng nhập
-
-// Truy vấn để lấy thông tin sản phẩm từ giỏ hàng của người dùng
-$sql = "SELECT cart_items.product_id, cart_items.quantity, products.price, products.img, products.name 
-        FROM cart_items
-        INNER JOIN products ON cart_items.product_id = products.product_id
-        WHERE cart_items.cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
+    // Kiểm tra nếu cookies user_id tồn tại
+  $user_id = (int) $_COOKIE['user_id'];
+  echo "<script>console.log('User ID: " . htmlspecialchars($user_id) . "');</script>"; // Truy vấn để lấy thông tin sản phẩm từ giỏ hàng của người dùng
+ $sql = "SELECT cart_items.product_id, cart_items.quantity, products.price, products.img, products.name 
+ FROM cart_items
+ INNER JOIN products ON cart_items.product_id = products.product_id
+ WHERE cart_items.cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
@@ -43,10 +15,9 @@ $result = $stmt->get_result();
 $total_amount = 0;
 $products = [];
 while ($row = $result->fetch_assoc()) {
-    $total_amount += $row['price'] * $row['quantity'];
-    $products[] = $row;  // Lưu thông tin sản phẩm vào mảng
+$total_amount += $row['price'] * $row['quantity'];
+$products[] = $row;  // Lưu thông tin sản phẩm vào mảng
 }
-
 // Xử lý dữ liệu sau khi nhấn nút thanh toán
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Kiểm tra nếu giỏ hàng trống
@@ -85,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $item_stmt->bind_param('iiid', $order_id, $product['product_id'], $product['quantity'], $product['price']);
                 $item_stmt->execute();
             }
-
             // Xóa giỏ hàng sau khi thanh toán
             $delete_cart_sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
             $delete_cart_stmt = $conn->prepare($delete_cart_sql);
