@@ -169,9 +169,23 @@
             font-weight: bold;
             color: #e60000;
         }
+        .product-item_image{
+            position: relative;
+        }
+        .img_sale{
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .img_sale img{
+            width: 50px;
+            height: 50px;
+        }
         
         
-            </style>
+        </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -192,12 +206,17 @@
                                         }
                                         
                                         while ($kq = mysqli_fetch_assoc($result)) {
+                                            // Tính giá sau khi giảm 50%
+                                            $discounted_price = $kq['old_price'] * 0.5;
                                                 
                                     ?>      
                                             <div class="col-md-3 col-sm-6 text-center">
                                             <div class="product-card">
                                             <div class="product-item_image">
-                                                <a href="./detail_product.php?id=<?php echo $kq['product_id']; ?>" class="hoverimage1">
+                                                <div class="img_sale">
+                                                    <img src="../assets/img/sale.jpg" alt="">
+                                                </div>
+                                                <a href="./view/detail_product.php?id=<?php echo $kq['product_id']; ?>" class="hoverimage1">
                                                     <img src="../assets/img/<?php echo $kq['img']; ?>" alt="<?php echo $kq['product_name']; ?>" class="product-image" style="width:100%; height:auto;">
                                                 </a>
 
@@ -224,7 +243,7 @@
                                                         <?php echo number_format($kq['old_price'], 0, ',', '.'); ?> <sup>₫</sup>
                                                     </span>
                                                     <span class="sale-price">
-                                                        <?php echo number_format($kq['price'], 0, ',', '.'); ?> <sup>₫</sup>
+                                                        <?php echo number_format($discounted_price, 0, ',', '.'); ?> <sup>₫</sup>
                                                     </span>
                                                 </p>
                                             </div>
