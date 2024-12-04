@@ -14,36 +14,106 @@
             width: 100%;
             height: 600px;
         }
+
+        .slider {
+            position: relative;
+        }
+
+        .image {
+            position: absolute;
+            width: 100px;
+            height:50px;
+            right: 930px;
+            top: 170px;
+            
+            
+        }
+        
+        .button_sale{
+            font-size: 12px;
+            border-radius: 20px;
+            width: 100px;
+            font-family: Arial;
+            position: absolute;
+            top: 230px;
+            right: 930px;
+            background: linear-gradient(to bottom, #6ead39 0%, #1e5c01 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        button.button_sale:hover {
+            background: linear-gradient(to bottom, #5c9b32 0%, #174d01 100%);
+        }
+
+        button.button_sale:active {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: translateY(2px);
+        }
+        @keyframes moveUpDown {
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-30px); /* Di chuyển lên */
+        }
+        100% {
+            transform: translateY(0);
+        }
+        }
+
+        img.image {
+            animation: moveUpDown 1s ease-in-out infinite; /* giây lặp vô hạn */
+        }  
+        .promotion {
+            width: 600px; 
+            height: 400px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin-left: 100px;
+            
+            
+        }
+
+        .promotion img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Giữ nguyên tỷ lệ mà không bị cắt */
+            
+        }
+        .program {
+            text-align: center; 
+            font-size: 24px; 
+            margin: 20px 0; 
+            color:#666666B3;
+            font-family:sans-serif;
+        }
+
+        .carousel-inner {
+            display: flex; 
+            flex-direction: column; 
+             
+        }
+        
     </style>
     
 </head>
 <body>
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        
-    </div>
+    
+    <div class="program">CHƯƠNG TRÌNH KHUYẾN MÃI</div>
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="../assets/img/banner/sale1.jpg" class="d-block w-100" alt="..." onclick="navigateTo('./view/promotion_product.php')">
+        <div class="carousel-item active slider">
+            <img src="../assets/img/1mui-ten.png" alt="" class="image">
+
+            <a href="./view/promotion_product.php">
+                <button class="button_sale" > <i> <span>NHẬN ƯU ĐÃI</span> </i></button>
+            </a>
+            <div class="promotion">
+                <img src="../assets/img/banner/sale1.jpg" class="d-block w-100" alt="..." onclick="navigateTo('./view/promotion_product.php')">
+            </div>
         </div>
-        <div class="carousel-item">
-            <img src="../assets/img/banner/sale2.webp" class="d-block w-100" alt="..." onclick="navigateTo('./view/promotion_product.php')">
-        </div>
-        <div class="carousel-item">
-            <img src="../assets/img/banner/sale3.jpg" class="d-block w-100" alt="..." onclick="navigateTo('./view/promotion_product.php')">
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
-        <span class="visually-hidden">Next</span>
-    </button>
+        
     </div>
 </body>
 </html>
