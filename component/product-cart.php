@@ -114,7 +114,8 @@
                                 </button>
 
                             </a>
-                            <button type="button" id="checkout" class="button-default" onclick="navigateTo('./component/checkout.php')">
+                            <a href="../component/checkout.php">
+                            <button type="button" id="checkout" class="button-default">
                                 Thanh toán
                             </button>
                         </div>
