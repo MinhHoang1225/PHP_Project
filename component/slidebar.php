@@ -25,7 +25,7 @@
                     <div class="accordion-item" data-category-id="1">
                         <h2 class="accordion-header" id="headingAccessories">
                             <button class="accordion-button collapsed category-item" type="button" data-category-id="1" data-bs-toggle="collapse" data-bs-target="#collapseAccessories" aria-expanded="false" aria-controls="collapseAccessories">
-                                Sản phẩm <i class="fa-solid fa-plus ms-2"></i>
+                                Sản phẩm
                             </button>
                         </h2>
                         <div id="collapseAccessories" class="accordion-collapse collapse" aria-labelledby="headingAccessories" data-bs-parent="#categoryAccordion">
@@ -33,7 +33,7 @@
                                 <ul class="list-unstyled">
                                     <li>
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubAccessories1" aria-expanded="false" aria-controls="collapseSubAccessories1">
-                                            Phụ Kiện <i class="fa-solid fa-plus ms-2"></i>
+                                            Phụ Kiện
                                         </button>
                                         <div id="collapseSubAccessories1" class="collapse">
                                             <ul class="list-unstyled mt-2">
@@ -46,7 +46,7 @@
                                     </li>
                                     <li>
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubAccessories2" aria-expanded="false" aria-controls="collapseSubAccessories2">
-                                            Balo <i class="fa-solid fa-plus ms-2"></i>
+                                            Balo
                                         </button>
                                         <div id="collapseSubAccessories2" class="collapse">
                                             <ul class="list-unstyled mt-2">
@@ -62,7 +62,7 @@
                     <div class="accordion-item" data-category-id="2">
                         <h2 class="accordion-header" id="headingShoes">
                             <button class="accordion-button collapsed category-item" type="button" data-category-id="2" data-bs-toggle="collapse" data-bs-target="#collapseShoes" aria-expanded="false" aria-controls="collapseShoes">
-                                Giày <i class="fa-solid fa-plus ms-2"></i>
+                                Giày
                             </button>
                         </h2>
                         <div id="collapseShoes" class="accordion-collapse collapse" aria-labelledby="headingShoes" data-bs-parent="#categoryAccordion">
@@ -108,8 +108,8 @@
                     <!-- Clothes -->
                     <div class="accordion-item" data-category-id="4">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed category-item" type="button" data-category-id="4">
-                                Quần áo
+                            <button class="collapsed category-item" type="button" data-category-id="4">
+                                <p class="clothes">Quần áo</p>
                             </button>
                         </h2>
                     </div>
