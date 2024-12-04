@@ -25,8 +25,9 @@
     <div class="header">
         <?php include("../component/header.php"); ?> 
         </div>
+
     <div class="show-product">
-        <?php include("../component/renderPromotion.php"); ?>
+        <?php include ("../component/renderPromotion.php"); ?>
     </div>
 
     <?php include("../component/btn_up.php"); ?>

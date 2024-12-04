@@ -191,12 +191,12 @@
     <div class="row">
         <?php
         include '../database/connect.php';
-        $sql = "SELECT p.product_id, p.img, p.name AS product_name, p.old_price, p.price, p.created_at, c.name AS category_name
-                FROM products AS p
-                INNER JOIN categories AS c ON p.category_id = c.category_id
-                WHERE c.name IN ('Ba lô', 'Giày', 'Phụ kiện', 'Quần áo')
-                ORDER BY RAND()
-                LIMIT 7";
+       // Danh sách sản phẩm cố định
+       $promotion_ids = [7, 11, 28, 39, 42, 44, 15, 30];
+       $ids = implode(",", $promotion_ids);
+       $sql = "SELECT p.product_id, p.img, p.name AS product_name, p.old_price, p.price, p.created_at
+               FROM products AS p
+               WHERE p.product_id IN ($ids)";
 
         $result = mysqli_query($conn, $sql);
         if (!$result) {
