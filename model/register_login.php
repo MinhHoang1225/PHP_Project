@@ -179,6 +179,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <style>
+    .close-button-login{
+        font-size: 30px ;
+  position: absolute;
+  top:10px;
+  left: 15px;
+
+}
+
+.close-button-register{
+    font-size: 30px ;
+  position: absolute;
+  top:10px;
+  right: 15px;
+}
+    </style>
   </head>
   <body>
     <div class="container" id="container">

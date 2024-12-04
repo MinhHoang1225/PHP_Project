@@ -430,8 +430,9 @@ header img {
     padding: 10px; 
     display: none; 
     z-index: 10;
-    min-width: 400px; 
-    max-height: 300px; 
+    width: 500px; 
+    min-width: 300px; 
+    max-height: 600px; 
     overflow-y: auto; 
     scrollbar-width: thin; 
     scrollbar-color: #ccc transparent; 
@@ -449,6 +450,7 @@ header img {
     cursor: pointer;
     text-align: left;
 }
+
 
 .user-dropdown button:hover {
     color: red;
@@ -469,6 +471,69 @@ header img {
 
 .user-dropdown::-webkit-scrollbar-track {
     background-color: transparent; 
+}
+#order-history {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#order-history p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#orders-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#orders-list li {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng hover cho từng mục trong danh sách */
+#orders-list li:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.02);
+    border-color: #aaa;
+}
+
+/* Khi trạng thái đang tải */
+#orders-list li.loading {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+}
+
+/* Hiệu ứng chuyển động cho việc tải danh sách */
+#orders-list li {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 </style>
@@ -522,11 +587,13 @@ header img {
                                   echo '<div class="product">';
                                   
                                   // Hiển thị hình ảnh nếu có
+                                  echo '<a href="./view/detail_product.php?id=' . $row['product_id'] . '">';
                                   if (!empty($row['product_img'])) {
                                       echo '<img src="/PHP_Project/assets/img/' . $row['product_img'] . '" alt="Product Image" class="product-img">';
                                   } else {
                                       echo '<p>No image</p>';
                                   }
+                                  echo '</a>';
                                   echo '<div class="product-info">';
                                   echo '<h3 class="product-name">' . $row['product_name'] . '</h3>';
                                   echo '<p class="product-price">' . number_format($row['product_price'], 0, ',', '.') . ' VND</p>';
@@ -581,7 +648,7 @@ header img {
                     <p><strong>Tên người dùng:</strong> ${user.username}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
                     <p><strong>Mật khẩu:</strong> ${user.password}</p>
-                    <button id="logout-btn">Đăng xuất</button>
+                    <button id="logout-btn"> <i class="fa-solid fa-sign-out-alt"></i> Đăng xuất</button>
                     <hr>
                     <div id="order-history">
                         <p><strong>Lịch sử đơn hàng:</strong></p>
@@ -663,6 +730,22 @@ function fetchSuggestions() {
 
     xhr.send('query=' + encodeURIComponent(input));
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+  const searchInput = document.getElementById('searchInput');
+  const searchButton = document.querySelector('.btn[type="submit"]');
+
+  searchButton.addEventListener('click', function (event) {
+    const query = searchInput.value.trim(); 
+    if (query.length > 0) {
+      const searchUrl = `../view/accessores.php?category_name=${encodeURIComponent(query)}`;
+      window.location.href = searchUrl;
+    } else {
+      alert('Vui lòng nhập từ khóa tìm kiếm.');
+    }
+    event.preventDefault(); 
+  });
+});
 </script>
 </body>
 </html>

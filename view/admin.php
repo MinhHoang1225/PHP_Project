@@ -440,7 +440,29 @@ h3 {
     font-family: "Work Sans", sans-serif;
     color: var(--main-color);
 }
+a {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
 
+a:hover {
+    text-decoration: underline;
+}
+#order-details-td div {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
+}
+
+#order-details-td div p {
+    margin: 0;
+    padding: 5px 0;
+    color: #333;
+    font-size: 14px;
+}
     </style>
 </head>
 <body>
@@ -484,18 +506,18 @@ h3 {
                 <div class="stat">
                     <i class="fa-solid fa-users"></i>
                     <h3>Khách hàng</h3>
-                    <p id="total-customers"><?= $user_result->num_rows ?></p>
+                    <p id="total-customers"><?= $user_result1->num_rows ?></p>
                 </div>
                 <div class="stat">
                     <i class="fa-solid fa-shoe-prints"></i>
                     <h3>Sản phẩm</h3>
                     <p id="total-products"><?= $product_result->num_rows ?></p>
                 </div>
-                <div class="stat">
+                <!-- <div class="stat">
                     <i class="fa-solid fa-cart-arrow-down"></i>
                     <h3>Đơn hàng</h3>
                     <p id="total-orders"><?= $result->num_rows ?></p>
-                </div>
+                </div> -->
             </div>
         </section>
 
@@ -627,7 +649,7 @@ h3 {
                         </tr>
                         <tr id="order-details-<?= $row['order_id'] ?>" style="display: none;">
                             <td colspan="4">
-                                <div style="padding: 10px; border: 1px solid #ccc;"></div>
+                                <div></div>
                             </td>
                         </tr>
                     <?php endwhile; ?>
@@ -666,7 +688,7 @@ h3 {
                             </tr>
                             <tr id="order-details-<?= $row['order_id'] ?>" style="display: none;">
                                 <td colspan="4">
-                                    <div style="padding: 10px; border: 1px solid #ccc;"></div>
+                                    <div></div>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
@@ -704,7 +726,7 @@ h3 {
                             </tr>
                             <tr id="order-details-<?= $row['order_id'] ?>" style="display: none;">
                                 <td colspan="4">
-                                    <div style="padding: 10px; border: 1px solid #ccc;"></div>
+                                    <div></div>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

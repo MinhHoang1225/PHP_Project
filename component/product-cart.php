@@ -41,7 +41,7 @@
     <script src="../assets/js/navigation.js"></script>
 </head>
 <body>
-<div class="big_img_logo" style="padding-left:700px"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
+<div class="big_img_logo" style="padding-left:600px"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
     <div id="cart">
         <div class="container-pre">
                 <div class="product-cart col-12 py-4" id="layout-page">

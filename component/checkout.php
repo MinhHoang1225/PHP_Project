@@ -300,7 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </style>
 </head>
 <body>
-<div class="big_img_logo"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
+<div class="big_img_logo" style="padding-left: 600px"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
 <div class="container">
 <div class="arrow-back" ><i class="fa-solid fa-arrow-left" onclick="navigateTo('./component/product-cart.php')"></i></div>
     <div class="delivery-info">
