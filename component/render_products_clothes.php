@@ -197,7 +197,7 @@
                                             <div class="col-md-3 col-sm-6 text-center">
                                             <div class="product-card">
                                             <div class="product-item_image">
-                                                <a href="./view/detail_product.php?id=<?php echo $kq['product_id']; ?>" class="hoverimage1">
+                                                <a href="./detail_product.php?id=<?php echo $kq['product_id']; ?>" class="hoverimage1">
                                                     <img src="../assets/img/<?php echo $kq['img']; ?>" alt="<?php echo $kq['product_name']; ?>" class="product-image" style="width:100%; height:auto;">
                                                 </a>
 
