@@ -47,6 +47,34 @@ while ($row = $result->fetch_assoc()) {
     $products[] = $row;  // Lưu thông tin sản phẩm vào mảng
 }
 
+$total = $total_amount; // Khởi tạo biến $total
+
+// Xử lý khi áp dụng mã giảm giá
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_voucher'])) {
+  $voucher_code = $_POST['voucher_code'];
+  $sql_voucher = "SELECT discount_percentage, start_date, end_date FROM Voucher WHERE voucher_id = ?";
+  $stmt_voucher = $conn->prepare($sql_voucher);
+  $stmt_voucher->bind_param('s', $voucher_code);
+  $stmt_voucher->execute();
+  $result_voucher = $stmt_voucher->get_result();
+
+  if ($result_voucher->num_rows > 0) {
+      $voucher = $result_voucher->fetch_assoc();
+      $current_date = date('Y-m-d');
+      if ($current_date >= $voucher['start_date'] && $current_date <= $voucher['end_date']) {
+          $discount_percentage = $voucher['discount_percentage'];
+          $discount_amount = ($total_amount * $discount_percentage) / 100;
+          $total_amount -= $discount_amount;
+          $voucher_message = "Áp dụng mã giảm giá thành công! Bạn được giảm " . $discount_percentage . "%.";
+      } else {
+          $voucher_message = "Mã giảm giá đã hết hạn.";
+      }
+  } else {
+      $voucher_message = "Mã giảm giá không hợp lệ.";
+  }
+}
+
+
 // Xử lý dữ liệu sau khi nhấn nút thanh toán
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Kiểm tra nếu giỏ hàng trống
@@ -325,6 +353,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     .arrow-back:hover{
       color: var(--bg-hover-btn)
     }
+
+     /* Style form voucher */
+     .voucher-form {
+            display: flex;
+            justify-content: space-between;
+            /* align-items: center; */
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            margin: auto;
+        }
+        .voucher-form input {
+           width: 450px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .apply-button {
+            background-color: var(--bg-btn);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .apply-button:hover {
+            background-color: var(--bg-hover-btn);
+        }
+
+
   </style>
 </head>
 <body>
@@ -371,6 +432,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="price-details">
         <p>Tạm tính <span><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
         <p>Phí vận chuyển <span>0₫</span></p>
+        <!-- <div class="voucher-form"> -->
+          <form method="POST">
+          <div class="voucher-form">
+            <div>
+              <input type="text" name="voucher_code" placeholder="Mã Shopee Voucher">
+            </div>
+             <div>
+              <button type="submit" name="apply_voucher" class="apply-button">ÁP DỤNG</button>
+             </div>
+             </div> 
+          </form>
+        <!-- </div> -->
+
         <p class="total">Tổng cộng <span><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
       </div>
 
