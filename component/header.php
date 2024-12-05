@@ -307,7 +307,7 @@ header img {
 }
 
 .product-img {
-    width: 100px;
+    width: 250px;
     height: 100px;
     object-fit: cover;
     border-radius: 8px;
