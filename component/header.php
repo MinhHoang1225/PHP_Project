@@ -1,25 +1,30 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Project/database/connect.php"); ?><?php
-  $cart_id = 1; 
-  $cart_sql = "SELECT 
-    shopping_cart.cart_id AS cart_id,
-    products.product_id AS product_id,
-    products.name AS product_name,
-    products.price AS product_price,
-    products.img AS product_img,
-    cart_items.quantity AS cart_quantity,
-    (products.price * cart_items.quantity) AS total_price
+if (isset($_COOKIE['user_id'])) {
+    $user_id = intval($_COOKIE['user_id']);
+        $cart_sql = "SELECT 
+        shopping_cart.cart_id AS cart_id,
+        products.product_id AS product_id,  
+        products.name AS product_name,
+        products.price AS product_price,
+        products.img AS product_img,
+        cart_items.quantity AS cart_quantity,
+        (products.price * cart_items.quantity) AS total_price
 FROM shopping_cart
 INNER JOIN cart_items ON shopping_cart.cart_id = cart_items.cart_id
 INNER JOIN products ON cart_items.product_id = products.product_id
-WHERE shopping_cart.user_id = 1;"
+WHERE shopping_cart.user_id = ?;"
   ;
   $stmt = $conn->prepare($cart_sql);
   if ($stmt === false) {
     die("Error preparing statement: " . $conn->error);
   }
-  $stmt->execute();
-  $result = $stmt->get_result();
-
+  $stmt->bind_param('i', $user_id);
+  if ($stmt->execute()) {
+    $result = $stmt->get_result();
+} else {
+    echo "Error executing query: " . $stmt->error;
+}
+}
  ?>
 <!DOCTYPE html> 
 <html lang="en">
@@ -31,6 +36,8 @@ WHERE shopping_cart.user_id = 1;"
     <link rel="stylesheet" type="" href="../assets/css/bootstrap.min.css">
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/font-aware.js"></script>
+    <script src="../assets/js/navigation.js"></script>
+    
     <style>
     :root {
     --bg-header: #e5e5e5;
@@ -195,7 +202,7 @@ header img {
 }
 
 .f {
-    max-width: 330px;
+    max-width: 1340px;
     display: flex;
     justify-content: flex-end;
     gap: 10px;
@@ -307,7 +314,7 @@ header img {
 }
 
 .product-img {
-    width: 100px;
+    width: 250px;
     height: 100px;
     object-fit: cover;
     border-radius: 8px;
@@ -581,7 +588,7 @@ header img {
                     <div id="cart-content">
                       <h2 style="text-align: center;padding:15px;color: var(--main-color)">Giỏ hàng</h2>
                         <?php 
-                          if ($result->num_rows > 0) {
+                          if ($result && $result->num_rows > 0) {
                               while ($row = $result->fetch_assoc()) {
                                   // Hiển thị thông tin sản phẩm trong một div
                                   echo '<div class="product">';
