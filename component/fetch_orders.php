@@ -10,8 +10,7 @@ if (!isset($_COOKIE['user_id'])) {
     exit;
 }
 
-$user_id = intval($_COOKIE['user_id']); // Lấy user_id từ cookie và chuyển đổi sang số nguyên
-
+$user_id = intval($_COOKIE['user_id']); 
 // Truy vấn lịch sử đơn hàng của người dùng
 $sql = "SELECT order_id, total_amount, status, created_at AS order_date 
         FROM orders 

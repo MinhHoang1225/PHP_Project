@@ -1,31 +1,35 @@
 <?php
-include('../database/connect.php');
+include '../database/connect.php';
 
-$favourite_id = 1;
+// Kiểm tra xem cookie user_id đã được đặt chưa
+if (isset($_COOKIE['user_id'])) {
+    $user_id = intval($_COOKIE['user_id']);
 
-$favourite_sql = "SELECT 
-    favourite_products.favourite_id AS favourite_id,
-    users.user_id AS user_id,
-    products.product_id AS product_id,
-    products.name AS product_name,
-    products.price AS product_price,
-    products.old_price AS old_price,  
-    products.img AS product_img,
-    favourite_products.created_at AS added_date
-FROM favourite_products
-INNER JOIN users ON favourite_products.user_id = users.user_id
-INNER JOIN products ON favourite_products.product_id = products.product_id
-WHERE users.user_id = ?";
+    // Truy vấn sản phẩm yêu thích của người dùng dựa trên user_id
+    $favourite_sql = "SELECT 
+        favourite_products.favourite_id AS favourite_id,
+        products.product_id AS product_id,
+        products.name AS product_name,
+        products.price AS product_price,
+        products.old_price AS old_price,  
+        products.img AS product_img,
+        favourite_products.created_at AS added_date
+    FROM favourite_products
+    INNER JOIN products ON favourite_products.product_id = products.product_id
+    WHERE favourite_products.user_id = ?";
 
-$stmt = $conn->prepare($favourite_sql);
+    $stmt = $conn->prepare($favourite_sql);
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
 
-if ($stmt === false) {
-    die("Error preparing statement: " . $conn->error);
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+} else {
+    // Nếu user_id không tồn tại trong cookie, yêu cầu đăng nhập
+    die("Bạn cần đăng nhập để xem sản phẩm yêu thích.");
 }
-
-$stmt->bind_param('i', $favourite_id);
-$stmt->execute();
-$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +41,7 @@ $result = $stmt->get_result();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        :root {
+:root {
             --bg-header: #e5e5e5;
             --bg-btn: #0c6478;
             --bg-hover-btn: #159198;
@@ -157,9 +161,8 @@ $result = $stmt->get_result();
         .no-products {
             text-align: center;
             font-size: 18px;
-            color: #888;
-        }
-    </style>
+            color: #888;}
+                </style>
 </head>
 <body>
     <div class="title-product-main">
@@ -169,6 +172,7 @@ $result = $stmt->get_result();
         <div class="row">
             <?php
             if ($result && $result->num_rows > 0) {
+                // Hiển thị từng sản phẩm yêu thích
                 while ($row = $result->fetch_assoc()) {
                     ?>
                     <div class="col-md-3 col-sm-6 text-center justify-content-center">
@@ -205,8 +209,11 @@ $result = $stmt->get_result();
                     <?php
                 }
             } else {
+                // Nếu không có sản phẩm yêu thích nào
                 echo "<p class='no-products'>Không có sản phẩm yêu thích nào.</p>";
             }
+
+            // Đóng statement và kết nối
             $stmt->close();
             $conn->close();
             ?>

@@ -104,3 +104,18 @@
         font-size: 12px;
     }
 }
+
+.accordion-header .category-item:not([data-bs-toggle="collapse"])::after {
+    display: none;
+   
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+    border: none;
+}
+
+.accordion-header .clothes {
+    font-size: 16px;
+    margin-left: 20px;
+}

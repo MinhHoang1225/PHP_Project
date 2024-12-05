@@ -1,4 +1,4 @@
-<?php include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Project/database/connect.php"); ?><?php
+<?php include("../database/connect.php"); ?><?php
   $cart_id = 1; 
   $cart_sql = "SELECT 
     shopping_cart.cart_id AS cart_id,
@@ -430,8 +430,9 @@ header img {
     padding: 10px; 
     display: none; 
     z-index: 10;
-    min-width: 400px; 
-    max-height: 300px; 
+    width: 500px; 
+    min-width: 300px; 
+    max-height: 600px; 
     overflow-y: auto; 
     scrollbar-width: thin; 
     scrollbar-color: #ccc transparent; 
@@ -449,6 +450,7 @@ header img {
     cursor: pointer;
     text-align: left;
 }
+
 
 .user-dropdown button:hover {
     color: red;
@@ -470,8 +472,71 @@ header img {
 .user-dropdown::-webkit-scrollbar-track {
     background-color: transparent; 
 }
+#order-history {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
 
-</style>
+#order-history p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+#orders-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#orders-list li {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #555;
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng hover cho từng mục trong danh sách */
+#orders-list li:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.02);
+    border-color: #aaa;
+}
+
+/* Khi trạng thái đang tải */
+#orders-list li.loading {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+}
+
+/* Hiệu ứng chuyển động cho việc tải danh sách */
+#orders-list li {
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+    </style>
 </head>
 <body>
   <header>
@@ -583,7 +648,7 @@ header img {
                     <p><strong>Tên người dùng:</strong> ${user.username}</p>
                     <p><strong>Email:</strong> ${user.email}</p>
                     <p><strong>Mật khẩu:</strong> ${user.password}</p>
-                    <button id="logout-btn">Đăng xuất</button>
+                    <button id="logout-btn"> <i class="fa-solid fa-sign-out-alt"></i> Đăng xuất</button>
                     <hr>
                     <div id="order-history">
                         <p><strong>Lịch sử đơn hàng:</strong></p>
@@ -605,7 +670,7 @@ header img {
                                 ordersList.innerHTML += `
                                     <li>
                                         <strong>Order ID:</strong> ${order.order_id}<br>
-                                        <strong>Total Amount:</strong> $${order.total_amount}<br>
+                                        <strong>Total Amount:</strong> ${order.total_amount}đ<br>
                                         <strong>Status:</strong> ${order.status}<br>
                                         <strong>Date:</strong> ${order.order_date}
                                     </li>
