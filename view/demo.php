@@ -74,10 +74,6 @@ $user_sql = "SELECT * FROM users";
 $user_stmt = $conn->prepare($user_sql);
 $user_stmt->execute();
 $user_result = $user_stmt->get_result();
-$user_sql1 = "SELECT user_id, username, email FROM users";
-$user_result1 = $conn->query($user_sql1);
-
-
 ?>
 <?php
 // Kết nối cơ sở dữ liệu
@@ -91,54 +87,22 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Kiểm tra kết nối
 if ($conn->connect_error) {
-    die("Kết nối thất bại: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 
-// Truy vấn lấy đơn hàng trạng thái 'dang-giao'
-$query_dang_giao = "
-    SELECT 
-        users.username AS username,
-        orders.created_at AS created_at,
-        orders.status AS status,
-        orders.order_id AS order_id
+// Truy vấn kết hợp dữ liệu từ orders, users, order_items và products
+$query = "
+    SELECT users.username, orders.total_amount, orders.status, orders.created_at 
     FROM orders
     JOIN users ON orders.user_id = users.user_id
-    WHERE orders.status = 'dang-giao'
 ";
 
-// Truy vấn lấy đơn hàng trạng thái 'da-giao'
-$query_da_giao = "
-    SELECT 
-        users.username AS username,
-        orders.created_at AS created_at,
-        orders.status AS status,
-        orders.order_id AS order_id
-    FROM orders
-    JOIN users ON orders.user_id = users.user_id
-    WHERE orders.status = 'da-giao'
-";
 
-// Truy vấn lấy đơn hàng trạng thái 'thanh-toan-thanh-cong'
-$query_thanh_toan_thanh_cong = "
-    SELECT 
-        users.username AS username,
-        orders.created_at AS created_at,
-        orders.status AS status,
-        orders.order_id AS order_id
-    FROM orders
-    JOIN users ON orders.user_id = users.user_id
-    WHERE orders.status = 'thanh-toan-thanh-cong'
-";
+$result = $conn->query($query);
 
-$result_dang_giao = $conn->query($query_dang_giao);
-$result_da_giao = $conn->query($query_da_giao);
-$result_thanh_toan_thanh_cong = $conn->query($query_thanh_toan_thanh_cong);
-
-if (!$result_dang_giao || !$result_da_giao || !$result_thanh_toan_thanh_cong) {
+if (!$result) {
     die("Lỗi truy vấn: " . $conn->error);
 }
-
-$conn->close();
 ?>
 
 
@@ -440,29 +404,7 @@ h3 {
     font-family: "Work Sans", sans-serif;
     color: var(--main-color);
 }
-a {
-    color: #007bff;
-    text-decoration: none;
-    cursor: pointer;
-}
 
-a:hover {
-    text-decoration: underline;
-}
-#order-details-td div {
-    border: 1px solid #ddd;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng nhẹ */
-}
-
-#order-details-td div p {
-    margin: 0;
-    padding: 5px 0;
-    color: #333;
-    font-size: 14px;
-}
     </style>
 </head>
 <body>
@@ -481,8 +423,8 @@ a:hover {
             <a href="#" data-section="products">
                 <i class="fa-solid fa-shoe-prints"></i> Sản phẩm
             </a>
-            <a href="#" data-section="orders-by-user">
-                <i class="fa-solid fa-cart-shopping"></i> QLĐH theo khách hàng
+            <a href="#" data-section="users">
+             <i class="fa-solid fa-cart-shopping"></i>QLĐH theo khách hàng
             </a>
             <a href="#" data-section="orders">
                 <i class="fa-solid fa-cart-shopping"></i>QLĐH theo trạng thái
@@ -506,18 +448,18 @@ a:hover {
                 <div class="stat">
                     <i class="fa-solid fa-users"></i>
                     <h3>Khách hàng</h3>
-                    <p id="total-customers"><?= $user_result1->num_rows ?></p>
+                    <p id="total-customers"><?= $user_result->num_rows ?></p>
                 </div>
                 <div class="stat">
                     <i class="fa-solid fa-shoe-prints"></i>
                     <h3>Sản phẩm</h3>
                     <p id="total-products"><?= $product_result->num_rows ?></p>
                 </div>
-                <!-- <div class="stat">
+                <div class="stat">
                     <i class="fa-solid fa-cart-arrow-down"></i>
                     <h3>Đơn hàng</h3>
                     <p id="total-orders"><?= $result->num_rows ?></p>
-                </div> -->
+                </div>
             </div>
         </section>
 
@@ -530,7 +472,6 @@ a:hover {
                         <th>ID</th>
                         <th>Tên</th>
                         <th>Email</th>
-                        <th>Hành động</th> <!-- Thêm cột hành động -->
                     </tr>
                 </thead>
                 <tbody>
@@ -539,16 +480,11 @@ a:hover {
                             <td><?= $user['user_id'] ?></td>
                             <td><?= $user['username'] ?></td>
                             <td><?= $user['email'] ?></td>
-                            <td>
-                                <!-- Nút gửi thông báo quá hạn -->
-                                <button onclick="sendExpiredNotification(<?= $user['user_id'] ?>)">Gửi thông báo quá hạn</button>
-                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
         </section>
-
 
         <!-- Section: Sản phẩm -->
         <section id="products" class="section">
@@ -597,149 +533,125 @@ a:hover {
             </table>
         </section>
         <!-- Section: Đơn hàng theo khách hàng -->
-        <section id="orders-by-user" class="section">
-            <h2>QLĐH theo khách hàng</h2>
+        <section id="users" class="section">
+            <h2>Khách hàng</h2>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Mã khách hàng</th>
+                        <th>ID</th>
                         <th>Tên</th>
                         <th>Email</th>
-                        <th>Xem đơn hàng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($user = $user_result1->fetch_assoc()) : ?>
+                    <?php while ($user = $user_result->fetch_assoc()) : ?>
                         <tr>
                             <td><?= $user['user_id'] ?></td>
                             <td><?= $user['username'] ?></td>
                             <td><?= $user['email'] ?></td>
-                            <td><a href="#" class="view-orders" data-user-id="<?= $user['user_id'] ?>">Xem</a></td>
+                        </tr>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+        </section>
+        <!-- Section: Đơn hàng -->
+        <section id="orders" class="section">    
+            <h2>Đang giao</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tài khản người dùng</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng Giá</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $result->fetch_assoc()) : ?>
+                        <tr>
+                            <td><?= htmlspecialchars($row['username']) ?></td>
+                            <td><?= htmlspecialchars($row['name']) ?></td>
+                            <td><?= number_format($row['price'], 2, ',', '.') ?> VND</td>
+                            <td><?= htmlspecialchars($row['quantity']) ?></td>
+                            <td><?= number_format($row['total_price'], 2, ',', '.') ?> VND</td>
+                            <td><?= htmlspecialchars($row['status']) ?>
+                                <select id="order-status-<?= $row['order_id'] ?>" name="order-status" onchange="updateOrderStatus(<?= $row['order_id'] ?>, this.value)">
+                                        <option value="dang-giao" <?= $row['status'] === 'dang-giao' ? 'selected' : '' ?>>Đang giao</option>
+                                        <option value="da-giao" <?= $row['status'] === 'da-giao' ? 'selected' : '' ?>>Đã giao</option>
+                                        <option value="thanh-toan-thanh-cong" <?= $row['status'] === 'thanh-toan-thanh-cong' ? 'selected' : '' ?>>Thanh toán thành công</option>
+                                    </select>
+                            </td>
+
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
 
-            <div id="order-details"></div> 
-        </section>
-        <!-- Section: Đơn hàng -->
-        <section id="orders" class="section">    
-                <h2>Đang giao</h2>
-                <table class="table">
-                    <thead>
+            <h2>Đã giao</h2>
+             <table class="table">
+                <thead>
+                <tr>
+                        <th>Tài khản người dùng</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng Giá</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php while ($row = $result->fetch_assoc()) : ?>
                         <tr>
-                            <th>Mã đơn hàng</th>
-                            <th>Tài khoản người dùng</th>
-                            <th>Thời gian đặt hàng</th>
-                            <th>Trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php while ($row = $result_dang_giao->fetch_assoc()) : ?>
-                        <tr>
-                            <td>
-                                <a href="javascript:void(0);" onclick="fetchOrderDetails(<?= $row['order_id'] ?>)">
-                                    <?= htmlspecialchars($row['order_id']) ?>
-                                </a>
-                            </td>
                             <td><?= htmlspecialchars($row['username']) ?></td>
-                            <td><?= htmlspecialchars($row['created_at']) ?></td>
-                            <td>
-                                <?= htmlspecialchars($row['status']) ?>
-                                <select id="order-status-<?= $row['order_id'] ?>" name="order-status" onchange="updateOrderStatus(<?= $row['order_id'] ?>, this.value)">
-                                    <option value="dang-giao" <?= $row['status'] === 'dang-giao' ? 'selected' : '' ?>>Đang giao</option>
-                                    <option value="da-giao" <?= $row['status'] === 'da-giao' ? 'selected' : '' ?>>Đã giao</option>
-                                    <option value="thanh-toan-thanh-cong" <?= $row['status'] === 'thanh-toan-thanh-cong' ? 'selected' : '' ?>>Thanh toán thành công</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr id="order-details-<?= $row['order_id'] ?>" style="display: none;">
-                            <td colspan="4">
-                                <div></div>
-                            </td>
+                            <td><?= htmlspecialchars($row['name']) ?></td>
+                            <td><?= number_format($row['price'], 2, ',', '.') ?> VND</td>
+                            <td><?= htmlspecialchars($row['quantity']) ?></td>
+                            <td><?= number_format($row['total_price'], 2, ',', '.') ?> VND</td>
+                            <td><?= htmlspecialchars($row['status']) ?>
+                            <select id="order-status" name="order-status">
+                                    <option value="dang-giao">Đang giao</option>
+                                    <option value="da-giao">Đã giao</option>
+                                    <option value="thanh-toan-thanh-cong">Thanh toán thành công</option>
+                                </select></td>
                         </tr>
                     <?php endwhile; ?>
+                </tbody>
+            </table> 
 
-                    </tbody>
-                </table>
-
-                <h2>Đã giao</h2>
-                <table class="table">
-                    <thead>
+            <h2>Thanh toán thành công</h2>
+             <table class="table">
+                <thead>
+                     <tr>
+                        <th>Tài khản người dùng</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng Giá</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php while ($row = $result->fetch_assoc()) : ?>
                         <tr>
-                            <th>Mã đơn hàng</th>
-                            <th>Tài khoản người dùng</th>
-                            <th>Thời gian đặt hàng</th>
-                            <th>Trạng thái</th>
+                            <td><?= htmlspecialchars($row['username']) ?></td>
+                            <td><?= htmlspecialchars($row['name']) ?></td>
+                            <td><?= number_format($row['price'], 2, ',', '.') ?> VND</td>
+                            <td><?= htmlspecialchars($row['quantity']) ?></td>
+                            <td><?= number_format($row['total_price'], 2, ',', '.') ?> VND</td>
+                            <td><?= htmlspecialchars($row['status']) ?>
+                            <select id="order-status" name="order-status">
+                                    <option value="dang-giao">Đang giao</option>
+                                    <option value="da-giao">Đã giao</option>
+                                    <option value="thanh-toan-thanh-cong">Thanh toán thành công</option>
+                                </select></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = $result_da_giao->fetch_assoc()) : ?>
-                            <tr>
-                                <td>
-                                    <a href="javascript:void(0);" onclick="fetchOrderDetails(<?= $row['order_id'] ?>)">
-                                        <?= htmlspecialchars($row['order_id']) ?>
-                                    </a>
-                                </td>
-                                <td><?= htmlspecialchars($row['username']) ?></td>
-                                <td><?= htmlspecialchars($row['created_at']) ?></td>
-                                <td>
-                                    <?= htmlspecialchars($row['status']) ?>
-                                    <select id="order-status-<?= $row['order_id'] ?>" name="order-status" onchange="updateOrderStatus(<?= $row['order_id'] ?>, this.value)">
-                                        <option value="dang-giao" <?= $row['status'] === 'dang-giao' ? 'selected' : '' ?>>Đang giao</option>
-                                        <option value="da-giao" <?= $row['status'] === 'da-giao' ? 'selected' : '' ?>>Đã giao</option>
-                                        <option value="thanh-toan-thanh-cong" <?= $row['status'] === 'thanh-toan-thanh-cong' ? 'selected' : '' ?>>Thanh toán thành công</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr id="order-details-<?= $row['order_id'] ?>" style="display: none;">
-                                <td colspan="4">
-                                    <div></div>
-                                </td>
-                            </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
+                    <?php endwhile; ?>
+                </tbody>
+            </table> 
 
-                <h2>Thanh toán thành công</h2>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Mã đơn hàng</th>
-                            <th>Tài khoản người dùng</th>
-                            <th>Thời gian đặt hàng</th>
-                            <th>Trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = $result_thanh_toan_thanh_cong->fetch_assoc()) : ?>
-                            <tr>
-                                <td>
-                                    <a href="javascript:void(0);" onclick="fetchOrderDetails(<?= $row['order_id'] ?>)">
-                                        <?= htmlspecialchars($row['order_id']) ?>
-                                    </a>
-                                </td>
-                                <td><?= htmlspecialchars($row['username']) ?></td>
-                                <td><?= htmlspecialchars($row['created_at']) ?></td>
-                                <td>
-                                    <?= htmlspecialchars($row['status']) ?>
-                                    <select id="order-status-<?= $row['order_id'] ?>" name="order-status" onchange="updateOrderStatus(<?= $row['order_id'] ?>, this.value)">
-                                        <option value="dang-giao" <?= $row['status'] === 'dang-giao' ? 'selected' : '' ?>>Đang giao</option>
-                                        <option value="da-giao" <?= $row['status'] === 'da-giao' ? 'selected' : '' ?>>Đã giao</option>
-                                        <option value="thanh-toan-thanh-cong" <?= $row['status'] === 'thanh-toan-thanh-cong' ? 'selected' : '' ?>>Thanh toán thành công</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr id="order-details-<?= $row['order_id'] ?>" style="display: none;">
-                                <td colspan="4">
-                                    <div></div>
-                                </td>
-                            </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-            </section>
-
+        </section>
     </main>
 
     <!-- Modal: Thêm Sản Phẩm -->
@@ -847,81 +759,22 @@ function closeModal() {
     function confirmDelete(productName) {
     return confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${productName}" không?`); }
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    function updateOrderStatus(orderId, newStatus) {
-        // Tạo đối tượng XMLHttpRequest
-        var xhr = new XMLHttpRequest();
+function updateOrderStatus(orderId, newStatus) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "../update_order_status.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        // Mở kết nối POST
-        xhr.open('POST', '../view/update_order_status.php', true);
-
-        // Định nghĩa kiểu dữ liệu mà bạn sẽ gửi (x-www-form-urlencoded là kiểu phổ biến cho POST)
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        // Lắng nghe phản hồi từ server
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText); // In ra phản hồi từ PHP
-                alert(xhr.responseText); // Hiển thị thông báo phản hồi
-                location.reload();
-            }
-        };
-
-        // Gửi dữ liệu (dưới dạng x-www-form-urlencoded)
-        var data = "order_id=" + orderId + "&status=" + encodeURIComponent(newStatus);
-        xhr.send(data);
-    }
-</script>
-<script>
-    function fetchOrderDetails(orderId) {
-        var detailsRow = document.getElementById('order-details-' + orderId);
-        var detailsDiv = detailsRow.querySelector('div');
-
-        // Kiểm tra nếu đã ẩn thì hiển thị và gọi AJAX
-        if (detailsRow.style.display === 'none') {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../view/fetch_order_details.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    detailsDiv.innerHTML = xhr.responseText; // Đưa nội dung vào div
-                    detailsRow.style.display = 'table-row'; // Hiển thị hàng
-                }
-            };
-            xhr.send('order_id=' + orderId); // Gửi order_id đến PHP
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            alert("Cập nhật trạng thái thành công!");
         } else {
-            // Ẩn chi tiết nếu đã hiển thị
-            detailsRow.style.display = 'none';
+            alert("Có lỗi xảy ra khi cập nhật trạng thái.");
         }
-    }
-</script>
-<script>
-document.querySelectorAll('.view-orders').forEach(item => {
-    item.addEventListener('click', function(e) {
-        e.preventDefault();
-        const userId = this.getAttribute('data-user-id');
+    };
 
-        fetch(`../view/get_user_orders.php?user_id=${userId}`)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('order-details').innerHTML = data;
-            })
-            .catch(error => console.error('Lỗi khi tải đơn hàng:', error));
-    });
-});
-</script>
-
-
-<script>
-    function sendExpiredNotification(userId) {
-        // Gửi yêu cầu tới file PHP để gửi thông báo
-        const confirmSend = confirm("Bạn có chắc muốn gửi thông báo?");
-        if (confirmSend) {
-            window.location.href = 'send_expired_notification.php?user_id=' + userId;
-        }
-    }
+    xhr.send(`order_id=${orderId}&status=${newStatus}`);
+}
 </script>
 
 </body>
