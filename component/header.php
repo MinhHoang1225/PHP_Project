@@ -536,7 +536,7 @@ header img {
     }
 }
 
-</style>
+    </style>
 </head>
 <body>
   <header>
@@ -670,7 +670,7 @@ header img {
                                 ordersList.innerHTML += `
                                     <li>
                                         <strong>Order ID:</strong> ${order.order_id}<br>
-                                        <strong>Total Amount:</strong> $${order.total_amount}<br>
+                                        <strong>Total Amount:</strong> ${order.total_amount}đ<br>
                                         <strong>Status:</strong> ${order.status}<br>
                                         <strong>Date:</strong> ${order.order_date}
                                     </li>
