@@ -106,7 +106,7 @@
         <div class="carousel-item active slider">
             <img src="../assets/img/1mui-ten.png" alt="" class="image">
 
-            <a href="./view/promotion_product.php">
+            <a href="../view/promotion_product.php">
                 <button class="button_sale" > <i> <span>NHẬN ƯU ĐÃI</span> </i></button>
             </a>
             <div class="promotion">
