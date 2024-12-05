@@ -530,6 +530,7 @@ a:hover {
                         <th>ID</th>
                         <th>Tên</th>
                         <th>Email</th>
+                        <th>Hành động</th> <!-- Thêm cột hành động -->
                     </tr>
                 </thead>
                 <tbody>
@@ -538,11 +539,16 @@ a:hover {
                             <td><?= $user['user_id'] ?></td>
                             <td><?= $user['username'] ?></td>
                             <td><?= $user['email'] ?></td>
+                            <td>
+                                <!-- Nút gửi thông báo quá hạn -->
+                                <button onclick="sendExpiredNotification(<?= $user['user_id'] ?>)">Gửi thông báo quá hạn</button>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 </tbody>
             </table>
         </section>
+
 
         <!-- Section: Sản phẩm -->
         <section id="products" class="section">
@@ -908,6 +914,15 @@ document.querySelectorAll('.view-orders').forEach(item => {
 </script>
 
 
+<script>
+    function sendExpiredNotification(userId) {
+        // Gửi yêu cầu tới file PHP để gửi thông báo
+        const confirmSend = confirm("Bạn có chắc muốn gửi thông báo?");
+        if (confirmSend) {
+            window.location.href = 'send_expired_notification.php?user_id=' + userId;
+        }
+    }
+</script>
 
 </body>
 </html>

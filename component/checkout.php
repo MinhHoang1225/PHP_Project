@@ -1,4 +1,3 @@
-
 <?php
 include('../database/connect.php');
     // Kiểm tra nếu cookies user_id tồn tại
@@ -57,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $item_stmt->bind_param('iiid', $order_id, $product['product_id'], $product['quantity'], $product['price']);
                 $item_stmt->execute();
             }
-
             // Xóa giỏ hàng sau khi thanh toán
             $delete_cart_sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
             $delete_cart_stmt = $conn->prepare($delete_cart_sql);
