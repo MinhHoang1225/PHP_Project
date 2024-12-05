@@ -19,7 +19,7 @@ $total_amount += $row['price'] * $row['quantity'];
 $products[] = $row;  // Lưu thông tin sản phẩm vào mảng
 }
 
-$total = $total_amount; // Khởi tạo biến $total
+$total_amount_display = $total_amount; // Khởi tạo biến $total
 
 // Xử lý khi áp dụng mã giảm giá
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_voucher'])) {
@@ -31,19 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_voucher'])) {
   $result_voucher = $stmt_voucher->get_result();
 
   if ($result_voucher->num_rows > 0) {
-      $voucher = $result_voucher->fetch_assoc();
-      $current_date = date('Y-m-d');
-      if ($current_date >= $voucher['start_date'] && $current_date <= $voucher['end_date']) {
+    $voucher = $result_voucher->fetch_assoc();
+    $current_date = date('Y-m-d');
+    if ($current_date >= $voucher['start_date'] && $current_date <= $voucher['end_date']) {
           $discount_percentage = $voucher['discount_percentage'];
           $discount_amount = ($total_amount * $discount_percentage) / 100;
           $total_amount -= $discount_amount;
-          $voucher_message = "Áp dụng mã giảm giá thành công! Bạn được giảm " . $discount_percentage . "%.";
-      } else {
-          $voucher_message = "Mã giảm giá đã hết hạn.";
-      }
-  } else {
-      $voucher_message = "Mã giảm giá không hợp lệ.";
-  }
+          echo "<script>alert('Áp dụng mã giảm giá thành công! Bạn được giảm " . $discount_percentage . "%.'); 
+          document.getElementById('totalAmount').innerText = '" . number_format($total_amount, 0, ',', '.') . "₫';
+        </script>";
+} else {
+  echo "<script>alert('Mã giảm giá không hợp lệ.');</script>";
+}
+}
 }
 
 // Xử lý dữ liệu sau khi nhấn nút thanh toán
@@ -400,7 +400,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </div> -->
       
       <div class="price-details">
-        <p>Tạm tính <span><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
+        <p>Tạm tính <span><?php echo number_format($total_amount_display, 0, ',', '.'); ?>₫</span></p>
         <p>Phí vận chuyển <span>0₫</span></p>
         <!-- <div class="voucher-form"> -->
           <form method="POST">
@@ -414,9 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
              </div> 
           </form>
         <!-- </div> -->
-
-        <p class="total">Tổng cộng <span><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
-      </div>
+        <p class="total">Tổng cộng <span id="totalAmount"><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
 
       <!-- Nút Thanh toán gọi form -->
       <button type="button" class="checkout-btn" onclick="submitOrder()">Thanh toán</button>
