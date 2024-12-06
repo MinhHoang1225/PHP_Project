@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slidebar</title>
 
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-   
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../assets/css/slidebar.css">
@@ -20,40 +18,39 @@
     <div class="left-page">
         <div class="left-page__content">
             <!-- Danh Mục -->
-           
             <div class="mb-4 filter_product_category">
                 <h4 class="fw-bold text-uppercase">DANH MỤC</h4>
                 <div class="accordion accordion-flush" id="categoryAccordion">
                     <!-- Accessories -->
                     <div class="accordion-item" data-category-id="1">
-                    <h2 class="accordion-header" id="headingAccessories">
-                        <button class="accordion-button collapsed category-item" type="button" data-category-id="1" data-bs-toggle="collapse" data-bs-target="#collapseAccessories" aria-expanded="false" aria-controls="collapseAccessories" data-bs-parent="#categoryAccordion">
-                            Sản phẩm
-                        </button>
-                    </h2>
+                        <h2 class="accordion-header" id="headingAccessories">
+                            <button class="accordion-button collapsed category-item" type="button" data-category-id="1" data-bs-toggle="collapse" data-bs-target="#collapseAccessories" aria-expanded="false" aria-controls="collapseAccessories">
+                                Sản phẩm 
+                            </button>
+                        </h2>
                         <div id="collapseAccessories" class="accordion-collapse collapse" aria-labelledby="headingAccessories" data-bs-parent="#categoryAccordion">
                             <div class="accordion-body">
                                 <ul class="list-unstyled">
                                     <li>
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubAccessories1" aria-expanded="false" aria-controls="collapseSubAccessories1">
-                                            Phụ Kiện
+                                            Phụ Kiện 
                                         </button>
-                                        <div id="collapseSubAccessories1" class="accordion-collapse collapse">
+                                        <div id="collapseSubAccessories1" class="collapse">
                                             <ul class="list-unstyled mt-2">
-                                                <li><a href="#" class="text-decoration-none">Mũ</a></li>
-                                                <li><a href="#" class="text-decoration-none">Dép</a></li>
-                                                <li><a href="#" class="text-decoration-none">Tất</a></li>
-                                                <li><a href="#" class="text-decoration-none">Kính</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Mũ ">Mũ</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Dép">Dép</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Tất">Tất</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Kính">Kính</a></li>
                                             </ul>
                                         </div>
                                     </li>
                                     <li>
                                         <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubAccessories2" aria-expanded="false" aria-controls="collapseSubAccessories2">
-                                            Balo
+                                            Balo 
                                         </button>
-                                        <div id="collapseSubAccessories2" class="accordion-collapse collapse">
+                                        <div id="collapseSubAccessories2" class="collapse">
                                             <ul class="list-unstyled mt-2">
-                                                <li><a href="#" class="text-decoration-none">Herschel</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item" data-category-id="3">Herschel</a></li>
                                             </ul>
                                         </div>
                                     </li>
@@ -65,36 +62,36 @@
                     <div class="accordion-item" data-category-id="2">
                         <h2 class="accordion-header" id="headingShoes">
                             <button class="accordion-button collapsed category-item" type="button" data-category-id="2" data-bs-toggle="collapse" data-bs-target="#collapseShoes" aria-expanded="false" aria-controls="collapseShoes">
-                                Giày
+                                Giày 
                             </button>
                         </h2>
                         <div id="collapseShoes" class="accordion-collapse collapse" aria-labelledby="headingShoes" data-bs-parent="#categoryAccordion">
                             <div class="accordion-body">
                                 <ul class="list-unstyled mt-2">
-                                    <li  class="list-item">
-                                        <button class="text-decoration-none p-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes1" aria-expanded="false" aria-controls="collapseSubShoes1">
+                                    <li>
+                                        <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes1" aria-expanded="false" aria-controls="collapseSubShoes1">
                                         <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày Puma">Giày Puma</a></li>
                                         </button>
                                         <div id="collapseSubShoes1" class="collapse">
                                             <!-- <ul class="list-unstyled mt-2">
-                                                <li class="list-item"><a href="#" class="text-decoration-none">Puma Mule</a></li>
-                                                <li class="list-item none"><a href="#" class="text-decoration-none">Puma RS</a></li>
-                                            </ul> -->
-                                        </div>
-                                    </li>
-                                    <li class="list-item none">
-                                        <button class="text-decoration-none p-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes2" aria-expanded="false" aria-controls="collapseSubShoes2">
-                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày Nike">Giày Nike</a></li>
-                                        </button>
-                                        <div id="collapseSubShoes2" class="collapse">
-                                            <!-- <ul class="list-unstyled mt-2">
-                                                <li class="list-item"><a href="#" class="text-decoration-none">Air Max</a></li>
-                                                <li class="list-item none"><a href="#" class="text-decoration-none">Air Zoom</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item" data-category-id="2">Puma Mule</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item" data-category-id="2">Puma RS</a></li>
                                             </ul> -->
                                         </div>
                                     </li>
                                     <li>
-                                        <button class="text-decoration-none p-0 d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes2" aria-expanded="false" aria-controls="collapseSubShoes2">
+                                        <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes2" aria-expanded="false" aria-controls="collapseSubShoes2">
+                                        <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày Nike">Giày Nike</a></li>
+                                        </button>
+                                        <div id="collapseSubShoes2" class="collapse">
+                                            <!-- <ul class="list-unstyled mt-2">
+                                                <li><a href="#" class="text-decoration-none category-item" data-category-id="2">Air Max</a></li>
+                                                <li><a href="#" class="text-decoration-none category-item" data-category-id="2">Air Zoom</a></li>
+                                            </ul> -->
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <button class="text-decoration-none p-0 d-flex align-items-center accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseSubShoes2" aria-expanded="false" aria-controls="collapseSubShoes2">
                                         <li><a href="#" class="text-decoration-none category-item"  data-search-keyword="Giày adidas">Giày adidas</a></li>
                                         </button>
                                         <div id="collapseSubShoes2" class="collapse">
@@ -109,12 +106,12 @@
                         </div>
                     </div>
                     <!-- Clothes -->
-                    <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingClothes">
-                        <button class="accordion-button collapsed category-item" type="button" data-category-id="3">
-                            Quần áo
-                        </button>
-                    </h2>
+                    <div class="accordion-item" data-category-id="4">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed category-item" type="button" data-category-id="4">
+                                Quần áo
+                            </button>
+                        </h2>
                     </div>
                 </div>
             </div>
@@ -156,10 +153,8 @@
         </div>
     </div>
 
-
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-     
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
     <script>src="../assets/js/slidebar.js"</script>
     <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -170,10 +165,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentCategoryId = null;
     let selectedSizes = [];
 
-
     // Hàm định dạng giá
     const formatPrice = (value) => Number(value).toLocaleString('vi-VN') + 'đ';
-
 
     // Cập nhật giá trị hiển thị của thanh trượt giá
     const updatePriceDisplay = () => {
@@ -183,20 +176,17 @@ document.addEventListener('DOMContentLoaded', function () {
         priceRange.style.background = `linear-gradient(90deg, rgb(63, 60, 60) ${percentage}%, rgba(255,255,255) ${percentage}%)`;
     };
 
-
     // Lấy danh sách kích thước đã chọn
     const getSelectedSizes = () => {
         return Array.from(document.querySelectorAll('.form-check-input:checked'))
             .map(checkbox => encodeURIComponent(checkbox.value));
     };
 
-
     // Tạo URL dựa trên các bộ lọc hiện tại
     const buildFilterURL = () => {
         const minPriceValue = priceRange.value || 0;
         selectedSizes = getSelectedSizes();
         let url = 'show_product.php?';
-
 
         if (minPriceValue) url += `min_price=${minPriceValue}&`;
         if (selectedSizes.length > 0) url += `size=${selectedSizes.join(',')}&`;
@@ -210,14 +200,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return url;
     };
 
-
     // Cập nhật danh sách sản phẩm
     const updateProductList = () => {
         const url = buildFilterURL();
 
-
         if (loadingIndicator) loadingIndicator.style.display = 'block'; // Hiển thị loading
-
 
         fetch(url)
             .then(response => {
@@ -233,13 +220,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
     };
 
-
     // Gán sự kiện cho thanh trượt giá
     priceRange.addEventListener('input', () => {
         updatePriceDisplay();
         updateProductList();
     });
-
 
     // Gán sự kiện cho các danh mục
     const categoryItems = document.querySelectorAll('.category-item');
@@ -251,13 +236,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-
     // Gán sự kiện cho các checkbox kích thước
     const sizeCheckboxes = document.querySelectorAll('.form-check-input');
     sizeCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', updateProductList);
     });
-
 
     // Cập nhật giá ban đầu
     updatePriceDisplay();
@@ -268,20 +251,16 @@ const size44Checkbox = document.getElementById("size44");
     const sizeMCheckbox = document.getElementById("sizeM");
     const sizeSCheckbox = document.getElementById("sizeS");
 
-
     size44Checkbox.parentElement.style.display = "none";
     size43Checkbox.parentElement.style.display = "none";
-
 
     const shoeCategories = document.querySelectorAll(
         '[data-search-keyword="Giày Puma"], [data-search-keyword="Giày Nike"], [data-search-keyword="Giày adidas"], [data-search-keyword="Dép"]'
     );
 
-
     const otherCategories = document.querySelectorAll(
         '.category-item:not([data-search-keyword="Giày Puma"]):not([data-search-keyword="Giày Nike"]):not([data-search-keyword="Giày adidas"]):not([data-search-keyword="Dép"])'
     );
-
 
     function showShoeSizes() {
         size44Checkbox.parentElement.style.display = "block";
@@ -291,7 +270,6 @@ const size44Checkbox = document.getElementById("size44");
         sizeSCheckbox.parentElement.style.display = "none";
     }
 
-
     function showAllSizesExceptShoes() {
         size44Checkbox.parentElement.style.display = "none";
         size43Checkbox.parentElement.style.display = "none";
@@ -300,21 +278,16 @@ const size44Checkbox = document.getElementById("size44");
         sizeSCheckbox.parentElement.style.display = "block";
     }
 
-
     shoeCategories.forEach(category => {
         category.addEventListener("click", showShoeSizes);
     });
-
 
     otherCategories.forEach(category => {
         category.addEventListener("click", showAllSizesExceptShoes);
     });
 
-
 </script>
 
 
-
-
 </body>
-</html
+</html>
