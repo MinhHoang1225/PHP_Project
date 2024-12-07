@@ -622,7 +622,7 @@ header img {
       </div>
     </div>
 
-    <div class="container f">
+    <div class="container f" style="gap: 30px">
   <form action="" method="get" class="d-flex form-group" role="search">
     <input 
       type="text" 
