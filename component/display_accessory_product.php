@@ -216,11 +216,11 @@ if ($stmt) {
                                     }
                                 ?>
                             </a>
-                            <a href="#" class="container d-flex justify-content-center align-items-center">
-                                <div class="heart-icon">
+                            <div class="container d-flex justify-content-center align-items-center">
+                                <div class="heart-icon" onclick="addToFavourites(<?php echo $row['product_id']; ?>)">
                                     <i class="bi bi-heart-fill"></i>
                                 </div>
-                            </a>
+                            </div>
                             <a href="#" class="container d-flex justify-content-center align-items-center">
                                 <div class="cart-icon">
                                     <i class="bi bi-bag-plus-fill"></i>
@@ -246,6 +246,26 @@ if ($stmt) {
             ?>
         </div>
     </div>
+    <script>
+          function addToFavourites(productId) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "../view/addFavourite.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText);
+                        alert(xhr.responseText); // Hiển thị thông báo từ server
+                    } else {
+                        alert("Đã xảy ra lỗi: " + xhr.status);
+                    }
+                }
+            };
+
+            xhr.send("product_id=" + productId);
+        }
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
