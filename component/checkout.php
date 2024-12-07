@@ -1,13 +1,19 @@
 <?php
 include('../database/connect.php');
-    // Kiểm tra nếu cookies user_id tồn tại
-  $user_id = (int) $_COOKIE['user_id'];
-  echo "<script>console.log('User ID: " . htmlspecialchars($user_id) . "');</script>"; // Truy vấn để lấy thông tin sản phẩm từ giỏ hàng của người dùng
- $sql = "SELECT cart_items.product_id, cart_items.quantity, products.price, products.img, products.name 
- FROM cart_items
- INNER JOIN products ON cart_items.product_id = products.product_id
- WHERE cart_items.cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
+
+// Kiểm tra nếu cookies user_id tồn tại
+$user_id = (int) $_COOKIE['user_id'];
+echo "<script>console.log('User ID: " . htmlspecialchars($user_id) . "');</script>";
+
+// Truy vấn để lấy thông tin sản phẩm từ giỏ hàng của người dùng
+$sql = "SELECT cart_items.product_id, cart_items.quantity, products.price, products.img, products.name 
+        FROM cart_items
+        INNER JOIN products ON cart_items.product_id = products.product_id
+        WHERE cart_items.cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
 $stmt = $conn->prepare($sql);
+if (!$stmt) {
+    die("Lỗi khi chuẩn bị câu lệnh: " . $conn->error);
+}
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -15,39 +21,42 @@ $result = $stmt->get_result();
 $total_amount = 0;
 $products = [];
 while ($row = $result->fetch_assoc()) {
-$total_amount += $row['price'] * $row['quantity'];
-$products[] = $row;  // Lưu thông tin sản phẩm vào mảng
+    $total_amount += $row['price'] * $row['quantity'];
+    $products[] = $row;  // Lưu thông tin sản phẩm vào mảng
 }
 
 $total_amount_display = $total_amount; // Khởi tạo biến $total
-
+$total = $total_amount;
 // Xử lý khi áp dụng mã giảm giá
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apply_voucher'])) {
-  $voucher_code = $_POST['voucher_code'];
-  $sql_voucher = "SELECT discount_percentage, start_date, end_date FROM Voucher WHERE voucher_id = ?";
-  $stmt_voucher = $conn->prepare($sql_voucher);
-  $stmt_voucher->bind_param('s', $voucher_code);
-  $stmt_voucher->execute();
-  $result_voucher = $stmt_voucher->get_result();
+    $voucher_code = $_POST['voucher_code'];
+    $sql_voucher = "SELECT discount_percentage, start_date, end_date FROM Voucher WHERE voucher_id = ?";
+    $stmt_voucher = $conn->prepare($sql_voucher);
+    if (!$stmt_voucher) {
+        die("Lỗi khi chuẩn bị câu lệnh mã giảm giá: " . $conn->error);
+    }
+    $stmt_voucher->bind_param('s', $voucher_code);
+    $stmt_voucher->execute();
+    $result_voucher = $stmt_voucher->get_result();
 
-  if ($result_voucher->num_rows > 0) {
-    $voucher = $result_voucher->fetch_assoc();
-    $current_date = date('Y-m-d');
-    if ($current_date >= $voucher['start_date'] && $current_date <= $voucher['end_date']) {
-          $discount_percentage = $voucher['discount_percentage'];
-          $discount_amount = ($total_amount * $discount_percentage) / 100;
-          $total_amount -= $discount_amount;
-          echo "<script>alert('Áp dụng mã giảm giá thành công! Bạn được giảm " . $discount_percentage . "%.'); 
-          document.getElementById('totalAmount').innerText = '" . number_format($total_amount, 0, ',', '.') . "₫';
-        </script>";
-} else {
-  echo "<script>alert('Mã giảm giá không hợp lệ.');</script>";
-}
-}
+    if ($result_voucher->num_rows > 0) {
+        $voucher = $result_voucher->fetch_assoc();
+        $current_date = date('Y-m-d');
+        if ($current_date >= $voucher['start_date'] && $current_date <= $voucher['end_date']) {
+            $discount_percentage = $voucher['discount_percentage'];
+            $discount_amount = ($total_amount * $discount_percentage) / 100;
+            $total-= $discount_amount;
+            echo "<script>alert('Áp dụng mã giảm giá thành công! Bạn được giảm " . $discount_percentage . "%.'); 
+                  document.getElementById('totalAmount').innerText = '" . number_format($total, 0, ',', '.') . "₫';
+                  </script>";
+        } else {
+            echo "<script>alert('Mã giảm giá không hợp lệ.');</script>";
+        }
+    }
 }
 
 // Xử lý dữ liệu sau khi nhấn nút thanh toán
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_order'])) {
     // Kiểm tra nếu giỏ hàng trống
     if (empty($products)) {
         echo "<script>alert('Giỏ hàng của bạn đang trống, không thể thanh toán.');</script>";
@@ -58,52 +67,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = $_POST['email'];
         $address = $_POST['address'];
         $notes = $_POST['notes'];
-        
-        // Kiểm tra xem 'payment_method' có trong $_POST hay không
-        $payment_method = isset($_POST['payment_method']) ? $_POST['payment_method'] : 'Cash on Delivery'; // Mặc định là "Cash on Delivery"
+        $payment_method = $_POST['payment_method'];
 
-        // Lưu thông tin đơn hàng vào bảng orders
-        $order_sql = "INSERT INTO orders (user_id, fullname, phone, email, address, notes, total_amount) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $order_stmt = $conn->prepare($order_sql);
-        $order_stmt->bind_param('isssssd', $user_id, $fullname, $phone, $email, $address, $notes, $total_amount);
-
-        if ($order_stmt->execute()) {
-            $order_id = $conn->insert_id;  // Lấy id đơn hàng vừa tạo
-
-            // Lưu thông tin phương thức thanh toán vào bảng payments
-            $payment_sql = "INSERT INTO payments (order_id, payment_method) VALUES (?, ?)";
-            $payment_stmt = $conn->prepare($payment_sql);
-            $payment_stmt->bind_param('is', $order_id, $payment_method);
-            $payment_stmt->execute();
-
-            // Lưu sản phẩm trong đơn hàng vào bảng order_items
-            foreach ($products as $product) {
-                $item_sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
-                $item_stmt = $conn->prepare($item_sql);
-                $item_stmt->bind_param('iiid', $order_id, $product['product_id'], $product['quantity'], $product['price']);
-                $item_stmt->execute();
+        // Kiểm tra xem tất cả thông tin đã được điền
+        if ($fullname && $phone && $email && $address) {
+            // Lưu thông tin đơn hàng vào bảng orders
+            $order_sql = "INSERT INTO orders (user_id, fullname, phone, email, address, notes, total_amount, payment_method) 
+                          VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            $order_stmt = $conn->prepare($order_sql);
+            if (!$order_stmt) {
+                die("Lỗi khi chuẩn bị câu lệnh đặt hàng: " . $conn->error);
             }
-            // Xóa giỏ hàng sau khi thanh toán
-            $delete_cart_sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
-            $delete_cart_stmt = $conn->prepare($delete_cart_sql);
-            $delete_cart_stmt->bind_param('i', $user_id);
-            $delete_cart_stmt->execute();
 
-            // Thông báo thanh toán thành công và không chuyển trang
-            echo "<script>alert('Thanh toán thành công!');</script>";
+            $order_stmt->bind_param('issssssd', $user_id, $fullname, $phone, $email, $address, $notes, $total, $payment_method);
+
+            if ($order_stmt->execute()) {
+                $order_id = $conn->insert_id;  // Lấy id đơn hàng vừa tạo
+
+                // Lưu sản phẩm trong đơn hàng vào bảng order_items
+                foreach ($products as $product) {
+                    $item_sql = "INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+                    $item_stmt = $conn->prepare($item_sql);
+                    if (!$item_stmt) {
+                        die("Lỗi khi chuẩn bị câu lệnh sản phẩm: " . $conn->error);
+                    }
+                    $item_stmt->bind_param('iiid', $order_id, $product['product_id'], $product['quantity'], $product['price']);
+                    $item_stmt->execute();
+                }
+
+                // Xóa giỏ hàng sau khi thanh toán
+                $delete_cart_sql = "DELETE FROM cart_items WHERE cart_id IN (SELECT shopping_cart.cart_id FROM shopping_cart WHERE shopping_cart.user_id = ?)";
+                $delete_cart_stmt = $conn->prepare($delete_cart_sql);
+                if (!$delete_cart_stmt) {
+                    die("Lỗi khi chuẩn bị câu lệnh xóa giỏ hàng: " . $conn->error);
+                }
+                $delete_cart_stmt->bind_param('i', $user_id);
+                $delete_cart_stmt->execute();
+
+                // Thông báo thanh toán thành công
+                echo "<script>alert('Thanh toán thành công!'); window.location.href='../index.php';</script>";
+            } else {
+                echo "<script>alert('Có lỗi xảy ra trong quá trình thanh toán: " . $order_stmt->error . "');</script>";
+            }
         } else {
-            echo "<script>alert('Có lỗi xảy ra trong quá trình thanh toán.');</script>";
+            echo "<script>alert('Vui lòng điền đầy đủ thông tin.');</script>";
         }
     }
 }
 ?>
-
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -115,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <script src="../assets/js/navigation.js"></script>
 
   <style>
+    /* CSS styles here */
     :root{
     --bg-header: #e5e5e5;
 --bg-btn: #0c6478;
@@ -188,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     .order-summary {
       flex: 1;
-      padding: 20px;
+padding: 20px;
       margin-right: 150px;
       margin-top: 75px;
       
@@ -359,26 +371,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </style>
 </head>
 <body>
-<div class="big_img_logo" style="padding-left: 600px"><img src="../assets/img/header_img/logo.png" alt="" onclick="navigateTo('./index.php')"></div>
 <div class="container">
-<div class="arrow-back" ><i class="fa-solid fa-arrow-left" onclick="navigateTo('./component/product-cart.php')"></i></div>
     <div class="delivery-info">
       <h2>Thông tin giao hàng</h2>
-      <!-- <p>Bạn đã có tài khoản? <a href="#">Đăng nhập</a></p> -->
-      
-      <!-- Thêm form với method POST -->
-      <form id="orderForm" method="POST">
+      <form id="orderForm" method="POST" onsubmit="return validateForm()">
         <input type="text" name="fullname" placeholder="Họ và tên" required>
         <input type="tel" name="phone" placeholder="Số điện thoại" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="text" name="address" placeholder="Địa chỉ" required>
         <textarea name="notes" placeholder="Ghi chú ..."></textarea>
 
-        <!-- Phương thức thanh toán -->
         <div class="payment-method">
           <label>Phương thức thanh toán:</label><br>
           <input type="radio" name="payment_method" value="Cash on Delivery" checked> Thanh toán khi nhận hàng
         </div>
+
+        <button type="submit" name="submit_order" class="checkout-btn">Thanh toán</button>
       </form>
     </div>
     
@@ -394,60 +402,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       <?php }} ?>
       </div>
 
-      <!-- <div class="discount">
-        <input type="text" placeholder="Mã giảm giá">
-        <button>Sử dụng</button>
-      </div> -->
-      
       <div class="price-details">
         <p>Tạm tính <span><?php echo number_format($total_amount_display, 0, ',', '.'); ?>₫</span></p>
-        <p>Phí vận chuyển <span>0₫</span></p>
-        <!-- <div class="voucher-form"> -->
-          <form method="POST">
+        <form method="POST">
           <div class="voucher-form">
-            <div>
-              <input type="text" name="voucher_code" placeholder="Mã Shopee Voucher">
-            </div>
-             <div>
-              <button type="submit" name="apply_voucher" class="apply-button">ÁP DỤNG</button>
-             </div>
-             </div> 
-          </form>
-        <!-- </div> -->
-        <p class="total">Tổng cộng <span id="totalAmount"><?php echo number_format($total_amount, 0, ',', '.'); ?>₫</span></p>
-
-      <!-- Nút Thanh toán gọi form -->
-      <button type="button" class="checkout-btn" onclick="submitOrder()">Thanh toán</button>
-
+            <input type="text" name="voucher_code" placeholder="Mã Voucher">
+            <button type="submit" name="apply_voucher" class="apply-button">ÁP DỤNG</button>
+          </div> 
+        </form>
+        <p class="total">Tổng cộng <span id="totalAmount"><?php echo number_format($total, 0, ',', '.'); ?>₫</span></p>
+      </div>
     </div>
   </div>
 
   <script>
-    function submitOrder() {
-      document.getElementById('orderForm').submit();
-    }
-  </script>
-  <script>
-    function validateForm() {
-        var fullname = document.forms["orderForm"]["fullname"].value;
-        var phone = document.forms["orderForm"]["phone"].value;
-        var email = document.forms["orderForm"]["email"].value;
-        var address = document.forms["orderForm"]["address"].value;
+   function validateForm() {
+    var fullname = document.forms["orderForm"]["fullname"].value;
+    var phone = document.forms["orderForm"]["phone"].value;
+    var email = document.forms["orderForm"]["email"].value;
+    var address = document.forms["orderForm"]["address"].value;
 
-        if (fullname == "" || phone == "" || email == "" || address == "") {
-            alert("Vui lòng điền đầy đủ thông tin.");
-            return false;
-        }
-
-        // Gửi form nếu tất cả các trường hợp lệ
-        return true;
+    if (fullname == "" || phone == "" || email == "" || address == "") {
+        alert("Vui lòng điền đầy đủ thông tin.");
+        return false; // Không gửi form
     }
-
-    function submitOrder() {
-        if (validateForm()) {
-            document.getElementById('orderForm').submit();
-        }
-    }
+    return true; // Nếu tất cả các trường hợp lệ
+}
 </script>
 
 </body>

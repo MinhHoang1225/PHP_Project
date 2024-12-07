@@ -231,8 +231,8 @@
                     
                     <div class="col-lg-3 col-md-6">
                         <div class="f_widget shop_widget wow fadeInLeft" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
-                            <h3 class="f-title f_600 t_color f_size_18">Đăng ký nhận thông tin</h3>
-                            <p >Đừng bỏ lỡ bất kỳ cập nhật nào về các mẫu và tiện ích mở rộng mới của chúng tôi!</p>
+                            <h3 class="f-title f_600 t_color f_size_18">Đăng ký nhận Voucher</h3>
+                            <p >Đừng bỏ lỡ bất kỳ cập nhật nào về các mẫu được giảm giá của chúng tôi!</p>
                             <form action="subscribe.php" class="f_subscribe_two" method="post" novalidate="true">
                                 <input type="text" name="EMAIL" class="form-control memail" placeholder="Email" required>
                                 <button class="btn btn_get btn_get_two" type="submit">Đăng ký</button>
