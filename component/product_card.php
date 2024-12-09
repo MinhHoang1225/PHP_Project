@@ -327,7 +327,7 @@
         <script>
           function addToFavourites(productId) {
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "../view/addFavourite.php", true);
+            xhr.open("POST", "./view/addFavourite.php", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
             xhr.onreadystatechange = function () {

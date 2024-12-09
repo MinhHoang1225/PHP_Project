@@ -19,10 +19,15 @@
             border: none;
             border-radius: 50%;
             cursor: pointer;
+            width: 70px;
+            height: 70px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             visibility: hidden;
             opacity: 0;
             transition: visibility 0s linear 0.3s, opacity 0.3s ease;
+        }
+        #scrollToTopBtn i{
+            font-size:30px;
         }
 
         #scrollToTopBtn:hover {
