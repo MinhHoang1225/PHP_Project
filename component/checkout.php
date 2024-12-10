@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_order'])) {
 --title-text-size: 32px;
 --main-text-size:16px;  
 }
-    body {
+body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
@@ -370,7 +370,6 @@ padding: 20px;
 
   </style>
 </head>
-
 <body>
 <div class="container">
     <div class="delivery-info">
