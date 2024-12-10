@@ -370,6 +370,7 @@ padding: 20px;
 
   </style>
 </head>
+
 <body>
 <div class="container">
     <div class="delivery-info">

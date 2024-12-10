@@ -84,7 +84,7 @@ $user_result1 = $conn->query($user_sql1);
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "php_project";
+$dbname = "project";
 
 // Tạo kết nối
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -541,7 +541,7 @@ a:hover {
                             <td><?= $user['email'] ?></td>
                             <td>
                                 <!-- Nút gửi thông báo quá hạn -->
-                                <button onclick="sendExpiredNotification(<?= $user['user_id'] ?>)">Gửi thông báo quá hạn</button>
+                                <button onclick="sendExpiredNotification(<?= $user['user_id'] ?>)">Gửi thông báo quá hạn sản phẩm yêu thích</button>
                             </td>
                         </tr>
                     <?php endwhile; ?>

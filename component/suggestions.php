@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
   $host = 'localhost';  
   $user = 'root';       
   $password = '';      
-  $dbname = 'php_project'; 
+  $dbname = 'project'; 
 
   $conn = new mysqli($host, $user, $password, $dbname);
   if ($conn->connect_error) {
