@@ -192,11 +192,11 @@ if (isset($_COOKIE['user_id'])) {
                                     <i class="bi bi-heart-fill"></i>
                                 </div>
                             </a>
-                            <a href="#" class="container d-flex justify-content-center align-items-center">
+                            <!-- <a href="#" class="container d-flex justify-content-center align-items-center">
                                 <div class="cart-icon">
                                     <i class="bi bi-bag-plus-fill"></i>
                                 </div>
-                            </a>
+                            </a> -->
                             <div class="product-info">
                                 <h3><?php echo htmlspecialchars($row['product_name'], ENT_QUOTES, 'UTF-8'); ?></h3>
                                 <p class="price">

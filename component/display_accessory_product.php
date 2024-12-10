@@ -221,11 +221,11 @@ if ($stmt) {
                                     <i class="bi bi-heart-fill"></i>
                                 </div>
                             </div>
-                            <a href="#" class="container d-flex justify-content-center align-items-center">
+                            <!-- <a href="#" class="container d-flex justify-content-center align-items-center">
                                 <div class="cart-icon">
                                     <i class="bi bi-bag-plus-fill"></i>
                                 </div>
-                            </a>
+                            </a> -->
                         </div>
                         <div class="product-info">
                             <?php

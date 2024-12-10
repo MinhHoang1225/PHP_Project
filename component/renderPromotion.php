@@ -235,11 +235,11 @@
                         </a>
 
                         <!-- Cart icon for adding product to cart -->
-                        <a href="detail.php?id=<?php echo $kq['product_id']; ?>" class="container d-flex justify-content-center align-items-center">
+                        <!-- <a href="detail.php?id=<?php echo $kq['product_id']; ?>" class="container d-flex justify-content-center align-items-center">
                             <div class="cart-icon">
                                 <i class="bi bi-bag-plus-fill"></i>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
 
                     <!-- Product Information -->
